@@ -7,6 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Grid from "@mui/material/Grid";
+import { Stack, TextField, Typography } from "@mui/material";
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -22,6 +24,14 @@ const rows = [
 
 export const ViewHistory = props => {
     return(<>
+
+
+        <Grid>
+
+
+
+            
+        </Grid>
         <CompCoverPage>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -52,6 +62,31 @@ export const ViewHistory = props => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Typography variant="h3" color={"white"}> Predicciones Realizadas</Typography>
+             <Paper        variant="outlined" square  >
+             <Typography variant="subtitle1" > Filtros</Typography>
+            <TextField variant="outlined"></TextField>
+
+
+                
+             </Paper>
+
+
+
+
+
+
+
+
+
         </CompCoverPage>
+        
+
+
+
+
+
+
+
     </>);
 }
