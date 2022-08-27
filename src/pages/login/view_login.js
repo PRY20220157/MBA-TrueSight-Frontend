@@ -7,6 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
+import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -22,8 +23,8 @@ export const ViewLogin = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container sx={{minWidth: '100% !important',height: '100vh', backgroundColor: '#C8102E',}} >
-                <Container component="main" maxWidth="xs" sx={{height: '100vh', backgroundColor: '#ffffff',paddingTop:'25vh'}}>
+            <Container sx={{minWidth: '100% !important',height: '120vh', backgroundColor: '#C8102E',}} >
+                <Container component="main" maxWidth="xs" sx={{height: '110vh', backgroundColor: '#ffffff',paddingTop:'25vh'}}>
                     <CssBaseline/>
                     <Box
                         sx={{
@@ -67,17 +68,16 @@ export const ViewLogin = () => {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
+                                size="large"
                                 sx={{mt: 3, mb: 2}}
                                 onClick={(e)=>hook.handleSubmit()}
                             >
-                                Sign In
+                                Log In
                             </Button>
                             <Stack  justifyContent="center" spacing={2} align='center'>
                                     <Link href="#" variant="body2" justifyContent="center">
                                         Forgot password?
                                     </Link>
-                                </Grid>
-                                <Grid item>
                                     <Link href="#" variant="body2">
                                         {"Don't have an account? Sign Up"}
                                     </Link>

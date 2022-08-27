@@ -20,6 +20,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import TuneIcon from '@mui/icons-material/Tune';
 import routes from "../router/routes";
 import {useLocation, useNavigate} from "react-router";
+import BarLogo from './images/BarLogo.png'
 import {useEffect} from "react";
 import { color, width } from '@mui/system';
 import './comp_cover_page.css'
@@ -44,8 +45,11 @@ export const CompCoverPage = (props) => {
             <CssBaseline/>
             <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor:'#85B0F1'}}>
                 <Toolbar>
-                    <HomeRounded sx={{mr : 2, cursor:'pointer'}} onClick={(e)=> navigate(routes.PRINCIPAL)}/>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, cursor:'pointer' }}
+                <img className='imglogo' sx={{mr : 2, cursor:'pointer'}} onClick={(e)=> navigate(routes.PRINCIPAL)}
+                    src={BarLogo}/>
+                     &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
+                    <Typography className='typo'    color="black" variant="h6" component="div" sx={{ flexGrow: 1, cursor:'pointer' }}
                                 onClick={(e)=> navigate(routes.PRINCIPAL)}>
                         MBA True Sight
                     </Typography>
@@ -65,6 +69,10 @@ export const CompCoverPage = (props) => {
                     display: props.display,
                 }}
             >
+                 &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
                 <Toolbar/>
                 <Box sx={{overflow: 'auto'}}>
                     <List>
