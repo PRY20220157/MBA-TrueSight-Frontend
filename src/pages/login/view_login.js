@@ -12,8 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import useLogin from "../../business/login";
-
+import useLogin from "../../business/auth";
+import './view_login.css'
 const theme = createTheme();
 
 export const ViewLogin = () => {
@@ -35,12 +35,12 @@ export const ViewLogin = () => {
                             direction:'column'
                         }}
                     >
-                        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-                            <LockOutlinedIcon/>
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign in
-                        </Typography>
+                        <img className='TrueSightLoginLogo'
+                           src="https://cdn.discordapp.com/attachments/1008578351251861624/1010680041920790558/Logo.png"
+                           alt="TrueSightLoginLogo"
+                           >
+                        </img>
+
                         <Box component="form" onSubmit={hook.handleSubmit} noValidate
                              sx={{mt: 1}}>
                             <TextField
@@ -64,17 +64,16 @@ export const ViewLogin = () => {
                                 autoComplete="current-password"
                             />
                             <Button
-                                // type="submit"
+                                type="submit"
                                 fullWidth
                                 variant="contained"
                                 sx={{mt: 3, mb: 2}}
-                                onClick={hook.goToPrincipalPage}
+                                onClick={(e)=>hook.handleSubmit()}
                             >
                                 Sign In
                             </Button>
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="#" variant="body2">
+                            <Stack  justifyContent="center" spacing={2} align='center'>
+                                    <Link href="#" variant="body2" justifyContent="center">
                                         Forgot password?
                                     </Link>
                                 </Grid>
@@ -82,8 +81,8 @@ export const ViewLogin = () => {
                                     <Link href="#" variant="body2">
                                         {"Don't have an account? Sign Up"}
                                     </Link>
-                                </Grid>
-                            </Grid>
+
+                            </Stack>
                         </Box>
                     </Box>
                 </Container>

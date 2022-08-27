@@ -21,7 +21,9 @@ import TuneIcon from '@mui/icons-material/Tune';
 import routes from "../router/routes";
 import {useLocation, useNavigate} from "react-router";
 import {useEffect} from "react";
-
+import { color, width } from '@mui/system';
+import './comp_cover_page.css'
+import useLogin from "../business/auth";
 const drawerWidth = '15%';
 
 export const CompCoverPage = (props) => {
@@ -31,7 +33,7 @@ export const CompCoverPage = (props) => {
     }, []);
     const navigate = useNavigate();
     const location = useLocation();
-
+    const auth = useLogin();
     const handleSelected = (route) => {
         if (location.pathname === route)
             return '#A09090'
@@ -47,8 +49,11 @@ export const CompCoverPage = (props) => {
                                 onClick={(e)=> navigate(routes.PRINCIPAL)}>
                         MBA True Sight
                     </Typography>
-                    <AccountCircle/>
-                    <Logout onClick={(e)=> navigate(routes.SIGN_IN)}/>
+                    <AccountCircle htmlColor='black' fontSize="large"/>
+                    &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
+                   
+                    <Logout htmlColor='black' fontSize="large" onClick={(e)=> auth.handleLogout()}/> {/*TODO change to logout*/}
                 </Toolbar>
             </AppBar>
             <Drawer
