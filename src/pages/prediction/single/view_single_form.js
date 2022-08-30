@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import prediction from './images/prediction.jpg'
 import '../single/stylesheet/view_single_form.css'
-import {usePrediction} from "../../../business/prediction";
+import {usePrediction} from "../../../business/prediction/prediction";
 import {GRADES} from "../../../util/constants";
 import Box from "@mui/material/Box";
 

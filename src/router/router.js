@@ -8,6 +8,7 @@ import routes from "./routes";
 import {Navigate, Routes} from "react-router";
 import {ContLogin} from "../pages/login/cont_login";
 import {ContHistory} from "../pages/history/cont_history";
+import {ContMassivePrediction} from "../pages/prediction/massive/cont_massive_prediction";
 
 function Router() {
 
@@ -20,6 +21,7 @@ function Router() {
                     <Route exact path={routes.OPTIONS} element={<ContOptions/>}/>
                     <Route exact path={routes.TUTORIAL} element={<ContTutorial/>}/>
                     <Route exact path={routes.HISTORY} element={<ContHistory/>}/>
+                    <Route exact path={routes.MASSIVE_PREDICTION} element={<ContMassivePrediction/>}/>
                 </Routes>
         </BrowserRouter>
     )

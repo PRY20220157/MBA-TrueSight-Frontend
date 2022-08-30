@@ -5,6 +5,7 @@ const routes = Object.freeze({
     SIGN_UP: "/sign-up",
     PRINCIPAL:"/main",
     PREDICTION: "/prediction",
+    MASSIVE_PREDICTION: "/massive_prediction",
     HISTORY: "/history",
     TUTORIAL: "/tutorial",
     OPTIONS: "/options",
