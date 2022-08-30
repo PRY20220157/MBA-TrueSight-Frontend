@@ -24,6 +24,7 @@ import BarLogo from './images/BarLogo.png'
 import {useEffect} from "react";
 import { color, width } from '@mui/system';
 import './comp_cover_page.css'
+import useLogin from "../business/auth";
 const drawerWidth = '15%';
 
 export const CompCoverPage = (props) => {
@@ -33,7 +34,7 @@ export const CompCoverPage = (props) => {
     }, []);
     const navigate = useNavigate();
     const location = useLocation();
-
+    const auth = useLogin();
     const handleSelected = (route) => {
         if (location.pathname === route)
             return '#A09090'
@@ -56,7 +57,7 @@ export const CompCoverPage = (props) => {
                     &nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;
                    
-                    <Logout htmlColor='black' fontSize="large" onClick={(e)=> navigate(routes.SIGN_IN)}/>
+                    <Logout htmlColor='black' fontSize="large" onClick={(e)=> auth.handleLogout()}/> {/*TODO change to logout*/}
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -75,11 +76,18 @@ export const CompCoverPage = (props) => {
                 <Toolbar/>
                 <Box sx={{overflow: 'auto'}}>
                     <List>
+                        <ListItem key={'prediction'} disablePadding onClick={(e) => navigate(routes.MASSIVE_PREDICTION)}
+                                  sx={{backgroundColor:handleSelected(routes.MASSIVE_PREDICTION)}}>
+                            <ListItemButton>
+                                <ListItemIcon>< CalculateIcon/></ListItemIcon>
+                                <ListItemText primary='Predicción Masiva'/>
+                            </ListItemButton>
+                        </ListItem>
                         <ListItem key={'prediction'} disablePadding onClick={(e) => navigate(routes.PREDICTION)}
                                   sx={{backgroundColor:handleSelected(routes.PREDICTION)}}>
                             <ListItemButton>
                                 <ListItemIcon>< CalculateIcon/></ListItemIcon>
-                                <ListItemText primary='Prediction'/>
+                                <ListItemText primary='Predicción Simple'/>
                             </ListItemButton>
                         </ListItem>
                         <ListItem key={'history'} disablePadding onClick={(e) => navigate(routes.HISTORY)}

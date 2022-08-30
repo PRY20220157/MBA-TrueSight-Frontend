@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import useLogin from "../../business/login";
+import useLogin from "../../business/auth";
 import './view_login.css'
 const theme = createTheme();
 
@@ -36,9 +36,6 @@ export const ViewLogin = () => {
                             direction:'column'
                         }}
                     >
-                        
-                       
-
                         <img className='TrueSightLoginLogo'
                            src="https://cdn.discordapp.com/attachments/1008578351251861624/1010680041920790558/Logo.png"
                            alt="TrueSightLoginLogo"
@@ -68,12 +65,12 @@ export const ViewLogin = () => {
                                 autoComplete="current-password"
                             />
                             <Button
-                                // type="submit"
+                                type="submit"
                                 fullWidth
                                 variant="contained"
                                 size="large"
                                 sx={{mt: 3, mb: 2}}
-                                onClick={hook.goToPrincipalPage}
+                                onClick={(e)=>hook.handleSubmit()}
                             >
                                 Log In
                             </Button>
@@ -87,10 +84,6 @@ export const ViewLogin = () => {
                                     </Link>
 
                             </Stack>
-                            
-
-
-                            
                         </Box>
                     </Box>
                 </Container>

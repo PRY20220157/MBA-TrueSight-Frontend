@@ -8,6 +8,7 @@ import routes from "./routes";
 import {Navigate, Routes} from "react-router";
 import {ContLogin} from "../pages/login/cont_login";
 import {ContHistory} from "../pages/history/cont_history";
+import {ContMassivePrediction} from "../pages/prediction/massive/cont_massive_prediction";
 import HistoryDate from "pages/history/history_date/view_history_date";
 import { ContHistoryDate } from "pages/history/history_date/cont_history_date";
 import { ContForgotPassword } from "pages/forgotpassword/cont_forgot_password";
@@ -24,6 +25,7 @@ function Router() {
                     <Route exact path={routes.OPTIONS} element={<ContOptions/>}/>
                     <Route exact path={routes.TUTORIAL} element={<ContTutorial/>}/>
                     <Route exact path={routes.HISTORY} element={<ContHistory/>}/>
+                    <Route exact path={routes.MASSIVE_PREDICTION} element={<ContMassivePrediction/>}/>
                     <Route exact path={routes.HistoryDate}  element={<ContHistoryDate/>}></Route>
                     <Route exact path={routes.Forgot_Password} element={<ContForgotPassword/>}></Route>
                     <Route exact path={routes.Recover_Password} element={<ContRecoverPassword/>}></Route>
