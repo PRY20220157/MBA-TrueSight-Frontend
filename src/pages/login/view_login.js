@@ -77,12 +77,12 @@ export const ViewLogin = () => {
                             >
                                 Log In
                             </Button>
-                           
-                            <Stack  justifyContent="center" spacing={2} align='center'>
-                                    <Link href="#" variant="body2" justifyContent="center">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <Stack  justifyContent="center" spacing={3} align='center'>
+                                    <Link  href="#" variant="body2" justifyContent="center"  onClick={hook.goToForgotPasswordPage}>
                                         Forgot password?
                                     </Link>
-                                    <Link href="#" variant="body2">
+                                    <Link href="#" variant="body2" onClick={hook.goToForgotPasswordPage}>
                                         {"Don't have an account? Sign Up"}
                                     </Link>
 

@@ -23,9 +23,16 @@ function useLogin() {
         navigate(routes.PRINCIPAL)
     }
 
+    const goToForgotPasswordPage = () =>{
+        navigate(routes.Forgot_Password)
+    }
+    const goToRecoverPasswordPage = () =>{
+        navigate(routes.Recover_Password)
+    }
+
     return {
         handleSubmit,
-        goToPrincipalPage
+        goToPrincipalPage,goToForgotPasswordPage,goToRecoverPasswordPage
     }
 }
 
