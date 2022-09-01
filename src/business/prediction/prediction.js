@@ -23,7 +23,11 @@ export const usePrediction = () => {
             console.log(res)
         })*/
     }
-
+    async function onSubmit(data){
+        console.log(data)
+        console.log(data.GMAT)
+        
+    }
     function clearForm(){
         document.getElementById('inp_' + GRADES.GPA).value = '';
         document.getElementById('inp_' + GRADES.GMAT).value = '';
@@ -33,6 +37,7 @@ export const usePrediction = () => {
 
     return {
         makePrediction,
-        clearForm
+        clearForm,
+        onSubmit
     }
 }

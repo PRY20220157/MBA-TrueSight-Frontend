@@ -1,7 +1,12 @@
 
 .SingleForm{
-    background-color: #6A76B4;
-    border: 5px solid;
+
+
+
+    min-width: 600px;
+   
+    border-radius:8px; 
+    background-color: rgba(3, 247, 35, 0.3);
 }
 
 .FormTitle{
@@ -19,7 +24,7 @@
     line-height: 24px;
     text-align: center;
     
-    color: #FFFFFF;
+    color: black;
 
 
 }
