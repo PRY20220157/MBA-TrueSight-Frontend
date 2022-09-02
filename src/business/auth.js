@@ -9,11 +9,14 @@ function useLogin(key, value) {
     const navigate = useNavigate();
 
      async function handleLogin(event) {
-        const data = new FormData(event.currentTarget);
-         event.preventDefault();
+
+       
+
+        //const data = new FormData(event.currentTarget);
+        // event.preventDefault();
         await authenticate({
-            email: data.get('email'),
-            password: data.get('password'),
+            email: event.Email,
+            password: event.Password,
         }).then(res => {
             localStorage.setItem(OWL_MBA_TS, res.auth_token);
             navigate(routes.PRINCIPAL);
@@ -26,7 +29,15 @@ function useLogin(key, value) {
     function validateSession(){
 
     }
-
+    const goToRegisterPage = () =>{
+        navigate(routes.SIGN_UP)
+    }
+    const goToRegisterFormPage = (seleccion) =>{
+        navigate("/sign-up/form/"+seleccion)
+    }
+    const goToLogin = () =>{
+        navigate(routes.EMPTY)
+    }
     const goToForgotPasswordPage = () =>{
         navigate(routes.Forgot_Password)
     }
@@ -38,7 +49,7 @@ function useLogin(key, value) {
         handleSubmit: handleLogin,
         handleLogout,
         goToForgotPasswordPage,
-        goToRecoverPasswordPage
+        goToRecoverPasswordPage,goToRegisterPage,goToLogin,goToRegisterFormPage
     }
 }
 

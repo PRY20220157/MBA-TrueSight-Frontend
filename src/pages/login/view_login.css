@@ -5,7 +5,28 @@
     height: 200px;
     
     border-radius: 31px;
-    background-color:aqua;
+    
+
+}
+.RegisterLogo{
+
+    
+    
+    height: 200px;
+    
+    border-radius: 31px;
+    
+
+}
+.background{
+
+    background-image: url('./images/loginphoto.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+
+
 
 
 }

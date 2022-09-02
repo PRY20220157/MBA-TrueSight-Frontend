@@ -13,6 +13,8 @@ import HistoryDate from "pages/history/history_date/view_history_date";
 import { ContHistoryDate } from "pages/history/history_date/cont_history_date";
 import { ContForgotPassword } from "pages/forgotpassword/cont_forgot_password";
 import { ContRecoverPassword } from "pages/recoverpassoword/cont_recover_password";
+import { ContRegister } from "pages/register/cont_register";
+import { ContRegisterfORM } from "pages/registerform/cont_register_form";
 
 function Router() {
 
@@ -23,6 +25,8 @@ function Router() {
                     <Route exact path={routes.PRINCIPAL} element={<ContPrincipal/>}/>
                     <Route exact path={routes.PREDICTION} element={<ContPrediction/>}/>
                     <Route exact path={routes.OPTIONS} element={<ContOptions/>}/>
+                    <Route exact path={routes.SIGN_UP} element={<ContRegister/>}/>
+                    <Route exact path={routes.SIGN_UP_Form} element={<ContRegisterfORM/>}/>
                     <Route exact path={routes.TUTORIAL} element={<ContTutorial/>}/>
                     <Route exact path={routes.HISTORY} element={<ContHistory/>}/>
                     <Route exact path={routes.MASSIVE_PREDICTION} element={<ContMassivePrediction/>}/>

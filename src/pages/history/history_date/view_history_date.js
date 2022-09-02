@@ -51,7 +51,7 @@ const onclear=()=>{
   return(
    <>
    <CompCoverPage>
-     <Paper sx={{backgroundColor: "#489e12",opacity: 0.8}}    elevation={24}>
+     <Paper sx={{minWidth:600,borderRadius:3,background: 'rgba(250, 250, 250, 0.9)'}}   elevation={24}>
 
         
 

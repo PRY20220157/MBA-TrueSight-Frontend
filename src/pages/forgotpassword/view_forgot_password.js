@@ -1,29 +1,43 @@
-import { Box, Button, Container, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
 import useLogin from "../../business/auth";
+import {useForm} from 'react-hook-form';
 const { ThemeProvider } = require("@mui/system");
 
 
 function ForgotPassword(){
     const hook = useLogin();
-
+    const {register,reset,formState: { errors },handleSubmit}= useForm();
+    const submit=(data)=>{
+        console.log(data)
+    }
+    const onclear=()=>{
+        reset();
+    }
     return(
 
         <>
-      
-            <Container sx={{minWidth: '100% !important',height: '120vh', backgroundColor: '#C8102E',}}>
-                 <Container component="main" maxWidth="xs" sx={{height: '110vh', backgroundColor: '#ffffff',paddingTop:'25vh'}}>
+      <div className="background">
+            <Container sx={{minWidth: '100% !important',height: '120vh'}}>
+                
+
+
+
+
                      <Box 
                      
-                     sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        alignContent:'center',
-                        justifyContent:"center",
-                        direction:'column'
-                    }}
+                    
+
+
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                
+                minHeight="100vh"
+                    
                      >
-                        <form>
+
+                        <Paper elevation={10} sx={{minWidth:600,borderRadius:8,background: 'rgba(250, 250, 250, 0.9)'}}>
+                        <form onSubmit={handleSubmit(hook.goToRecoverPasswordPage)}>
 
                            <Stack spacing={5}>
                             <Grid container justifyContent="center">
@@ -35,19 +49,30 @@ function ForgotPassword(){
                          
                             <Grid container justifyContent="center">
 
-                            <Typography variant="subtitle1" color="#808080">Ingrese su correo para enviar un correo de</Typography>
-                            <Typography variant="subtitle1" color="#808080">recuperación</Typography>
+                            <Typography variant="subtitle1" color="#808080">Ingrese su correo para enviar un correo de recuperación</Typography>
+                            
 
                             </Grid>
                             <Grid container justifyContent="center">
-                            <TextField label="Correo electronico" variant="filled" fullWidth></TextField>
+                            <TextField label="Correo electronico" variant="filled" fullWidth
+                              {...register('Email',{
+                                required:true,
+                                pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+                              })}
+                            
+                            
+                            ></TextField>
+                            &nbsp;&nbsp;
+                            
+                            {errors.Email?.type === 'pattern'  && <Alert severity="error">No es un email</Alert>}
+                            {errors.Email?.type === 'required' && <Alert severity="error">Es requerido</Alert>}
                             </Grid>
                           
                            <Grid container justifyContent="space-between">
-                           <Button variant="contained" sx={{ width:180}}>
+                           <Button variant="contained" sx={{ width:180,borderRadius:3}}  onClick={onclear}>
                                 Cancelar
                             </Button>
-                            <Button variant="contained" sx={{ width:180}} onClick={hook.goToRecoverPasswordPage}>
+                            <Button variant="contained" sx={{ width:180,borderRadius:3}}  type="submit">
                                 Enviar
                             </Button>
 
@@ -63,7 +88,7 @@ function ForgotPassword(){
 
 
                         </form>
-
+                        </Paper>
 
 
 
@@ -73,11 +98,11 @@ function ForgotPassword(){
 
 
 
-                 </Container>
+                
 
             </Container>
 
-
+      </div>
 
 
 

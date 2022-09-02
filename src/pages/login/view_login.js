@@ -7,7 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
-import { Stack } from '@mui/material';
+import { Alert, Paper, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -15,79 +15,96 @@ import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import useLogin from "../../business/auth";
 import './view_login.css'
+import {useForm} from 'react-hook-form';
+import LoginPhoto from './images/TrueSightLoginLogo.png'
 const theme = createTheme();
 
 export const ViewLogin = () => {
-
+    const {register,reset,formState: { errors },handleSubmit}= useForm();
     const hook = useLogin();
-
+   
     return (
         <ThemeProvider theme={theme}>
-            <Container sx={{minWidth: '100% !important',height: '120vh', backgroundColor: '#C8102E',}} >
-                <Container component="main" maxWidth="xs" sx={{height: '110vh', backgroundColor: '#ffffff',paddingTop:'25vh'}}>
-                    <CssBaseline/>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            alignContent:'center',
-                            justifyContent:"center",
-                            direction:'column'
-                        }}
-                    >
+            <div className='background'>
+            <Container sx={{minWidth: '100% !important',height: '120vh'}} >
+
+                
+                <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                
+                minHeight="100vh"
+                >
+                    <Paper elevation={10} sx={{minWidth:600,borderRadius:8,background: 'rgba(250, 250, 250, 0.9)'}}>
+
+                        <Stack spacing={3}>
+                        &nbsp;&nbsp;
+                        <Grid container justifyContent={"center"}>
                         <img className='TrueSightLoginLogo'
-                           src="https://cdn.discordapp.com/attachments/1008578351251861624/1010680041920790558/Logo.png"
+                           src={LoginPhoto}
                            alt="TrueSightLoginLogo"
                            >
                         </img>
+                        </Grid>
+                        <form onSubmit={handleSubmit(hook.handleSubmit)}>
 
-                        <Box component="form" onSubmit={hook.handleSubmit} noValidate
-                             sx={{mt: 1}}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                size="large"
-                                sx={{mt: 3, mb: 2}}
-                                onClick={(e)=>hook.handleSubmit()}
+                            <Grid container justifyContent={"center"}>
+                            <TextField variant="filled"  label="Email"  margin="normal" type={"email"} sx={{minWidth:400}}
+                              {...register('Email',{
+                                required:true,
+                                pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+                              })}
+
+                            ></TextField>
+                            </Grid>
+                            &nbsp;&nbsp;
+                            
+                                {errors.Email?.type === 'pattern' && <Alert severity="error">No es un email</Alert>}
+                                {errors.Email?.type === 'required' && <Alert severity="error">Es requerido</Alert>}
+                            
+                            <Grid container justifyContent={"center"}>
+                            <TextField variant="filled"  label="Password"  margin="normal" type={"password"} sx={{minWidth:400}}
+                            {...register('Password',{
+                                required:true,
+                              })}
                             >
-                                Log In
-                            </Button>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <Stack  justifyContent="center" spacing={3} align='center'>
+                            
+                            </TextField>
+                            </Grid>
+                            &nbsp;&nbsp;
+                            {errors.Password?.type === 'required' && <Alert severity="error">Es requerido una contraseña</Alert>}
+                            &nbsp;&nbsp;
+                            <Grid container justifyContent={"center"}>
+                            <Button variant="contained" type='submit' size="large" sx={{minWidth:400}}>Log in </Button>
+                            </Grid>
+
+                        </form>
+                        <Stack  justifyContent="center" spacing={3} align='center'>
                                     <Link  href="#" variant="body2" justifyContent="center"  onClick={hook.goToForgotPasswordPage}>
                                         Forgot password?
                                     </Link>
-                                    <Link href="#" variant="body2" onClick={hook.goToForgotPasswordPage}>
+                                    <Link href="#" variant="body2" onClick={hook.goToRegisterPage}>
                                         {"Don't have an account? Sign Up"}
                                     </Link>
 
-                            </Stack>
-                        </Box>
-                    </Box>
-                </Container>
+                        </Stack>
+                        &nbsp;&nbsp;
+                        </Stack>
+
+
+
+                    </Paper>
+
+                </Box>
+
+
+
+
+
+
             </Container>
+            </div>
         </ThemeProvider>
     );
 }

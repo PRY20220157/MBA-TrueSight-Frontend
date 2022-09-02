@@ -1,10 +1,10 @@
 .tutorial-container{
 
-    background-image: url('https://cdn.discordapp.com/attachments/1008578351251861624/1012131946488418405/image_28.png');
+    background-image: url('./images/tutorial.jpg');
   
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
-height: 110vh;
+height: 120vh;
 
 }

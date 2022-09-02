@@ -106,7 +106,7 @@ export const ViewHistory = props => {
         <CompCoverPage>
            
             <Typography variant="h3" color={"white"}> Predicciones Realizadas</Typography>
-             <Paper sx={{backgroundColor: "#D9D9D9"}}    elevation={24}    >
+             <Paper sx={{minWidth:600,borderRadius:3,background: 'rgba(250, 250, 250, 0.9)'}}   elevation={24}    >
 
              <div className="filtros">
              <Typography variant="subtitle1" >  Filtros</Typography>
@@ -129,6 +129,7 @@ export const ViewHistory = props => {
       value={FechaEntradas.fechadesde}
       name="fechadesde"
       onChange={handleInputChange1}
+      maxDate={Date.now()}
       renderInput={(params) => <TextField {...params} />}
       />
       
@@ -138,6 +139,7 @@ export const ViewHistory = props => {
       value={FechaEntradas.fechahasta}
       name="fechahasta"
       onChange={handleInputChange2}
+      maxDate={Date.now()}
       renderInput={(params) => <TextField {...params} />}
          />
 </Stack>
