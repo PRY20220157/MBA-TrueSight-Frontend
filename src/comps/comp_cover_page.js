@@ -43,7 +43,7 @@ export const CompCoverPage = (props) => {
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
-            <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor:'#85B0F1'}}>
+            <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor:'#1a237e'}}>
                 <Toolbar>
                 <img className='imglogo' sx={{mr : 2, cursor:'pointer'}} onClick={(e)=> navigate(routes.PRINCIPAL)}
                     src={BarLogo}/>
@@ -65,7 +65,7 @@ export const CompCoverPage = (props) => {
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: {width: drawerWidth, boxSizing: 'border-box',backgroundColor:'#D9D9D9'},
+                    [`& .MuiDrawer-paper`]: {width: drawerWidth, boxSizing: 'border-box',backgroundColor:'#ffffff'},
                     display: props.display,
                 }}
             >

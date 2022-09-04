@@ -1,31 +1,20 @@
 import * as apiPrediction from "../../api/api_prediction";
 import {useState} from "react";
 import {GRADES} from "../../util/constants";
+import {usePredictionContext} from "./context";
 
 
 export const usePrediction = () => {
 
-    async function makePrediction(e){
-        const data = new FormData(e.currentTarget);
-        e.preventDefault()
-        console.log({
-            gmat: data.get(GRADES.GMAT),
-            gpa: data.get(GRADES.GPA),
-            wk_xp: data.get(GRADES.WORk_EXP),
-            app_type: data.get(GRADES.APP_TYPE)
-        })
-    /*    await apiPrediction.singlePrediction({
-            gmat: data.get(GRADES.GMAT),
-            gpa: data.get(GRADES.GPA),
-            wk_xp: data.get(GRADES.WORk_EXP),
-            app_type: data.get(GRADES.APP_TYPE)
-        }).then(res =>{
-            console.log(res)
-        })*/
-    }
+    const {setResult,setShowResult,setGrades} = usePredictionContext()
+
     async function onSubmit(data){
         console.log(data)
-        console.log(data.GMAT)
+        setGrades(data)
+        await apiPrediction.singlePrediction(new Array(data)).then(res => {
+            setResult(res.grad_gpa)
+            setShowResult(true)
+        })
         
     }
     function clearForm(){
@@ -36,7 +25,6 @@ export const usePrediction = () => {
     }
 
     return {
-        makePrediction,
         clearForm,
         onSubmit
     }

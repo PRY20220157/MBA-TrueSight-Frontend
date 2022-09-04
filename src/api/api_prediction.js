@@ -7,7 +7,7 @@ const headers = {
 
 export const singlePrediction = (data) => {
     let config = {
-        url: URL_TRUE_SIGHT_BACKEND + '/prediction',
+        url: URL_TRUE_SIGHT_BACKEND + 'model/singleprediction/',
         method: 'post',
         headers,
         data

@@ -2,7 +2,6 @@ import React from "react"
 import {BrowserRouter, Route} from "react-router-dom";
 import {ContPrincipal} from "../pages/principal/cont_principal";
 import {ContOptions} from "../pages/options/cont_options";
-import {ContPrediction} from "../pages/prediction/cont_prediction";
 import {ContTutorial} from "../pages/tutorial/cont_tutorial";
 import routes from "./routes";
 import {Navigate, Routes} from "react-router";
@@ -15,6 +14,7 @@ import { ContForgotPassword } from "pages/forgotpassword/cont_forgot_password";
 import { ContRecoverPassword } from "pages/recoverpassoword/cont_recover_password";
 import { ContRegister } from "pages/register/cont_register";
 import { ContRegisterfORM } from "pages/registerform/cont_register_form";
+import {ContSinglePrediction} from "../pages/prediction/single/cont_single_prediction";
 
 function Router() {
 
@@ -23,7 +23,7 @@ function Router() {
                 <Routes>
                     <Route exact path={routes.EMPTY} element={<ContLogin/>}/>
                     <Route exact path={routes.PRINCIPAL} element={<ContPrincipal/>}/>
-                    <Route exact path={routes.PREDICTION} element={<ContPrediction/>}/>
+                    <Route exact path={routes.PREDICTION} element={<ContSinglePrediction/>}/>
                     <Route exact path={routes.OPTIONS} element={<ContOptions/>}/>
                     <Route exact path={routes.SIGN_UP} element={<ContRegister/>}/>
                     <Route exact path={routes.SIGN_UP_Form} element={<ContRegisterfORM/>}/>

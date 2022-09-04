@@ -1,9 +1,8 @@
-.massiveprediction-container{
-
-    background-image: url('../images/massivePrediction.jpg');
+.singleprediction-container{
+    background-image: url("images/singlePredict.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
-    
-    }
+
+}
