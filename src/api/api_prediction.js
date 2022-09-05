@@ -17,9 +17,9 @@ export const singlePrediction = (data) => {
 
 export const massivePrediction = (file) => {
     let formData = new FormData();
-    formData.append("file", file[0]);
+    formData.append("file", file);
     let config = {
-        url: URL_TRUE_SIGHT_BACKEND + 'v1/massive',
+        url: URL_TRUE_SIGHT_BACKEND + 'model/massiveprediction/',
         method: 'post',
         data: formData,
         headers

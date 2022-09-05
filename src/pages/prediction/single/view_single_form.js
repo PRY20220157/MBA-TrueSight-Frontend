@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import '../single/stylesheet/view_single_form.css'
-import {usePrediction} from "../../../business/prediction/prediction";
+import {usePrediction} from "../../../business/prediction/single/prediction";
 import "./single_prediction.css"
 import Box from "@mui/material/Box";
 import {useForm} from 'react-hook-form';

@@ -1,9 +1,17 @@
-import {ViewMassivePrediction} from "./view_massive_prediction";
+import {usePredictionMassive} from "../../../business/prediction/massive/prediction_massive";
+import {ViewMassiveForm} from "./view_massive_form";
+import {ViewMassiveResult} from "./view_massive_result";
 
 export const ContMassivePrediction = props => {
-    return(<>
+    const hook = usePredictionMassive();
+
+    return (
         <>
-            <ViewMassivePrediction/>
+            {
+                !hook.showResult ?
+                    <ViewMassiveForm hook={hook}/> :
+                    <ViewMassiveResult hook={hook}/>
+            }
         </>
-    </>);
+    )
 }

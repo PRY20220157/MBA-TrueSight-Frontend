@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import {PredictionContext, usePredictionContext} from "business/prediction/context";
+import {PredictionContext, usePredictionContext} from "business/prediction/single/context";
 import Button from "@mui/material/Button";
 import {Box, Paper} from "@mui/material";
 import {CompCoverPage} from "../../../comps/comp_cover_page";

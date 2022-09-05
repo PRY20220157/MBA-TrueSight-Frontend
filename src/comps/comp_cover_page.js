@@ -76,7 +76,7 @@ export const CompCoverPage = (props) => {
                 <Toolbar/>
                 <Box sx={{overflow: 'auto'}}>
                     <List>
-                        <ListItem key={'prediction'} disablePadding onClick={(e) => navigate(routes.MASSIVE_PREDICTION)}
+                        <ListItem key={'prediction_massive'} disablePadding onClick={(e) => navigate(routes.MASSIVE_PREDICTION)}
                                   sx={{backgroundColor:handleSelected(routes.MASSIVE_PREDICTION)}}>
                             <ListItemButton>
                                 <ListItemIcon>< CalculateIcon/></ListItemIcon>
