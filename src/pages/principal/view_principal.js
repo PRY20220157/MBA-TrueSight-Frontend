@@ -13,11 +13,7 @@ export const ViewPrincipal = props => {
 
     return (
         <>
-                 <Typography variant="subtitle1">Bienvenido</Typography>
-                   &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;
-                    
-            <Grid container spacing={2} style={{cursor:'pointer', minHeight:'100% !important'}}>
+            <Grid container spacing={2} style={{cursor:'pointer', minHeight:'100vh !important'}}>
                 <Grid item xs={12} onClick={(e) => hook.goToPrediction()}
                       >
                     

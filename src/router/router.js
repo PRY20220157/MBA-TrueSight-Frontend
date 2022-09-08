@@ -15,6 +15,7 @@ import { ContRecoverPassword } from "pages/recoverpassoword/cont_recover_passwor
 import { ContRegister } from "pages/register/cont_register";
 import { ContRegisterfORM } from "pages/registerform/cont_register_form";
 import {ContSinglePrediction} from "../pages/prediction/single/cont_single_prediction";
+import PredictionMassiveProvider from "../business/prediction/massive/provider";
 
 function Router() {
 
@@ -29,7 +30,7 @@ function Router() {
                     <Route exact path={routes.SIGN_UP_Form} element={<ContRegisterfORM/>}/>
                     <Route exact path={routes.TUTORIAL} element={<ContTutorial/>}/>
                     <Route exact path={routes.HISTORY} element={<ContHistory/>}/>
-                    <Route exact path={routes.MASSIVE_PREDICTION} element={<ContMassivePrediction/>}/>
+                    <Route exact path={routes.MASSIVE_PREDICTION} element={<PredictionMassiveProvider><ContMassivePrediction/></PredictionMassiveProvider>}/>
                     <Route exact path={routes.HistoryDate}  element={<ContHistoryDate/>}></Route>
                     <Route exact path={routes.Forgot_Password} element={<ContForgotPassword/>}></Route>
                     <Route exact path={routes.Recover_Password} element={<ContRecoverPassword/>}></Route>

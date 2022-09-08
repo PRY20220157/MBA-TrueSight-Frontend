@@ -37,20 +37,20 @@ export const CompCoverPage = (props) => {
     const auth = useLogin();
     const handleSelected = (route) => {
         if (location.pathname === route)
-            return '#A09090'
+            return '#deebff'
     }
 
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
-            <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor:'#1a237e'}}>
+            <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
                 <Toolbar>
-                <img className='imglogo' sx={{mr : 2, cursor:'pointer'}} onClick={(e)=> navigate(routes.PRINCIPAL)}
+                <img className='imglogo' style={{mr : 2, cursor:'pointer'}} onClick={(e)=> navigate(routes.PRINCIPAL)}
                     src={BarLogo}/>
                      &nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;
-                    <Typography className='typo'    color="black" variant="h6" component="div" sx={{ flexGrow: 1, cursor:'pointer' }}
-                                onClick={(e)=> navigate(routes.PRINCIPAL)}>
+                    <Typography className='typo'    color="black" variant="h6" component="div" sx={{ flexGrow: 1 }}
+                                >
                         MBA True Sight
                     </Typography>
                     <AccountCircle htmlColor='black' fontSize="large"/>
@@ -114,7 +114,7 @@ export const CompCoverPage = (props) => {
                     </List>
                 </Box>
             </Drawer>
-            <Box component="main" sx={{flexGrow: 1, p: 3}}>
+            <Box component="main" sx={{flexGrow: 1, p:0}}>
                 <Toolbar/>
                 {props.children}
             </Box>

@@ -3,8 +3,13 @@ import {CompCoverPage} from "comps/comp_cover_page";
 import {Alert, Box, Button, CircularProgress, Grid, Paper, Stack, Typography} from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import {FileUploader} from "react-drag-drop-files";
-import "./stylesheet/view_massive_prediction.css"
+import "./stylesheet/view_massive_prediction.css";
+import {usePredictionMassive} from "business/prediction/massive/prediction_massive";
+
 export const ViewMassiveForm = props => {
+
+    const hook = usePredictionMassive();
+
     return (
         <>
             <div className="massiveprediction-container">
@@ -16,16 +21,22 @@ export const ViewMassiveForm = props => {
                         minHeight="100vh"
                     >
                         <Paper elevation={10}
-                               sx={{minWidth: 600, borderRadius: 8, background: 'rgba(250, 250, 250, 0.9)'}}>
+                               sx={{
+                                   padding: 3,
+                                   minWidth: 600,
+                                   borderRadius: 8,
+                                   background: 'rgba(250, 250, 250, 0.9)'
+                               }}>
                             {
-                                props.hook.loading ?
+                                hook.loading ?
                                     <Grid container justifyContent={"center"}>
                                         <CircularProgress size={200}/>
                                     </Grid>
                                     :
                                     <form>
                                         <Grid container justifyContent={"center"}>
-                                            <Stack direction="row" spacing={1}>
+                                            <Stack direction="Grid" spacing={1}
+                                                   onClick={(e) => console.log(e)} sx={{cursor: "pointer"}}>
                                                 <FileDownloadIcon fontSize="large"></FileDownloadIcon>
                                                 <Typography variant="h5" fontFamily={"sans-serif"} fontStyle={"normal"}>Descargar
                                                     Plantilla</Typography>
@@ -34,23 +45,30 @@ export const ViewMassiveForm = props => {
                                         &nbsp;&nbsp;
                                         &nbsp;&nbsp;
                                         <Grid container justifyContent={"center"}>
-                                            <FileUploader
-                                                multiple={false}
-                                                handleChange={props.hook.handleChange}
-                                                name="file"
-                                                types={props.hook.fileTypes}
-                                            ></FileUploader>
+                                            <Grid item xs={12}>
+                                                <FileUploader
+                                                    multiple={false}
+                                                    handleChange={hook.handleChange}
+                                                    name="file"
+                                                    types={hook.fileTypes}
+                                                    label={'Suba o  arrastre su archivo aqui'}
+                                                    hoverTitle={'Suelte aqui'}
+                                                >
+                                                </FileUploader>
+                                            </Grid>
+
                                         </Grid>
                                         &nbsp;&nbsp;
                                         &nbsp;&nbsp;
                                         <Grid container justifyContent={"center"}>
-                                            <p>{props.hook.file.length > 0 ? `Archivo subido: ` + props.hook.file[0].name : "Ningun Archivo subido"}</p>
+                                            <p>{hook.file ? `Archivo subido: ` + hook.file.name : "Ningun Archivo subido"}</p>
                                         </Grid>
-                                        {props.hook.error && <Alert severity="error">No hay archivos</Alert>}
-                                        &nbsp;&nbsp;
+                                        {hook.error && <Alert severity="error">No hay archivos</Alert>}
                                         <Grid container justifyContent={"center"}>
                                             <Button variant="contained"
-                                                    onClick={(e) => props.hook.uploadFile(props.hook.file)}>Continuar</Button>
+                                                    onClick={(e) => hook.uploadFile(hook.file)}
+                                                    disabled={hook.file === undefined}
+                                            >Continuar</Button>
                                         </Grid>
                                         &nbsp;&nbsp;
                                         &nbsp;&nbsp;

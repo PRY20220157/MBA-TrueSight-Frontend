@@ -26,9 +26,7 @@ export const ViewLogin = () => {
     return (
         <ThemeProvider theme={theme}>
             <div className='background'>
-            <Container sx={{minWidth: '100% !important',height: '120vh'}} >
-
-                
+            <Container sx={{minWidth: '100% !important',height: '100vh'}} >
                 <Box
                 display="flex"
                 justifyContent="center"

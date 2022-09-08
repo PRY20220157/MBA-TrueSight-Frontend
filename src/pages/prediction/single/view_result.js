@@ -8,46 +8,47 @@ export const ViewResult = props => {
 
     const {grades, result, setShowResult} = usePredictionContext();
     return (
-        <div className="singleprediction-container">
-            <CompCoverPage>
-
-                <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    minHeight="100vh"
-                >
-                    <Paper elevation={10} sx={{minWidth: 600, borderRadius: 8, background: 'rgba(250, 250, 250, 0.9)'}}>
-                        <Grid container sx={{p: 2, justifyContent: 'center'}}>
-                            <Grid item><h5><strong>Posible puntaje:{result}</strong></h5></Grid>
-                            <Grid item xs={12}>Análisis de Puntajes</Grid>
-                            <Grid container sx={{p: 2}}>
-                                <Grid item xs={6}>GMAT: {grades.gmat}</Grid>
-                                <Grid item xs={6}>obs1</Grid>
-                            </Grid>
-                            <Grid container sx={{p: 2}}>
-                                <Grid item xs={6}>GPA: {grades.gpa}</Grid>
-                                <Grid item xs={6}>obs2</Grid>
-                            </Grid>
-                            <Grid container sx={{p: 2}}>
-                                <Grid item xs={6}>Años de Experiencia: {grades.wk_xp}</Grid>
-                                <Grid item xs={6}>obs3</Grid>
-                            </Grid>
-                            <Grid container sx={{p: 2}}>
-                                <Grid item xs={6}>Tipo de app: {grades.app_type}</Grid>
-                                <Grid item xs={6}>obs4</Grid>
-                            </Grid>
-                            <Grid container xs="12">
-                                <Button variant="contained" size="large"
-                                        onClick={(e) => setShowResult(false)}>SALIR</Button>
-
-                            </Grid>
+        <CompCoverPage>
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="90vh"
+                className="singleprediction-container"
+            >
+                <Paper  elevation={10} sx={{padding: 3,width: "50%", borderRadius: 8, background: 'rgba(250, 250, 250, 0.9)'}}>
+                        <Grid container  justifyContent="center">
+                            <h3><strong>Posible puntaje:{parseFloat(result).toFixed(2)}</strong></h3>
                         </Grid>
-                    </Paper>
+                    <Grid container align="center" display={"column"} sx={{p: 2}}>
+                        <Grid container sx={{p: 2}} >
+                            <Grid item xs={4}>GMAT</Grid>
+                            <Grid item xs={4}>{grades.gmat}</Grid>
+                            <Grid item xs={4}>obs1</Grid>
+                        </Grid>
+                        <Grid container sx={{p: 2}}>
+                            <Grid item xs={4}>GPA</Grid>
+                            <Grid item xs={4}>{grades.gpa}</Grid>
+                            <Grid item xs={4}>obs2</Grid>
+                        </Grid>
+                        <Grid container sx={{p: 2}} >
+                            <Grid item xs={4}>Experiencia Laboral</Grid>
+                            <Grid item xs={4}>{grades.wk_xp}</Grid>
+                            <Grid item xs={4}>obs3</Grid>
+                        </Grid>
+                        <Grid container sx={{p: 2}} justifyContent="center">
+                            <Grid item xs={4}>Tipo MBA</Grid>
+                            <Grid item xs={4}>{grades.app_type}</Grid>
+                            <Grid item xs={4} justifyContent="center">obs4</Grid>
+                        </Grid>
+                        <Grid container xs="12" justifyContent="center" sx={{mt:2}}>
+                            <Button variant="contained" size="large"
+                                    onClick={(e) => setShowResult(false)}>SALIR</Button>
+                        </Grid>
+                    </Grid>
+                </Paper>
 
-                </Box>
-            </CompCoverPage>
-
-        </div>
+            </Box>
+        </CompCoverPage>
     );
 }
