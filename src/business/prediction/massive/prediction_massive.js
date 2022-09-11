@@ -9,6 +9,7 @@ export function usePredictionMassive() {
     const [file, setFile] = useState();
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
+    const userId = 5
 
     const handleChange = (file) => {
         setFile(file);
@@ -23,13 +24,13 @@ export function usePredictionMassive() {
         if (file === null) {
             handleChangeerror(true)
         }
-        await massivePrediction(file).then(res => {
+        await massivePrediction(file,userId).then(res => {
             console.log(res)
             setLoading(false)
             let tmp = [...res]
             tmp.forEach((t, index) => {
                 t.id = index + 1;
-                t.grad_gpa = parseFloat(t.grad_gpa).toFixed(2)
+                t.gradGpaScore = parseFloat(t.gradGpaScore).toFixed(2)
             })
             setResult(tmp)
             setRows(tmp)

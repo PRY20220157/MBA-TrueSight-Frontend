@@ -9,11 +9,11 @@ function PredictionMassiveProvider({children}) {
     const [rows, setRows] = useState([]);
     const columns = [
         {field: 'id', headerName: 'ID'},
-        {field: 'gpa', headerName: 'GPA'},
-        {field: 'gmat', headerName: 'GMAT'},
-        {field: 'wk_xp', headerName: 'Experiencia Laboral'},
-        {field: 'app_type', headerName: 'Tipo de MBA'},
-        {field: 'grad_gpa', headerName: 'RESULT'},
+        {field: 'gpaScore', headerName: 'GPA'},
+        {field: 'gmatScore', headerName: 'GMAT'},
+        {field: 'workExp', headerName: 'Experiencia Laboral'},
+        {field: 'appType', headerName: 'Tipo de MBA'},
+        {field: 'gradGpaScore', headerName: 'RESULT'},
     ]
     return(
         <PredictionMassiveContext.Provider value={{showResult, setShowResult,result, setResult,

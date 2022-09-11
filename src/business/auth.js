@@ -3,6 +3,7 @@ import routes from "../router/routes";
 import {useEffect, useState} from "react";
 import {authenticate} from "../api/api_auth";
 import {OWL_MBA_TS} from "../util/constants";
+import {getUserInfo} from "../api/api_user";
 
 function useLogin(key, value) {
 
@@ -17,10 +18,13 @@ function useLogin(key, value) {
         await authenticate({
             email: event.Email,
             password: event.Password,
-        }).then(res => {
-            localStorage.setItem(OWL_MBA_TS, res.auth_token);
+        }).then(async res => {
+            localStorage.setItem(OWL_MBA_TS, res.access);
+            let info = await getUserInfo(event.Email).then(i => {
+
             navigate(routes.PRINCIPAL);
-        })
+            })
+        }).catch(res => {alert("Credenciales incorrectas")})
     };
      function handleLogout(){
          localStorage.clear();

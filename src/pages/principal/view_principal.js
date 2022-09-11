@@ -6,45 +6,36 @@ import historialimage from './images/HistorialImage.png'
 import tutorialimage from './images/TutorialImage.png'
 import optionimage from './images/OptionImage.png'
 import './principal.css'
-import { Typography } from "@mui/material";
+import {Box, Typography} from "@mui/material";
+
 export const ViewPrincipal = props => {
 
     const hook = usePrincipal()
 
+    const stl_options = {height: "33vh",pt:2,pl:2,color:"white", fontSize:"7em",textShadow:"0 0 3px #1976d2, 0 0 5px #0000FF"}
     return (
-        <>
-            <Grid container spacing={2} style={{cursor:'pointer', minHeight:'100vh !important'}}>
-                <Grid item xs={12} onClick={(e) => hook.goToPrediction()}
-                      >
-                    
-                    <img className="predictionimage"
-                      src={predictionimage}
-                      alt="predictionimage"
-                    ></img>
+        <Box
+            sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexGrow: 1, mt: 8}}>
+            <Grid container style={{cursor: 'pointer'}}>
+                <Grid container onClick={(e) => hook.goToPrediction()}
+                      className='prediction-bkg'  sx={stl_options}>
+                    Predicción
                 </Grid>
-                <Grid item xs={12} onClick={(e) => hook.goToHistory()}
-                >
-                     <img className="historialimage"
-                     src={historialimage}
-                     alt="historialimage"
-                   ></img>
+                <Grid container onClick={(e) => hook.goToHistory()}
+                      className='history-bkg' sx={stl_options}>
+                    Historial
                 </Grid>
-                <Grid item xs={8} onClick={(e) => hook.goToTutorial()}
-                      >
-                    
-                    <img className="tutorialimage"
-                     src={tutorialimage}
-                     alt="tutorialimage"
-                   ></img>
-                </Grid>
-                <Grid item xs={4} onClick={(e) => hook.goToOptions()}
-                     >
-                  <img className="optionimage"
-                     src={optionimage}
-                     alt="optionimage"
-                   ></img>
+                <Grid container>
+                    <Grid item xs={8} onClick={(e) => hook.goToTutorial()}
+                          className='tutorial-bkg' sx={stl_options}>
+                        Tutorial
+                    </Grid>
+                    <Grid item xs={4} onClick={(e) => hook.goToOptions()}
+                          className='option-bkg' sx={stl_options}>
+                        Opciones
+                    </Grid>
                 </Grid>
             </Grid>
-        </>
+        </Box>
     );
 }

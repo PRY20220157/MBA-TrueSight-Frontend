@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 import {usePredictionMassiveContext} from "../../../business/prediction/massive/context";
 import {Line} from 'react-chartjs-2';
 
-ChartJS.register(ArcElement, Tooltip, CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Legend);
+ChartJS.register(ArcElement, Tooltip, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 export const data = {
     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
     datasets: [
@@ -67,7 +67,7 @@ export const ViewStadistics = props => {
             {
                 fill: true,
                 label: '',
-                data:helper.map(r => parseFloat(r.grad_gpa).toFixed(2)),
+                data: helper.map(r => parseFloat(r.gradGpaScore).toFixed(2)),
                 borderColor: 'rgb(0,149,255)',
                 backgroundColor: 'rgba(0,149,255,0.5)',
             }
@@ -84,9 +84,9 @@ export const ViewStadistics = props => {
         let sum_gpa = 0;
         let sum_wk_xp = 0;
         for (const r of tmp) {
-            sum_gmat += r.gmat;
-            sum_gpa += r.gpa;
-            sum_wk_xp += r.wk_xp;
+            sum_gmat += r.gmatScore;
+            sum_gpa += r.gpaScore;
+            sum_wk_xp += r.workExp;
         }
         let avg_gmat = sum_gmat / tmp.length;
         let avg_gpa = sum_gpa / tmp.length;
@@ -100,14 +100,14 @@ export const ViewStadistics = props => {
     const triggerOrderResult = () => {
         let x = [...result]
         x.sort((a, b) => {
-            return a.grad_gpa - b.grad_gpa;
+            return a.gradGpaScore - b.gradGpaScore;
         });
         console.log(x)
         setHelper(x)
     }
     return (
-        <CompCoverPage>
-            <Grid container spacing={1} align="center" display={"column"} sx={{p: 2, height: "100vh", marginBottom: 3}}>
+        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexGrow: 1,pt:10}}>
+            <Grid container spacing={1} align="center" display={"column"} sx={{p: 2, height: "100%", marginBottom: 3}}>
                 <Grid item xs={12}>
                     <Button variant="contained" size="large"
                             onClick={(e) => setShowStatistics(false)}>Volver a resultados</Button>
@@ -175,8 +175,7 @@ export const ViewStadistics = props => {
                         <Line options={optionsLine} data={dataLine}/>
                     </Paper>
                 </Grid>
-
             </Grid>
-        </CompCoverPage>
+        </Box>
     )
 }

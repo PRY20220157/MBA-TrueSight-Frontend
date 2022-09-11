@@ -1,27 +1,24 @@
-.predictionimage{
-
-width: 100%;
-height: 100%;
-
-
+.prediction-bkg{
+    background-image: url('./images/PredictionImage.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
-.historialimage{
-
-    width: 100%;
-    height: 100%;
-
+.history-bkg{
+    background-image: url('./images/HistorialImage.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
-.tutorialimage{
-
-    width: 100%;
-    height: 100%;
-
-
+.option-bkg{
+    background-image: url('./images/OptionImage.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
-.optionimage{
-
-
-    width: 100%;
-    height: 100%;
-
+.tutorial-bkg{
+    background-image: url('./images/TutorialImage.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

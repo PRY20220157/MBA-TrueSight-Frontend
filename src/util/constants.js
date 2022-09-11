@@ -1,6 +1,6 @@
 const PROFILE = 'LOCAL'; //LOCAL // DEV
 const URl_TRUESIGHT_ALL = {
-    'LOCAL': 'http://localhost:8000/',
+    'LOCAL': 'http://ec2-3-14-15-208.us-east-2.compute.amazonaws.com:8000/',
     'DEV': 'http://ec2-18-223-22-15.us-east-2.compute.amazonaws.com:8000',
 }
 export const URL_TRUE_SIGHT_BACKEND = URl_TRUESIGHT_ALL[PROFILE]
