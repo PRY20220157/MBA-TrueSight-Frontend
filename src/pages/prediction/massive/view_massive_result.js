@@ -1,4 +1,3 @@
-import {CompCoverPage} from "comps/comp_cover_page";
 import {Box, Paper} from "@mui/material";
 import {
     DataGrid,
@@ -8,15 +7,8 @@ import {
     GridToolbarFilterButton
 } from '@mui/x-data-grid';
 import Button from "@mui/material/Button";
-import {ViewStadistics} from "./view_stadistics";
-import {usePredictionMassive} from "../../../business/prediction/massive/prediction_massive";
-import {usePredictionMassiveContext} from "../../../business/prediction/massive/context";
-
 
 export const ViewMassiveResult = props => {
-
-    const hook = usePredictionMassive();
-    const {setShowStatistics} = usePredictionMassiveContext()
 
     function CustomToolbar() {
         return (
@@ -35,8 +27,8 @@ export const ViewMassiveResult = props => {
                     <div style={{height: "60vh", width: '100vh'}}>
                         <DataGrid
                             localeText={{ toolbarColumns: "Columnas", toolbarDensity: "Ancho filas", toolbarExport:"Exportar", toolbarFilters:"Filtros" }}
-                            rows={hook.rows}
-                            columns={hook.columns}
+                            rows={props.rows}
+                            columns={props.columns}
                             pageSize={10}
                             rowsPerPageOptions={[10]}
                             components={{
@@ -45,9 +37,9 @@ export const ViewMassiveResult = props => {
                         />
                     </div>
                     <Button variant="contained" size="large"
-                            onClick={(e) => hook.setShowResult(false)}>SALIR</Button>
+                            onClick={props.exit}>SALIR</Button>
                     <Button variant="contained" size="large"
-                            onClick={(e) => setShowStatistics(true)}>ESTADÍSTICAS</Button>
+                            onClick={props.showStadistics}>ESTADÍSTICAS</Button>
                 </Paper>
             </Box>
     )

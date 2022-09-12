@@ -9,7 +9,17 @@ import "./stylesheet/view_massive_prediction.css";
 
 export const ContMassivePrediction = props => {
 
-    const {showResult, showStatistics} = usePredictionMassiveContext()
+    const hook = usePredictionMassive();
+    const {showResult, showStatistics,setShowStatistics,result} = usePredictionMassiveContext()
+    function showStats(){
+        setShowStatistics(true)
+    }
+    function showResults() {
+        setShowStatistics(false)
+    }
+    function back() {
+        hook.setShowResult(false)
+    }
     return (
         <>
             <div className="massiveprediction-container">
@@ -19,9 +29,10 @@ export const ContMassivePrediction = props => {
                         <>
                             {
                                 showStatistics ?
-                                    <ViewStadistics/>
+                                    <ViewStadistics predictions={result} back={showResults}/>
                                     :
-                                    <ViewMassiveResult/>
+                                    <ViewMassiveResult rows={hook.rows} columns={hook.columns} exit={back}
+                                                       showStadistics={showStats}/>
                             }
                         </>
                     }

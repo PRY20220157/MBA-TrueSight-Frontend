@@ -2,16 +2,16 @@ import {useNavigate} from "react-router";
 import routes from "../router/routes";
 import {useEffect, useState} from "react";
 import {authenticate} from "../api/api_auth";
-import {OWL_MBA_TS} from "../util/constants";
+import {LS_USER_ID, LS_USER_TP, OWL_MBA_TS, SECRET_KEY} from "../util/constants";
 import {getUserInfo} from "../api/api_user";
+import {decryptWithAES, encryptWithAES} from "../util/AES";
 
 function useLogin(key, value) {
 
     const navigate = useNavigate();
 
-     async function handleLogin(event) {
+    async function handleLogin(event) {
 
-       
 
         //const data = new FormData(event.currentTarget);
         // event.preventDefault();
@@ -20,32 +20,36 @@ function useLogin(key, value) {
             password: event.Password,
         }).then(async res => {
             localStorage.setItem(OWL_MBA_TS, res.access);
-            let info = await getUserInfo(event.Email).then(i => {
-
-            navigate(routes.PRINCIPAL);
+            await getUserInfo(event.Email).then(info => {
+                localStorage.setItem(LS_USER_ID, encryptWithAES(info[0].user[0].userId + ''));
+                localStorage.setItem(LS_USER_TP, encryptWithAES(info[0].user[0].userTypeId + ''));
+                navigate(routes.PRINCIPAL);
             })
-        }).catch(res => {alert("Credenciales incorrectas")})
+        }).catch(res => {console.log(res)})
     };
-     function handleLogout(){
-         localStorage.clear();
-         navigate(routes.SIGN_IN);
-     }
-    function validateSession(){
+
+    function handleLogout() {
+        localStorage.clear();
+        navigate(routes.SIGN_IN);
+    }
+
+    function validateSession() {
 
     }
-    const goToRegisterPage = () =>{
+
+    const goToRegisterPage = () => {
         navigate(routes.SIGN_UP)
     }
-    const goToRegisterFormPage = (seleccion) =>{
-        navigate("/sign-up/form/"+seleccion)
+    const goToRegisterFormPage = (seleccion) => {
+        navigate("/sign-up/form/" + seleccion)
     }
-    const goToLogin = () =>{
+    const goToLogin = () => {
         navigate(routes.EMPTY)
     }
-    const goToForgotPasswordPage = () =>{
+    const goToForgotPasswordPage = () => {
         navigate(routes.Forgot_Password)
     }
-    const goToRecoverPasswordPage = () =>{
+    const goToRecoverPasswordPage = () => {
         navigate(routes.Recover_Password)
     }
 
@@ -53,7 +57,7 @@ function useLogin(key, value) {
         handleSubmit: handleLogin,
         handleLogout,
         goToForgotPasswordPage,
-        goToRecoverPasswordPage,goToRegisterPage,goToLogin,goToRegisterFormPage
+        goToRecoverPasswordPage, goToRegisterPage, goToLogin, goToRegisterFormPage
     }
 }
 

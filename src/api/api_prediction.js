@@ -40,3 +40,12 @@ export const getPredictionsByUser = () => {
     }
     return conn.send(config);
 }
+export const deletePrediction = (predId) => {
+    let config = {
+        url: URL_TRUE_SIGHT_BACKEND + 'predictions/' + predId,
+        method: 'delete',
+        headers,
+
+    }
+    return conn.send(config);
+}

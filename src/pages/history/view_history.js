@@ -14,6 +14,9 @@ import {DataGrid} from "@mui/x-data-grid";
 import {useHistoryPrediction} from "business/prediction/history/history";
 import {ViewResult} from "../prediction/single/view_result";
 import {ViewGrades} from "../prediction/single/view__grades";
+import {isRecruiter} from "../../util/util";
+import {ViewStadistics} from "../prediction/massive/view_stadistics";
+import {ViewMassiveResult} from "../prediction/massive/view_massive_result";
 
 function enterDetail() {
 
@@ -21,12 +24,16 @@ function enterDetail() {
 
 export const ViewHistory = props => {
     const hook = useHistoryPrediction()
+    const [showStatistics, setShowStatistics] = useState(false);
 
     const [datesFilter, setDatesFilter] = useState({
 
         from: new Date('2014-08-18T21:11:54'),
         to: new Date('2014-08-18T21:11:54')
     });
+const handleStats = () => {
+    setShowStatistics(!showStatistics)
+    }
 
     const handleInputChange1 = (data, event) => {
         setDatesFilter({
@@ -50,6 +57,17 @@ export const ViewHistory = props => {
                     hook.showPrediction ?
                         <>
                             {
+                                hook.showingMassivePred?
+                                    <>
+                                        {
+                                            showStatistics ?
+                                                <ViewStadistics predictions={hook.rows} back={handleStats} />
+                                                :
+                                                <ViewMassiveResult rows={hook.rows} columns={hook.columns_massive_tbl} exit={hook.handleBack}
+                                                                   showStadistics={handleStats}/>
+                                        }
+                                    </>
+                                    :
                                 <ViewGrades grades={hook.grades} result={hook.result} exit={hook.handleBack}/>
                             }
                         </> :

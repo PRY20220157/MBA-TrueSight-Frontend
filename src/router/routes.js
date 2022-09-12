@@ -3,7 +3,7 @@ const routes = Object.freeze({
     EMPTY: "/",
     SIGN_IN: "/",
     SIGN_UP: "/sign-up",
-    SIGN_UP_Form: "/sign-up/form/:selection",
+    SIGN_UP_FORM: "/sign-up/form",
     Forgot_Password:"/forgotpassword",
     Recover_Password:"/recoverpassword",
     PRINCIPAL:"/main",
@@ -13,6 +13,7 @@ const routes = Object.freeze({
     HistoryDate: "/history/:date",
     TUTORIAL: "/tutorial",
     OPTIONS: "/options",
+    PROFILE:"/profile"
 });
 
 export default routes;

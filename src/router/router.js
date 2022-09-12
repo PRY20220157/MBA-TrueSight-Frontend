@@ -13,10 +13,11 @@ import {ContHistoryDate} from "pages/history/history_date/cont_history_date";
 import {ContForgotPassword} from "pages/forgotpassword/cont_forgot_password";
 import {ContRecoverPassword} from "pages/recoverpassoword/cont_recover_password";
 import {ContRegister} from "pages/register/cont_register";
-import {ContRegisterfORM} from "pages/registerform/cont_register_form";
+import {ContRegisterForm} from "pages/registerform/cont_register_form";
 import {ContSinglePrediction} from "../pages/prediction/single/cont_single_prediction";
 import PredictionMassiveProvider from "../business/prediction/massive/provider";
 import PredictionProvider from "../business/prediction/single/provider";
+import {ContProfile} from "../pages/profile/cont_profile";
 
 function Router() {
 
@@ -28,7 +29,7 @@ function Router() {
                 <Route exact path={routes.PREDICTION} element={<PredictionProvider><ContSinglePrediction/></PredictionProvider>}/>
                 <Route exact path={routes.OPTIONS} element={<ContOptions/>}/>
                 <Route exact path={routes.SIGN_UP} element={<ContRegister/>}/>
-                <Route exact path={routes.SIGN_UP_Form} element={<ContRegisterfORM/>}/>
+                <Route exact path={routes.SIGN_UP_FORM} element={<ContRegisterForm/>}/>
                 <Route exact path={routes.TUTORIAL} element={<ContTutorial/>}/>
                 <Route exact path={routes.HISTORY} element={<ContHistory/>}/>
                 <Route exact path={routes.MASSIVE_PREDICTION}
@@ -36,6 +37,7 @@ function Router() {
                 <Route exact path={routes.HistoryDate} element={<ContHistoryDate/>}></Route>
                 <Route exact path={routes.Forgot_Password} element={<ContForgotPassword/>}></Route>
                 <Route exact path={routes.Recover_Password} element={<ContRecoverPassword/>}></Route>
+                <Route exact path={routes.PROFILE} element={<ContProfile/>}></Route>
             </Routes>
         </BrowserRouter>
     )

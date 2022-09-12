@@ -25,24 +25,46 @@ import {useEffect} from "react";
 import {color, width} from '@mui/system';
 import './comp_cover_page.css'
 import useLogin from "../business/auth";
+import {LS_USER_TP, OWL_MBA_TS, USER_TYPES} from "../util/constants";
+import {decryptWithAES} from "../util/AES";
+import {isRecruiter} from "../util/util";
 
 const drawerWidth = '15%';
 
 export const CompCoverPage = (props) => {
 
     useEffect(() => {
-        console.log("AAAAAAA")
+        checkAccess()
     }, []);
     const navigate = useNavigate();
     const location = useLocation();
     const auth = useLogin();
+
     const handleSelected = (route) => {
         if (location.pathname === route)
             return '#deebff'
     }
 
+    const checkAccess = () => {
+        let values = [],
+            keys = Object.keys(localStorage),
+            i = keys.length;
+        if (i === 0) {
+            navigate(routes.SIGN_IN)
+        } else {
+            while (i--) {
+                values.push(localStorage.getItem(keys[i]));
+                if (decryptWithAES(keys[i]) === decryptWithAES(OWL_MBA_TS)) {
+                    if (localStorage.getItem(keys[i]) === null) {
+                        navigate(routes.SIGN_IN)
+                    }
+                }
+            }
+        }
+    }
+
     return (
-        <Box sx={{display: 'flex', height:"100vh"}}>
+        <Box sx={{display: 'flex', height: "100vh"}}>
             <CssBaseline/>
             <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
                 <Toolbar>
@@ -55,7 +77,8 @@ export const CompCoverPage = (props) => {
                     >
                         MBA True Sight
                     </Typography>
-                    <AccountCircle htmlColor='black' fontSize="large"/>
+                    <AccountCircle htmlColor='black' fontSize="large"
+                                   onClick={(e) => navigate(routes.PROFILE)}/>
                     &nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;
 
@@ -68,7 +91,11 @@ export const CompCoverPage = (props) => {
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: {width: drawerWidth, boxSizing: 'border-box', backgroundColor: '#ffffff'},
+                    [`& .MuiDrawer-paper`]: {
+                        width: drawerWidth,
+                        boxSizing: 'border-box',
+                        backgroundColor: '#ffffff'
+                    },
                     display: props.display,
                 }}
             >
@@ -79,14 +106,17 @@ export const CompCoverPage = (props) => {
                 <Toolbar/>
                 <Box sx={{overflow: 'auto'}}>
                     <List>
-                        <ListItem key={'prediction_massive'} disablePadding
-                                  onClick={(e) => navigate(routes.MASSIVE_PREDICTION)}
-                                  sx={{backgroundColor: handleSelected(routes.MASSIVE_PREDICTION)}}>
-                            <ListItemButton>
-                                <ListItemIcon>< CalculateIcon/></ListItemIcon>
-                                <ListItemText primary='Predicción Masiva'/>
-                            </ListItemButton>
-                        </ListItem>
+                        {
+                            isRecruiter() ?
+                                < ListItem key={'prediction_massive'} disablePadding
+                                           onClick={(e) => navigate(routes.MASSIVE_PREDICTION)}
+                                           sx={{backgroundColor: handleSelected(routes.MASSIVE_PREDICTION)}}>
+                                    <ListItemButton>
+                                        <ListItemIcon>< CalculateIcon/></ListItemIcon>
+                                        <ListItemText primary='Predicción Masiva'/>
+                                    </ListItemButton>
+                                </ListItem> : <></>
+                        }
                         <ListItem key={'prediction'} disablePadding onClick={(e) => navigate(routes.PREDICTION)}
                                   sx={{backgroundColor: handleSelected(routes.PREDICTION)}}>
                             <ListItemButton>

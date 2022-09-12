@@ -1,10 +1,5 @@
 import Grid from "@mui/material/Grid";
-import {Navigate, useNavigate} from "react-router";
 import usePrincipal from "../../business/principal";
-import predictionimage from './images/PredictionImage.png'
-import historialimage from './images/HistorialImage.png'
-import tutorialimage from './images/TutorialImage.png'
-import optionimage from './images/OptionImage.png'
 import './principal.css'
 import {Box, Typography} from "@mui/material";
 
@@ -14,8 +9,7 @@ export const ViewPrincipal = props => {
 
     const stl_options = {height: "33vh",pt:2,pl:2,color:"white", fontSize:"7em",textShadow:"0 0 3px #1976d2, 0 0 5px #0000FF"}
     return (
-        <Box
-            sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexGrow: 1, mt: 8}}>
+        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexGrow: 1, mt: 8}}>
             <Grid container style={{cursor: 'pointer'}}>
                 <Grid container onClick={(e) => hook.goToPrediction()}
                       className='prediction-bkg'  sx={stl_options}>

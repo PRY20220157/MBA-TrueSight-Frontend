@@ -57,7 +57,6 @@ export const optionsLine = {
 };
 export const ViewStadistics = props => {
 
-    const {result, setShowStatistics} = usePredictionMassiveContext();
     const [averages, setAverages] = useState({});
     const [helper, setHelper] = useState([]);
     const labels = helper.map(r => r.id.toString())
@@ -79,13 +78,13 @@ export const ViewStadistics = props => {
     }, []);
 
     const loadAverages = () => {
-        let tmp = [...result]
+        let tmp = [...props.predictions]
         let sum_gmat = 0;
         let sum_gpa = 0;
         let sum_wk_xp = 0;
         for (const r of tmp) {
             sum_gmat += r.gmatScore;
-            sum_gpa += r.gpaScore;
+            sum_gpa += parseFloat(r.gpaScore + '');
             sum_wk_xp += r.workExp;
         }
         let avg_gmat = sum_gmat / tmp.length;
@@ -98,7 +97,7 @@ export const ViewStadistics = props => {
         })
     }
     const triggerOrderResult = () => {
-        let x = [...result]
+        let x = [...props.predictions]
         x.sort((a, b) => {
             return a.gradGpaScore - b.gradGpaScore;
         });
@@ -106,11 +105,11 @@ export const ViewStadistics = props => {
         setHelper(x)
     }
     return (
-        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexGrow: 1,pt:10}}>
+        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", flexGrow: 1,pt:10}}>
             <Grid container spacing={1} align="center" display={"column"} sx={{p: 2, height: "100%", marginBottom: 3}}>
                 <Grid item xs={12}>
                     <Button variant="contained" size="large"
-                            onClick={(e) => setShowStatistics(false)}>Volver a resultados</Button>
+                            onClick={props.back}>Volver a resultados</Button>
                 </Grid>
                 <Grid item xs={6}>
                     <Grid item xs={12} sx={{marginBottom: "3%"}}>
@@ -149,7 +148,7 @@ export const ViewStadistics = props => {
                             width: '70%'
                         }}>
                             <Grid container justifyContent="center">
-                                <h3><strong>Alumnos ingresados: {result.length}</strong></h3>
+                                <h3><strong>Alumnos ingresados: {props.predictions.length}</strong></h3>
                             </Grid>
                         </Paper>
                     </Grid>
