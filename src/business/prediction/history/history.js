@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button} from "@mui/material";
-import {deletePrediction, getPredictionsByUser} from "api/api_prediction";
+import {deleteMassivePrediction, deletePrediction, getPredictionsByUser} from "api/api_prediction";
 import {isRecruiter, isStudent} from "util/util";
 import "core-js/actual/array/group-by";
 
@@ -14,6 +14,7 @@ export function useHistoryPrediction() {
     const [rows, setRows] = useState();
     const [showPrediction, setShowPrediction] = useState(false);
     const [showingMassivePred, setShowingMassivePred] = useState(false);
+    const [loading, setLoading] = useState(false);
     const columns = [
         {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center',},
         {field: 'creationDate', headerName: 'FECHA EJECUCIÓN', align: 'center', flex: 1, headerAlign: 'center',},
@@ -31,7 +32,7 @@ export function useHistoryPrediction() {
                             Ver
                         </Button>
                         <Button onClick={(event) => {
-                            deletePred(event, cellValues);
+                            handleDelete(event, cellValues);
                         }}>
                             Eliminar
                         </Button>
@@ -74,10 +75,22 @@ export function useHistoryPrediction() {
         }
     };
 
+    const handleDelete = (event, cellValues) => {
+        setLoading(true)
+        if (cellValues.row.type === 'Masiva') {
+            deleteMassPred(event, cellValues)
+        } else {
+            deletePred(event, cellValues)
+        }
+    }
     const deletePred = async (event, cellValues) => {
         await deletePrediction(cellValues.row.id).then(() => {
-            alert("Prediccion eliminada")
-            window.reload()
+            init()
+        })
+    }
+    const deleteMassPred = async (event, cellValues) => {
+        await deleteMassivePrediction(cellValues.row.id).then(() => {
+            init()
         })
     }
     const handleBack = () => {
@@ -90,6 +103,7 @@ export function useHistoryPrediction() {
 
 
     const init = async () => {
+        setLoading(true)
         let tmp = []
         let bckp = []
         await getPredictionsByUser().then(res => {
@@ -121,6 +135,7 @@ export function useHistoryPrediction() {
                     group[massivePredictionId].push(prediction);
                     return group;
                 }, {});
+                console.log(groupByMassiveId)
                 setMassPredBck(groupByMassiveId)
                 let keys = Object.keys(groupByMassiveId),
                     i = keys.length;
@@ -131,11 +146,12 @@ export function useHistoryPrediction() {
             }
             setPredictions(tmp)
         })
+        setLoading(false)
     }
 
 
     return {
         predictions, columns, showPrediction, setShowPrediction, grades, result, handleBack,
-        columns_massive_tbl, rows,showingMassivePred
+        columns_massive_tbl, rows, showingMassivePred,loading
     }
 }

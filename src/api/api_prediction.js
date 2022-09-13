@@ -1,6 +1,6 @@
 import * as conn from './connection';
 import {HD_AUTHORIZATION, OWL_MBA_TS, URL_TRUE_SIGHT_BACKEND} from "util/constants";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 const headers = {
     [HD_AUTHORIZATION]: localStorage.getItem(OWL_MBA_TS),
@@ -16,16 +16,17 @@ export const singlePrediction = (data) => {
     return conn.send(config);
 }
 
-export const massivePrediction = (file,user_id) => {
+export const massivePrediction = (file, user_id) => {
     let formData = new FormData();
     formData.append("file", file);
     formData.append("user_id", user_id);
-    formData.append("massive_prediction_id", uuidv4());
     let config = {
         url: URL_TRUE_SIGHT_BACKEND + 'model/massiveprediction/',
         method: 'post',
-            data: formData,
-        headers
+        data: formData,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
     }
     return conn.send(config);
 }
@@ -35,7 +36,7 @@ export const getPredictionsByUser = () => {
         method: 'post',
         headers,
         data: {
-            userId:5 //change to local storage
+            userId: 5 //change to local storage
         }
     }
     return conn.send(config);
@@ -43,6 +44,15 @@ export const getPredictionsByUser = () => {
 export const deletePrediction = (predId) => {
     let config = {
         url: URL_TRUE_SIGHT_BACKEND + 'predictions/' + predId,
+        method: 'delete',
+        headers,
+
+    }
+    return conn.send(config);
+}
+export const deleteMassivePrediction = (massPredId) => {
+    let config = {
+        url: URL_TRUE_SIGHT_BACKEND + 'deletemassivepredictions/' + massPredId,
         method: 'delete',
         headers,
 

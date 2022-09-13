@@ -1,4 +1,4 @@
-import {Alert, alpha, Card, Paper, Typography} from "@mui/material";
+import {Alert, alpha, Card, MenuItem, Paper, Select, Typography} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -10,13 +10,14 @@ import {useForm} from 'react-hook-form';
 import {CompCoverPage} from "comps/comp_cover_page";
 import {useEffect, useState} from "react";
 import {CircleLoader, ClipLoader, GridLoader} from "react-spinners";
+import {MBA_TYPES} from "util/constants";
 
 export const ViewSingleForm = () => {
 
     const hookPrediction = usePrediction()
     const {register, reset, formState: {errors}, handleSubmit, setError} = useForm({criteriaMode: "all"});
     const [errorGmatMsg, setErrorGmatMsg] = useState('');
-    const onclear = () => {
+    const onClear = () => {
         reset();
     }
     useEffect(() => {
@@ -41,7 +42,7 @@ export const ViewSingleForm = () => {
             }}>
 
                 {
-                    hookPrediction.loading?
+                    hookPrediction.loading ?
                         <Grid container justifyContent={"center"}>
                             <CircleLoader color='#1976d2' loading={hookPrediction.loading} size={150}/>
                         </Grid>
@@ -101,11 +102,10 @@ export const ViewSingleForm = () => {
                                            error={errors.app_type !== undefined}
                                            helperText={errors.app_type?.type === 'required' ? 'Por favor ingrese este campo' : ''}
                                 />
-
                             </Grid>
                             <Grid container justifyContent={"space-around"} sx={{mt: 3}}>
                                 <Grid item>
-                                    <Button variant="contained" size="large" onClick={onclear}>Limpiar</Button>
+                                    <Button variant="contained" size="large" onClick={onClear}>Limpiar</Button>
                                 </Grid>
                                 <Grid item>
                                     <Button variant="contained" size="large" type="submit">Predecir</Button>

@@ -114,6 +114,7 @@ const handleStats = () => {
                                     rowsPerPageOptions={[5]}
                                     disableMultipleSelection={true}
                                     disableSelectionOnClick
+                                    loading={hook.loading}
                                 />
                             </Box>
                         </>
