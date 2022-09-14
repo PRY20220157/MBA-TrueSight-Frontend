@@ -60,6 +60,7 @@ export function useHistoryPrediction() {
             setShowPrediction(true)
 
         } else {
+            console.log(predBck)
             let pred = predBck.filter(p => p.predictionId === cellValues.row.id)
             console.log(pred[0])
             setGrades(
@@ -107,6 +108,7 @@ export function useHistoryPrediction() {
         let tmp = []
         let bckp = []
         await getPredictionsByUser().then(res => {
+            console.log(res)
             if (isStudent()) {//singular
                 res.forEach(p => {
                     if (p.predictionTypeId === 1) {
@@ -114,6 +116,8 @@ export function useHistoryPrediction() {
                         bckp.push(p)
                     }
                 })
+                setPredBck(bckp)
+                setPredictions(tmp)
             } else {
                 let helper = []
                 helper = [...res]
