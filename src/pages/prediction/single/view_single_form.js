@@ -17,6 +17,24 @@ export const ViewSingleForm = () => {
     const hookPrediction = usePrediction()
     const {register, reset, formState: {errors}, handleSubmit, setError} = useForm({criteriaMode: "all"});
     const [errorGmatMsg, setErrorGmatMsg] = useState('');
+    const currencies = [
+        {
+            value: 'USD',
+            label: '$',
+        },
+        {
+            value: 'EUR',
+            label: '€',
+        },
+        {
+            value: 'BTC',
+            label: '฿',
+        },
+        {
+            value: 'JPY',
+            label: '¥',
+        },
+    ];
     const onClear = () => {
         reset();
     }
@@ -93,15 +111,23 @@ export const ViewSingleForm = () => {
 
                             </Grid>
                             <Grid container justifyContent={"center"}>
-                                <TextField variant="filled" label="Tipo de MBA" margin="normal" type={"number"}
-                                           sx={{width: "70%"}} inputProps={{min: 0}}
-                                           {...register('app_type', {
-                                               required: true,
-                                               min: 0
-                                           })}
-                                           error={errors.app_type !== undefined}
-                                           helperText={errors.app_type?.type === 'required' ? 'Por favor ingrese este campo' : ''}
-                                />
+                                <TextField
+                                    select
+                                    variant="filled"
+                                    label="Tipo de MBA"
+                                    inputProps={register('app_type', {
+                                        required: true,
+                                    })}
+                                    sx={{width: "70%"}}
+                                    error={errors.app_type !== undefined}
+                                    helperText={errors.app_type?.type === 'required' ? 'Por favor seleccione una opción' : ''}
+                                >
+                                    {MBA_TYPES.map((option) => (
+                                        <MenuItem key={option.id} value={option.id}>
+                                            {option.name}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
                             </Grid>
                             <Grid container justifyContent={"space-around"} sx={{mt: 3}}>
                                 <Grid item>

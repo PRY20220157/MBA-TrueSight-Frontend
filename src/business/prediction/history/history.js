@@ -23,6 +23,7 @@ export function useHistoryPrediction() {
             field: "ACTIONS", flex: 1,
             headerAlign: 'center',
             align: 'center',
+            sortable:false,
             renderCell: (cellValues) => {
                 return (
                     <>
@@ -42,13 +43,12 @@ export function useHistoryPrediction() {
         },
     ]
     const columns_massive_tbl = [
-        {field: 'id', headerName: 'ID'},
-        {field: 'gpaScore', headerName: 'GPA'},
-        {field: 'gmatScore', headerName: 'GMAT'},
-        {field: 'workExp', headerName: 'Experiencia Laboral'},
-        {field: 'appType', headerName: 'Tipo de MBA'},
-        {field: 'gradGpaScore', headerName: 'RESULT'},
-    ]
+        {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center',},
+        {field: 'gpaScore', headerName: 'GPA', flex: 1, align: 'center', headerAlign: 'center',},
+        {field: 'gmatScore', headerName: 'GMAT', flex: 1, align: 'center', headerAlign: 'center',},
+        {field: 'workExp', headerName: 'Experiencia Laboral', flex: 1, align: 'center', headerAlign: 'center',},
+        {field: 'appType', headerName: 'Tipo de MBA', flex: 1, align: 'center', headerAlign: 'center',},
+        {field: 'gradGpaScore', headerName: 'RESULT', flex: 1, align: 'center', headerAlign: 'center',}]
     const viewDetail = (event, cellValues) => {
         if (cellValues.row.type === 'Masiva') {
             let preds = massPredBck[cellValues.row.id]

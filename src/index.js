@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Router from "./router/router";
 import reportWebVitals from "./reportWebVitals";
+import {CompCoverPage} from "./comps/comp_cover_page";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

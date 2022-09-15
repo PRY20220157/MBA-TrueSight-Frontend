@@ -1,7 +1,14 @@
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import {MBA_TYPES} from "../../../util/constants";
 
 export const ViewGrades = props =>{
+
+    const loadMBAType = () => {
+        let type = MBA_TYPES.filter(t => t.id === props.grades.app_type)
+        return type[0].name
+    }
+
     return(
         <>
             <Grid container  justifyContent="center">
@@ -25,7 +32,7 @@ export const ViewGrades = props =>{
                 </Grid>
                 <Grid container sx={{p: 2}} justifyContent="center">
                     <Grid item xs={4}>Tipo MBA</Grid>
-                    <Grid item xs={4}>{props.grades.app_type}</Grid>
+                    <Grid item xs={4}>{loadMBAType()}</Grid>
                     <Grid item xs={4} justifyContent="center">obs4</Grid>
                 </Grid>
                 <Grid container xs="12" justifyContent="center" sx={{mt:2}}>

@@ -1,8 +1,4 @@
-import Grid from "@mui/material/Grid";
-import {PredictionContext, usePredictionContext} from "business/prediction/single/context";
-import Button from "@mui/material/Button";
 import {Box, Paper} from "@mui/material";
-import {useState} from "react";
 import {ViewGrades} from "./view__grades";
 
 export const ViewResult = props => {

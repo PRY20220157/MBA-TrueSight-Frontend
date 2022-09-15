@@ -42,7 +42,7 @@ export const CompCoverPage = (props) => {
 
     const handleSelected = (route) => {
         if (location.pathname === route)
-            return '#deebff'
+            return '#F2F2F2'
     }
 
     const checkAccess = () => {
@@ -67,23 +67,22 @@ export const CompCoverPage = (props) => {
         <Box sx={{display: 'flex', height: "100vh"}}>
             <CssBaseline/>
             <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
-                <Toolbar>
+                <Toolbar sx={{backgroundColor:"#04094A"}}>
                     <img className='imglogo' style={{mr: 2, cursor: 'pointer'}}
                          onClick={(e) => navigate(routes.PRINCIPAL)}
                          src={BarLogo}/>
                     &nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;
-                    <Typography className='typo' color="black" variant="h6" component="div" sx={{flexGrow: 1}}
-                    >
+                    <Typography className='typo' color="white" variant="h6" component="div" sx={{cursor:"pointer",flexGrow: 1}}
+                                onClick={(e) => auth.handleLogout()}>
                         MBA True Sight
                     </Typography>
-                    <AccountCircle htmlColor='black' fontSize="large"
+                    <AccountCircle htmlColor='white' fontSize="large" sx={{cursor:"pointer"}}
                                    onClick={(e) => navigate(routes.PROFILE)}/>
                     &nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;
-
-                    <Logout htmlColor='black' fontSize="large"
-                            onClick={(e) => auth.handleLogout()}/> {/*TODO change to logout*/}
+                    <Logout htmlColor='white' fontSize="large" sx={{cursor:"pointer"}}
+                            onClick={(e) => auth.handleLogout()}/>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -148,11 +147,6 @@ export const CompCoverPage = (props) => {
                     </List>
                 </Box>
             </Drawer>
-            {
-                props.display === 'none' ?
-                    <></> :
-                    <Toolbar/>
-            }
 
             {props.children}
         </Box>

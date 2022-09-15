@@ -1,49 +1,27 @@
 
 .SingleForm{
-
-
-
     min-width: 600px;
-   
     border-radius:8px; 
     background-color: rgba(3, 247, 35, 0.3);
 }
-
 .FormTitle{
-
-
-   
     width: 300px;
     height: 24px;
-   
-    
-    font-family: 'Inter', sans-serif;
+   font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 800;
     font-size: 20px;
     line-height: 24px;
     text-align: center;
-    
     color: black;
-
-
 }
 .TextFieldForm{
-
-
     background-color: #FFFFFF;
-
-  
      border-style: solid;
-
 }
 .Button{
-
-
     font-family: 'Inter', sans-serif;
     color: white;
     font-weight: 400;
     font-size: 18px;
-
-
 }
