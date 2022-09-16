@@ -1,5 +1,5 @@
 import {decryptWithAES} from "./AES";
-import {LS_USER_TP, USER_TYPES} from "./constants";
+import {LS_USER_EMAIL, LS_USER_ID, LS_USER_TP, USER_TYPES} from "./constants";
 
 const checkProfile = (profile) => {
     let keys = Object.keys(localStorage),
@@ -9,6 +9,22 @@ const checkProfile = (profile) => {
             return decryptWithAES(localStorage.getItem(keys[i])) === decryptWithAES(profile);
         }
     }
+}
+const getItemFromLS = key => {
+    let keys = Object.keys(localStorage),
+        i = keys.length;
+    while (i--) {
+        if (decryptWithAES(keys[i]) === decryptWithAES(key)) {
+            return decryptWithAES(localStorage.getItem(keys[i]))
+        }
+    }
+}
+export const getUserId = () => {
+   return  getItemFromLS(LS_USER_ID);
+}
+
+export const getUserEmail = () => {
+   return getItemFromLS(LS_USER_EMAIL)
 }
 
 export const isStudent = () => {

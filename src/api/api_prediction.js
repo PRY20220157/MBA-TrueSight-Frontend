@@ -30,14 +30,12 @@ export const massivePrediction = (file, user_id) => {
     }
     return conn.send(config);
 }
-export const getPredictionsByUser = () => {
+export const getPredictionsByUser = (data) => {
     let config = {
         url: URL_TRUE_SIGHT_BACKEND + 'predictionbyid/',
         method: 'post',
         headers,
-        data: {
-            userId: 5 //change to local storage
-        }
+        data
     }
     return conn.send(config);
 }

@@ -2,7 +2,7 @@ import {useNavigate} from "react-router";
 import routes from "../router/routes";
 import {useEffect, useState} from "react";
 import {authenticate} from "../api/api_auth";
-import {LS_USER_ID, LS_USER_TP, OWL_MBA_TS, SECRET_KEY} from "../util/constants";
+import {LS_USER_EMAIL, LS_USER_ID, LS_USER_TP, OWL_MBA_TS, SECRET_KEY} from "../util/constants";
 import {getUserInfo} from "../api/api_user";
 import {decryptWithAES, encryptWithAES} from "../util/AES";
 
@@ -12,9 +12,6 @@ function useLogin(key, value) {
 
     async function handleLogin(event) {
 
-
-        //const data = new FormData(event.currentTarget);
-        // event.preventDefault();
         await authenticate({
             email: event.Email,
             password: event.Password,
@@ -23,6 +20,7 @@ function useLogin(key, value) {
             await getUserInfo(event.Email).then(info => {
                 localStorage.setItem(LS_USER_ID, encryptWithAES(info[0].user[0].userId + ''));
                 localStorage.setItem(LS_USER_TP, encryptWithAES(info[0].user[0].userTypeId + ''));
+                localStorage.setItem(LS_USER_EMAIL, encryptWithAES(event.Email));
                 navigate(routes.PRINCIPAL);
             })
         }).catch(res => {console.log(res)})

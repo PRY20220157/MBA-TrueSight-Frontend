@@ -2,6 +2,8 @@ import {useState} from "react";
 import {massivePrediction} from "api/api_prediction";
 import {useForm} from 'react-hook-form';
 import {usePredictionMassiveContext} from "./context";
+import {getUserId} from "../../../util/util";
+import {URL_FRONTAL} from "../../../util/constants";
 
 export function usePredictionMassive() {
     const {setResult,showResult, setShowResult,rows, setRows, columns} = usePredictionMassiveContext()
@@ -9,7 +11,7 @@ export function usePredictionMassive() {
     const [file, setFile] = useState();
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    const userId = 5
+    const userId = getUserId()
 
     const handleChange = (file) => {
         setFile(file);
@@ -37,9 +39,14 @@ export function usePredictionMassive() {
             setShowResult(true)
         });
     }
+ const downloadTemplate = () =>{
 
+         window.location.href = URL_FRONTAL + 'templates/' + '/BU_MBA_salaries.csv';
+
+ }
 
     return {
-        file, setFile, uploadFile, fileTypes, handleChange, error, loading, showResult, columns, rows, setShowResult
+        file, setFile, uploadFile, fileTypes, handleChange, error, loading, showResult, columns, rows, setShowResult,
+        downloadTemplate
     }
 }

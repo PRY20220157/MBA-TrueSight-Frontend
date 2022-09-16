@@ -2,9 +2,13 @@ import {encryptWithAES} from "./AES";
 
 const PROFILE = 'LOCAL'; //LOCAL // DEV
 const URl_TRUESIGHT_ALL = {
-    'LOCAL': 'http://ec2-18-222-7-20.us-east-2.compute.amazonaws.com:8000/',
+    'LOCAL': 'http://ec2-3-141-169-103.us-east-2.compute.amazonaws.com:8000/',
     'DEV': 'http://ec2-18-223-22-15.us-east-2.compute.amazonaws.com:8000',
 }
+const URL_FRONTAL_ALL = {
+    'LOCAL': 'http://localhost:3000/',
+}
+export const URL_FRONTAL = URL_FRONTAL_ALL[PROFILE]
 export const URL_TRUE_SIGHT_BACKEND = URl_TRUESIGHT_ALL[PROFILE]
 //HEADERS
 export const HD_AUTHORIZATION = 'Authorization'
@@ -15,6 +19,7 @@ export const SECRET_KEY = '!AK4523VHBIU2TY37Y3BO#$%$fwdfASDFASD'
 export const OWL_MBA_TS = encryptWithAES('owl_mba_truesight')
 export const LS_USER_ID = encryptWithAES('user_id');
 export const LS_USER_TP = encryptWithAES('user_type')
+export const LS_USER_EMAIL = encryptWithAES('user_email')
 
 //GRADES
 export const GRADES = {
@@ -28,6 +33,19 @@ export const USER_TYPES = {
     ADMIN: encryptWithAES('1'),
     STUDENT: encryptWithAES('2'),
     RECRUITER: encryptWithAES('3'),
+}
+
+export const USER_TYPES_NAMES = {
+    1: "Admin",
+    2: "Estudiante",
+    3: "Reclutador"
+}
+
+export const COUNTRIES = {
+    1: "Perú"
+}
+export const UNIVERSITIES = {
+    1: "Universidad Peruana de Ciencias Aplicadas"
 }
 export const MBA_TYPES = [
     {"id": 1, "name": "MBA in Health Sector Management/MPH in Global Health"},

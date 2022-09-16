@@ -3,10 +3,12 @@ import {Button} from "@mui/material";
 import {deleteMassivePrediction, deletePrediction, getPredictionsByUser} from "api/api_prediction";
 import {isRecruiter, isStudent} from "util/util";
 import "core-js/actual/array/group-by";
+import {getDateTime} from "util/date";
 
 export function useHistoryPrediction() {
 
     const [predictions, setPredictions] = useState([]);
+    const [filters, setFilters] = useState({userId:5});
     const [predBck, setPredBck] = useState([]);
     const [grades, setGrades] = useState();
     const [result, setResult] = useState();
@@ -84,16 +86,19 @@ export function useHistoryPrediction() {
             deletePred(event, cellValues)
         }
     }
+    
     const deletePred = async (event, cellValues) => {
         await deletePrediction(cellValues.row.id).then(() => {
             init()
         })
     }
+    
     const deleteMassPred = async (event, cellValues) => {
         await deleteMassivePrediction(cellValues.row.id).then(() => {
             init()
         })
     }
+    
     const handleBack = () => {
         setShowPrediction(false)
     }
@@ -101,13 +106,12 @@ export function useHistoryPrediction() {
     useEffect(() => {
         init()
     }, []);
-
-
+    
     const init = async () => {
         setLoading(true)
         let tmp = []
         let bckp = []
-        await getPredictionsByUser().then(res => {
+        await getPredictionsByUser(filters).then(res => {
             console.log(res)
             if (isStudent()) {//singular
                 res.forEach(p => {
@@ -129,7 +133,7 @@ export function useHistoryPrediction() {
                     return group;
                 }, {})
                 all_preds[1].forEach(p => {
-                    tmp.push({id: p.predictionId, creationDate: p.creationDate, type: 'Simple'})
+                    tmp.push({id: p.predictionId, creationDate: getDateTime(p.creationDate), type: 'Simple'})
                     bckp.push(p)
                 })
                 setPredBck(bckp)
@@ -145,7 +149,7 @@ export function useHistoryPrediction() {
                     i = keys.length;
                 while (i--) {
                     let mass_pred = groupByMassiveId[keys[i]][0]
-                    tmp.push({id: mass_pred.massivePredictionId, creationDate: mass_pred.creationDate, type: 'Masiva'})
+                    tmp.push({id: mass_pred.massivePredictionId, creationDate: getDateTime(mass_pred.creationDate), type: 'Masiva'})
                 }
             }
             setPredictions(tmp)
