@@ -52,6 +52,7 @@ export function useHistoryPrediction() {
         {field: 'appType', headerName: 'Tipo de MBA', flex: 1, align: 'center', headerAlign: 'center',},
         {field: 'gradGpaScore', headerName: 'RESULT', flex: 1, align: 'center', headerAlign: 'center',}]
     const viewDetail = (event, cellValues) => {
+        console.log(cellValues.row.type)
         if (cellValues.row.type === 'Masiva') {
             let preds = massPredBck[cellValues.row.id]
             preds.forEach((t, index) => {
@@ -100,6 +101,7 @@ export function useHistoryPrediction() {
     }
     
     const handleBack = () => {
+        setShowingMassivePred(false)
         setShowPrediction(false)
     }
 

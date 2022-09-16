@@ -11,10 +11,10 @@ import {
 } from 'chart.js';
 import {Pie} from 'react-chartjs-2';
 import {Box, Grid, Paper} from "@mui/material";
-import {CompCoverPage} from "../../../comps/comp_cover_page";
 import Button from "@mui/material/Button";
-import {usePredictionMassiveContext} from "../../../business/prediction/massive/context";
 import {Line} from 'react-chartjs-2';
+import {MBA_TYPES} from "../../../util/constants";
+import {CompGrade} from "../../../comps/comp_grade";
 
 ChartJS.register(ArcElement, Tooltip, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 export const data = {
@@ -55,6 +55,7 @@ export const optionsLine = {
         },
     },
 };
+
 export const ViewStadistics = props => {
 
     const [averages, setAverages] = useState({});
@@ -79,21 +80,26 @@ export const ViewStadistics = props => {
 
     const loadAverages = () => {
         let tmp = [...props.predictions]
+        console.log(tmp)
         let sum_gmat = 0;
         let sum_gpa = 0;
         let sum_wk_xp = 0;
+        let sum_app_tp = 0;
         for (const r of tmp) {
             sum_gmat += r.gmatScore;
             sum_gpa += parseFloat(r.gpaScore + '');
             sum_wk_xp += r.workExp;
+            sum_app_tp += r.appType;
         }
         let avg_gmat = sum_gmat / tmp.length;
         let avg_gpa = sum_gpa / tmp.length;
         let avg_wk_xp = sum_wk_xp / tmp.length;
+        let avg_app_type = sum_app_tp / tmp.length;
         setAverages({
             avg_gmat,
             avg_gpa,
-            avg_wk_xp
+            avg_wk_xp,
+            avg_app_type
         })
     }
     const triggerOrderResult = () => {
@@ -104,9 +110,24 @@ export const ViewStadistics = props => {
         console.log(x)
         setHelper(x)
     }
+
+    const loadMBAType = () => {
+        if (averages.avg_app_type !== undefined) {
+            console.log(averages)
+            let type = MBA_TYPES.filter(t => t.id === parseInt(averages.avg_app_type))
+            return type[0].name
+        }
+    }
     return (
-        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", flexGrow: 1,pt:10}}>
-            <Grid container spacing={1} align="center" display={"column"} sx={{p: 2, height: "100%", marginBottom: 3}}>
+        <Box sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            flexGrow: 1,
+            pt: 10
+        }}>
+            <Grid container spacing={1} align="center" sx={{p: 2, height: "100%", marginBottom: 3}}>
                 <Grid item xs={12}>
                     <Button variant="contained" size="large"
                             onClick={props.back}>Volver a resultados</Button>
@@ -120,23 +141,7 @@ export const ViewStadistics = props => {
                             width: '70%'
                         }}>
                             <Grid container justifyContent="center">
-                                <h3><strong>Puntajes promedio</strong></h3>
-                            </Grid>
-                            <Grid container>
-                                <Grid item xs={6}>GMAT</Grid>
-                                <Grid item xs={6}><strong>{parseInt(averages.avg_gmat)}</strong></Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid item xs={6}>GPA</Grid>
-                                <Grid item xs={6}><strong>{parseFloat(averages.avg_gpa).toFixed(2)}</strong></Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid item xs={6}>Años de Experiencia</Grid>
-                                <Grid item xs={6}><strong>{parseFloat(averages.avg_wk_xp).toFixed(2)}</strong></Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid item xs={6}>Tipo de MBA</Grid>
-                                <Grid item xs={6}><strong>XX</strong></Grid>
+                                <h3><strong>Alumnos ingresados: {props.predictions.length}</strong></h3>
                             </Grid>
                         </Paper>
                     </Grid>
@@ -148,8 +153,28 @@ export const ViewStadistics = props => {
                             width: '70%'
                         }}>
                             <Grid container justifyContent="center">
-                                <h3><strong>Alumnos ingresados: {props.predictions.length}</strong></h3>
+                                <h3><strong>Puntajes promedio</strong></h3>
                             </Grid>
+                            <Grid container>
+                                <CompGrade grade={parseInt(averages.avg_gmat)} obs={'obs'} type={'GMAT'} size={6} showObs={false}/>
+                                <CompGrade grade={parseFloat(averages.avg_gpa).toFixed(2)} obs={'obs'} type={'GPA'}
+                                           size={6}  showObs={false}/>
+                                <CompGrade grade={parseFloat(averages.avg_wk_xp).toFixed(2)} obs={'obs'}
+                                           type={'Años de Experiencia'} size={6}  showObs={false}/>
+                                <CompGrade grade={loadMBAType()} obs={'obs'} type={'Tipo de MBA'} size={6}  showObs={false}/>
+                            </Grid>
+                        </Paper>
+                    </Grid>
+                </Grid>
+                <Grid item xs={6}>
+                    <Grid item xs={12} sx={{marginBottom: "3%"}}>
+                        <Paper elevation={10} sx={{
+                            paddingBottom: 2,
+                            borderRadius: 8,
+                            background: 'rgba(250, 250, 250, 1)',
+
+                        }}>
+                            <Line options={optionsLine} data={dataLine}/>
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
@@ -162,17 +187,6 @@ export const ViewStadistics = props => {
                             <Pie data={data}/>
                         </Paper>
                     </Grid>
-
-                </Grid>
-                <Grid item xs={6}>
-                    <Paper elevation={10} sx={{
-                        paddingBottom: 2,
-                        borderRadius: 8,
-                        background: 'rgba(250, 250, 250, 1)',
-                        width: '100%'
-                    }}>
-                        <Line options={optionsLine} data={dataLine}/>
-                    </Paper>
                 </Grid>
             </Grid>
         </Box>

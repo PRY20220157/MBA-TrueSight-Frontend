@@ -53,9 +53,7 @@ export const ViewHistory = props => {
     return (
         <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", flexGrow: 1,ml:1,mr:1}}>
             <Grid container>
-                <Grid item xs={12}>
-                    <strong><h3>Historial de Predicciones realizadas</h3></strong>
-                </Grid>
+
                 <Grid item xs={12}>
                     {
                         hook.showPrediction ?
@@ -65,7 +63,7 @@ export const ViewHistory = props => {
                                         <>
                                             {
                                                 showStatistics ?
-                                                    <ViewStadistics predictions={hook.rows} back={handleStats}/>
+                                                        <ViewStadistics predictions={hook.rows} back={handleStats}/>
                                                     :
                                                     <Paper sx={{width: "100%", borderRadius: 3, background: 'rgba(250, 250, 250, 0.95)'}}
                                                            elevation={24}>
@@ -77,12 +75,20 @@ export const ViewHistory = props => {
                                             }
                                         </>
                                         :
+                                        <Box sx={{display:"flex",justifyContent:"center", alignItems:"center", height:"100vh",flexGrow: 1,}} >
+                                            <Paper  elevation={10} sx={{padding: 3,width: "100%", borderRadius: 8,
+                                                background: 'rgba(250, 250, 250, 0.9)',mr:2,ml:2}}>
                                         <ViewGrades grades={hook.grades} result={hook.result} exit={hook.handleBack}/>
+                                            </Paper>
+                                        </Box>
                                 }
                             </> :
                             <>
                                 <Paper sx={{width: "100%", borderRadius: 3, background: 'rgba(250, 250, 250, 0.95)'}}
                                        elevation={24}>
+                                    <Grid item xs={12} sx={{pt:2,pl:2}}>
+                                        <strong><h3>Historial de Predicciones realizadas</h3></strong>
+                                    </Grid>
                                     <form onSubmit={ handleSubmit(test)}>
                                         &nbsp;&nbsp; &nbsp;&nbsp;
                                         <Grid container spacing={3} sx={{mb: 3}}>

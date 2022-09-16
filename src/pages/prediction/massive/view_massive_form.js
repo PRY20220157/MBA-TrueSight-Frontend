@@ -31,8 +31,8 @@ export const ViewMassiveForm = props => {
                                 <Grid container justifyContent={"center"}>
                                     <Stack direction="Grid" spacing={1}
                                            onClick={hook.downloadTemplate} sx={{cursor: "pointer"}}>
-                                        <FileDownloadIcon fontSize="large"></FileDownloadIcon>
-                                        <Typography variant="h5" fontFamily={"sans-serif"} fontStyle={"normal"}>Descargar
+                                        <FileDownloadIcon fontSize="large" color={"#04094A"}></FileDownloadIcon>
+                                        <Typography variant="h5" fontFamily={"sans-serif"} fontStyle={"normal"} color={"#04094A"}>Descargar
                                             Plantilla</Typography>
                                     </Stack>
                                 </Grid>

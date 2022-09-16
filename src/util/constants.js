@@ -2,7 +2,7 @@ import {encryptWithAES} from "./AES";
 
 const PROFILE = 'LOCAL'; //LOCAL // DEV
 const URl_TRUESIGHT_ALL = {
-    'LOCAL': 'http://ec2-3-141-169-103.us-east-2.compute.amazonaws.com:8000/',
+    'LOCAL': 'http://ec2-3-18-105-22.us-east-2.compute.amazonaws.com:8000/',
     'DEV': 'http://ec2-18-223-22-15.us-east-2.compute.amazonaws.com:8000',
 }
 const URL_FRONTAL_ALL = {

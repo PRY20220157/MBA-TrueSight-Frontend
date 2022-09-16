@@ -5,7 +5,7 @@ import {usePredictionMassiveContext} from "./context";
 import {getUserId} from "../../../util/util";
 import {URL_FRONTAL} from "../../../util/constants";
 
-export function usePredictionMassive() {
+export function  usePredictionMassive() {
     const {setResult,showResult, setShowResult,rows, setRows, columns} = usePredictionMassiveContext()
     const fileTypes = ["xlsx", "csv"];
     const [file, setFile] = useState();
