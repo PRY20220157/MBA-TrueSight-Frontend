@@ -6,7 +6,7 @@ const URl_TRUESIGHT_ALL = {
     'DEV': 'http://ec2-18-223-22-15.us-east-2.compute.amazonaws.com:8000',
 }
 const URL_FRONTAL_ALL = {
-    'LOCAL': 'http://localhost:3000/',
+    'LOCAL': 'https://truesightupc.herokuapp.com/',
 }
 export const URL_FRONTAL = URL_FRONTAL_ALL[PROFILE]
 export const URL_TRUE_SIGHT_BACKEND = URl_TRUESIGHT_ALL[PROFILE]
