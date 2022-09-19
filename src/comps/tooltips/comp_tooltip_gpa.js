@@ -9,10 +9,10 @@ export const CompTooltipGrade = props => {
 
     useEffect(() => {
         switch (type){
-            case GRADES_KEYS.GPA:setDesc("aaaaa");break;
-            case GRADES_KEYS.GMAT:setDesc("ssss");break;
-            case GRADES_KEYS.APP_TYPE:setDesc("dddd");break;
-            case GRADES_KEYS.WORk_EXP:setDesc("ffff");break;
+            case GRADES_KEYS.GPA:setDesc("Promedio de notas obtenidas en pregrado.");break;
+            case GRADES_KEYS.GMAT:setDesc("Puntaje total obtenido en el examen GMAT.");break;
+            case GRADES_KEYS.APP_TYPE:setDesc("Tipo de MBA al que va a postular.");break;
+            case GRADES_KEYS.WORk_EXP:setDesc("Número de años de experiencia previa a la postulación.");break;
         }
     }, []);
 

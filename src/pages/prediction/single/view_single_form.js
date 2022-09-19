@@ -53,7 +53,7 @@ export const ViewSingleForm = () => {
                         <Grid container>
                             <Grid item xs={12} display={'flex'} justifyContent={"center"}>
                                 <TextField required label="GMAT" margin="normal" type={"number"} size="small"
-                                           inputProps={{min: 0,step: 10}}
+                                           inputProps={{min: 0}}
                                            {...register('gmat', {
                                                required: true,
                                                max: 800
@@ -76,7 +76,8 @@ export const ViewSingleForm = () => {
                                            inputProps={{step: 0.1, min: 0}}
                                            {...register('gpa', {
                                                required: true,
-                                               min: 0
+                                               min: 0,
+                                               max:4
                                            })}
                                            sx={{width: "100%","& .MuiOutlinedInput-root.Mui-focused": {
                                                    "& > fieldset": {
@@ -84,7 +85,7 @@ export const ViewSingleForm = () => {
                                                    }}
                                            }}
                                            error={errors.gpa !== undefined}
-                                           helperText={ errors.app_type?.type === 'required' ? 'Por favor ingrese este campo' : 'Ejemplo:4'}
+                                           helperText={ errors.gpa?.type === 'required' ? 'Por favor ingrese este campo' : 'Ejemplo:4'}
                                 />
                                 <Grid item display={'flex'} justifyContent={"center"} alignItems={"center"}
                                       sx={{ml: 1}}>
