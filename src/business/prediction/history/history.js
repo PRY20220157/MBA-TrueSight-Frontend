@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Button} from "@mui/material";
 import {deleteMassivePrediction, deletePrediction, getPredictionsByUser} from "api/api_prediction";
-import {isRecruiter, isStudent} from "util/util";
+import {getUserId, isRecruiter, isStudent} from "util/util";
 import "core-js/actual/array/group-by";
 import {getDateTime} from "util/date";
 import {COLOR_SEC} from "../../../util/constants";
@@ -11,7 +11,8 @@ export function useHistoryPrediction() {
     const [predictions, setPredictions] = useState([]);
     const [startDate, setStartDate] = useState(new Date('2022-08-15').toLocaleDateString("en-US"));
     const [endDate, setEndDate] = useState(new Date().toLocaleDateString("en-US"));
-    const [filters, setFilters] = useState({userId:5, startDate, endDate});
+    const userId = getUserId()
+    const [filters, setFilters] = useState({userId, startDate, endDate});
     const [predBck, setPredBck] = useState([]);
     const [grades, setGrades] = useState();
     const [result, setResult] = useState();
@@ -165,7 +166,7 @@ export function useHistoryPrediction() {
 
     function handleFilter(){
         setFilters({
-            userId: 5,
+            userId,
             startDate,
             endDate
         })
