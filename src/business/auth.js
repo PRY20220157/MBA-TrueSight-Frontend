@@ -21,7 +21,7 @@ function useLogin(key, value) {
                 localStorage.setItem(LS_USER_ID, encryptWithAES(info[0].user[0].userId + ''));
                 localStorage.setItem(LS_USER_TP, encryptWithAES(info[0].user[0].userTypeId + ''));
                 localStorage.setItem(LS_USER_EMAIL, encryptWithAES(event.Email));
-                navigate(routes.PRINCIPAL);
+                navigate(routes.HISTORY);
             })
         }).catch(res => {console.log(res)})
     };
