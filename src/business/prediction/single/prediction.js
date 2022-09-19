@@ -1,6 +1,6 @@
 import * as apiPrediction from "../../../api/api_prediction";
 import {useState} from "react";
-import {GRADES} from "../../../util/constants";
+import {GRADES_KEYS} from "../../../util/constants";
 import {usePredictionContext} from "./context";
 
 

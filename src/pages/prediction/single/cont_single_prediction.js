@@ -12,14 +12,12 @@ export const ContSinglePrediction = props => {
 
     return (
 
-        <Box className='singleprediction-container'>
-            <CompCoverPage >
+        <>
                 {
                     !showResult ?
                         <ViewSingleForm/> :
                         <ViewResult grades={grades} result={result} exit={setShowResult}/>
                 }
-            </CompCoverPage>
-        </Box>
+        </>
     );
 }

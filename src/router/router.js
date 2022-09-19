@@ -24,14 +24,14 @@ function Router() {
             <Routes>
                 <Route exact path={routes.EMPTY} element={<ContLogin/>}/>
                 <Route exact path={routes.PRINCIPAL} element={<ContPrincipal/>}/>
-                <Route exact path={routes.PREDICTION} element={<PredictionProvider><ContSinglePrediction/></PredictionProvider>}/>
+{/*
+                <Route exact path={routes.PREDICTION} element={}/>
+*/}
                 <Route exact path={routes.OPTIONS} element={<ContOptions/>}/>
                 <Route exact path={routes.SIGN_UP} element={<ContRegister/>}/>
                 <Route exact path={routes.SIGN_UP_FORM} element={<ContRegisterForm/>}/>
                 <Route exact path={routes.TUTORIAL} element={<ContTutorial/>}/>
                 <Route exact path={routes.HISTORY} element={<ContHistory/>}/>
-                <Route exact path={routes.MASSIVE_PREDICTION}
-                       element={<PredictionMassiveProvider><ContMassivePrediction/></PredictionMassiveProvider>}/>
                 <Route exact path={routes.Forgot_Password} element={<ContForgotPassword/>}></Route>
                 <Route exact path={routes.Recover_Password} element={<ContRecoverPassword/>}></Route>
                 <Route exact path={routes.PROFILE} element={<ContProfile/>}></Route>

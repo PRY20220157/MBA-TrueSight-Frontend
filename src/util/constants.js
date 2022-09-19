@@ -2,7 +2,7 @@ import {encryptWithAES} from "./AES";
 
 const PROFILE = 'LOCAL'; //LOCAL // DEV
 const URl_TRUESIGHT_ALL = {
-    'LOCAL': 'http://ec2-3-18-105-22.us-east-2.compute.amazonaws.com:8000/',
+    'LOCAL': 'http://ec2-18-189-2-214.us-east-2.compute.amazonaws.com:8000/',
     'DEV': 'http://ec2-18-223-22-15.us-east-2.compute.amazonaws.com:8000',
 }
 const URL_FRONTAL_ALL = {
@@ -22,12 +22,14 @@ export const LS_USER_TP = encryptWithAES('user_type')
 export const LS_USER_EMAIL = encryptWithAES('user_email')
 
 //GRADES
-export const GRADES = {
+export const GRADES_KEYS = {
     GMAT: 'GMAT',
     GPA: 'GPA',
     WORk_EXP: 'WORK_EXPERIENCE',
     APP_TYPE: 'APP_TYPE'
 }
+
+export const ALL_GRADES = [GRADES_KEYS.GMAT,GRADES_KEYS.GPA,GRADES_KEYS.WORk_EXP,GRADES_KEYS.APP_TYPE]
 
 export const USER_TYPES = {
     ADMIN: encryptWithAES('1'),
@@ -77,4 +79,5 @@ export const MBA_TYPES = [
     {"id": 28, "name": "MS·MBA in Health Sector Management"},
     {"id": 29, "name": "MBA in Public and Nonprofit Management/MA in Economics"}
 ]
-
+export const COLOR_PRIM = ""
+export const COLOR_SEC = "#3966ff"

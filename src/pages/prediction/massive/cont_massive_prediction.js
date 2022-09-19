@@ -38,8 +38,6 @@ export const ContMassivePrediction = props => {
 
     return (
         <>
-            <div className={className} style={style}>
-                <CompCoverPage>
                     {!showResult ?
                         <ViewMassiveForm/> :
                         <>
@@ -53,7 +51,7 @@ export const ContMassivePrediction = props => {
                                     :
                                     <Box sx={{
                                         display: "flex", justifyContent: "center", alignItems: "center",
-                                        height: "100vh", flexGrow: 1, ml: 1, mr: 1
+                                        height: "100vh", flexGrow: 1, ml: 1, mr: 1,width:'500px'
                                     }}>
                                         <Paper sx={{
                                             width: "100%",
@@ -68,8 +66,6 @@ export const ContMassivePrediction = props => {
                             }
                         </>
                     }
-                </CompCoverPage>
-            </div>
         </>
     )
 }

@@ -125,9 +125,8 @@ export const ViewStadistics = props => {
             alignItems: "center",
             height: "100vh",
             flexGrow: 1,
-            pt: 10
         }}>
-            <Grid container spacing={1} align="center" sx={{p: 2, height: "100%", marginBottom: 3}}>
+            <Grid container spacing={1} align="center" sx={{height: "100%", marginBottom: 3}}>
                 <Grid item xs={12}>
                     <Button variant="contained" size="large"
                             onClick={props.back}>Volver a resultados</Button>
@@ -138,7 +137,7 @@ export const ViewStadistics = props => {
                             padding: 2,
                             borderRadius: 8,
                             background: 'rgba(250, 250, 250, 1)',
-                            width: '70%'
+                            width: '100%'
                         }}>
                             <Grid container justifyContent="center">
                                 <h3><strong>Alumnos ingresados: {props.predictions.length}</strong></h3>
@@ -150,7 +149,7 @@ export const ViewStadistics = props => {
                             padding: 2,
                             borderRadius: 8,
                             background: 'rgba(250, 250, 250, 1)',
-                            width: '70%'
+                            width: '100%'
                         }}>
                             <Grid container justifyContent="center">
                                 <h3><strong>Puntajes promedio</strong></h3>
@@ -172,19 +171,9 @@ export const ViewStadistics = props => {
                             paddingBottom: 2,
                             borderRadius: 8,
                             background: 'rgba(250, 250, 250, 1)',
-
+                            width:"100%"
                         }}>
                             <Line options={optionsLine} data={dataLine}/>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Paper elevation={10} sx={{
-                            paddingBottom: 2,
-                            borderRadius: 8,
-                            background: 'rgba(250, 250, 250, 1)',
-                            width: '70%'
-                        }}>
-                            <Pie data={data}/>
                         </Paper>
                     </Grid>
                 </Grid>

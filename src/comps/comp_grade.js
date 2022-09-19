@@ -3,32 +3,27 @@ import {Paper} from "@mui/material";
 import PropTypes from "prop-types";
 
 export const CompGrade = props => {
-    const {grade, obs, type, size, showObs} = props
+    const {grade, obs, type, size, showObs,tooltip} = props
     return (
-        <Grid item xs={size} display={'flex'} justifyContent={"center"}>
-            <Paper sx={{
-                padding: 2, width: "100%", borderRadius: 8,
-                background: 'rgba(250, 250, 250, 0.8)', m: 1
-            }}>
-                <Grid container>
-                    <Grid item xs={size * 2} display={'flex'} justifyContent={"center"} alignItems={"center"}
-                          sx={{color: "#04094A"}}>
-                        <h3><strong>{type}</strong></h3>
-                    </Grid>
-                    <Grid item xs={size * 2} display={'flex'} justifyContent={"center"} alignItems={"center"}>
-                        {
-                            type === 'Tipo de MBA' ? <h5>{grade}</h5> : <h2><strong>{grade}</strong></h2>
-                        }
-                    </Grid>
+        <Paper sx={{width: "100%", p: 1,mt:1}}>
+            <Grid container xs={size} display={'flex'} justifyContent={"center"} sx={{width: "100%"}} alignContent={"center"}>
+                <Grid item xs={6} display={'flex'} justifyContent={"center"} alignContent={"center"}
+                      sx={{color: "#04094A"}}>
+                    <h5><strong>{type}</strong></h5><>&nbsp;</>{tooltip}
+                </Grid>
+                <Grid item xs={6} display={'flex'} justifyContent={"center"} alignItems={"center"}>
+                    {
+                        type === 'Tipo de MBA' ? <a><strong>{grade}</strong></a> : <h4><strong>{grade}</strong></h4>
+                    }
                 </Grid>
                 {showObs ?
-                    <Grid container justifyContent={"center"}>
+                    <Grid item xs={12} display={'flex'} justifyContent={"center"}>
                         Observación:
                         {obs}
                     </Grid> : <></>
                 }
-            </Paper>
-        </Grid>
+            </Grid>
+        </Paper>
 
     )
 }

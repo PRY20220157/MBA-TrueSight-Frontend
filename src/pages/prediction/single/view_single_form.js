@@ -10,7 +10,8 @@ import {useForm} from 'react-hook-form';
 import {CompCoverPage} from "comps/comp_cover_page";
 import {useEffect, useState} from "react";
 import {CircleLoader, ClipLoader, GridLoader} from "react-spinners";
-import {MBA_TYPES} from "util/constants";
+import {COLOR_SEC, GRADES_KEYS, MBA_TYPES} from "util/constants";
+import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_gpa";
 
 export const ViewSingleForm = () => {
 
@@ -29,172 +30,128 @@ export const ViewSingleForm = () => {
             if (errors.gmat.types.required) setErrorGmatMsg("Por favor ingrese este campo");
             if (errors.gmat.types.max) setErrorGmatMsg("El maximo puntaje permitido es 800")
         } else {
-            setErrorGmatMsg('')
+            setErrorGmatMsg('Ejemplo: 700')
         }
     }
 
     return (
 
-        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", flexGrow: 1,pt:10}}>
-            <Paper elevation={10} sx={{
-                padding: 4, width: "100%", borderRadius: 8,
-                background: 'rgba(250, 250, 250, 0.8)', mr: 2, ml: 2
-            }}>
-                {
-                    hookPrediction.loading ?
+        <Box sx={{
+            display: "flex", justifyContent: "center", width: "500px",
+            p: 3
+        }}>
+            {
+                hookPrediction.loading ?
+                    <Grid container justifyContent={"center"}>
+                        <CircleLoader color='#1976d2' loading={hookPrediction.loading} size={150}/>
+                    </Grid>
+                    :
+                    <form onSubmit={handleSubmit(hookPrediction.onSubmit)}>
                         <Grid container justifyContent={"center"}>
-                            <CircleLoader color='#1976d2' loading={hookPrediction.loading} size={150}/>
+                            <h4 style={{color:"#3966ff"}}><strong>Predicción de Éxito en MBA</strong></h4>
                         </Grid>
-                        :
-                        <form onSubmit={handleSubmit(hookPrediction.onSubmit)}>
-                            <Grid container justifyContent={"center"}>
-                                <Typography variant="h2" fontFamily={"sans-serif"} fontStyle={"italic"}>
-                                    Predicción de Éxito en MBA
-                                </Typography>
-                            </Grid>
-                            <Grid container>
-                                <Grid item xs={3} display={'flex'} justifyContent={"center"}>
-                                    <Paper sx={{
-                                        padding: 2, width: "100%", borderRadius: 8,
-                                        background: 'rgba(250, 250, 250, 0.8)', m:1
-                                    }}>
-                                        <Grid container justifyContent={"center"}><strong><h3>GMAT</h3></strong></Grid>
-                                        <Grid container justifyContent={"center"}>
-                                            <Typography variant="1" gutterBottom>
-                                                body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                                                blanditiis tenetur unde suscipit, quam beatae rerum inventore
-                                                consectetur,
-                                                neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti?
-                                                Eum
-                                                quasi quidem quibusdam.
-                                            </Typography>
-                                        </Grid>
-                                        <Grid container justifyContent={"center"}>
-                                            <TextField required label="GMAT" margin="normal" type={"number"}
-                                                       inputProps={{min: 0}}
-                                                       {...register('gmat', {
-                                                           required: true,
-                                                           max: 800
-                                                       })}
-                                                       sx={{width: "70%"}}
-                                                       error={errors.gmat !== undefined}
-                                                       helperText={errorGmatMsg}
-                                            />
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-                                <Grid item xs={3} display={'flex'} justifyContent={"center"}>
-                                    <Paper sx={{
-                                        padding: 2, width: "100%", borderRadius: 8,
-                                        background: 'rgba(250, 250, 250, 0.8)', m:1
-                                    }}>
-                                        <Grid container justifyContent={"center"}><strong><h3>GPA</h3></strong></Grid>
-                                        <Grid container justifyContent={"center"}>
-                                            <Typography variant="1" gutterBottom align={'justify'}>
-                                                body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                                                blanditiis tenetur unde suscipit, quam beatae rerum inventore
-                                                consectetur,
-                                                neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti?
-                                                Eum
-                                                quasi quidem quibusdam.
-                                            </Typography>
-                                        </Grid>
-                                        <Grid container justifyContent={"center"}>
-                                            <TextField required label="GPA" margin="normal" type={"number"}
-                                                       inputProps={{step: 0.1, min: 0}}
-                                                       {...register('gpa', {
-                                                           required: true,
-                                                           min: 0
-                                                       })}
-                                                       sx={{width: "70%"}}
-                                                       error={errors.gpa !== undefined}
-                                                       helperText={errors.app_type?.type === 'required' ? 'Por favor ingrese este campo' : ''}
-                                            />
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-                                <Grid item xs={3} display={'flex'} justifyContent={"center"}>
-                                    <Paper sx={{
-                                        padding: 2, width: "100%", borderRadius: 8,
-                                        background: 'rgba(250, 250, 250, 0.8)', m:1
-                                    }}>
-                                        <Grid container justifyContent={"center"}><strong><h3>Experiencia Laboral</h3>
-                                        </strong></Grid>
-                                        <Grid container justifyContent={"center"}>
-                                            <Typography variant="1" gutterBottom align={'justify'}>
-                                                body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                                                blanditiis tenetur unde suscipit, quam beatae rerum inventore
-                                                consectetur,
-                                                neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti?
-                                                Eum
-                                                quasi quidem quibusdam.
-                                            </Typography>
-                                        </Grid>
-                                        <Grid container justifyContent={"center"}>
-                                            <TextField required label="Experiencia Laboral" margin="normal"
-                                                       sx={{width: "70%"}}
-                                                       inputProps={{min: 0}} type={"number"}
-                                                       {...register('wk_xp', {
-                                                           required: true,
-                                                           min: 0,
-                                                           valueAsNumber: true
-                                                       })}
-                                                       error={errors.wk_xp !== undefined}
-                                                       helperText={errors.wk_xp?.type === 'required' ? 'Por favor ingrese este campo' : ''}
-                                            ></TextField>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-                                <Grid item xs={3} display={'flex'} justifyContent={"center"}>
-                                    <Paper sx={{
-                                        padding: 2, width: "100%", borderRadius: 8,
-                                        background: 'rgba(250, 250, 250, 0.8)', m:1
-                                    }}>
-                                        <Grid container justifyContent={"center"}><strong><h3>Tipo de MBA</h3></strong></Grid>
-                                        <Grid container justifyContent={"center"}>
-                                            <Typography variant="1" gutterBottom align={'justify'}>
-                                                body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                                                blanditiis tenetur unde suscipit, quam beatae rerum inventore
-                                                consectetur,
-                                                neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti?
-                                                Eum
-                                                quasi quidem quibusdam.
-                                            </Typography>
-                                        </Grid>
-                                        <Grid container justifyContent={"center"}>
-                                            <TextField
-                                                select
-                                                required
-                                                label="Tipo de MBA"
-                                                margin="normal"
-                                                inputProps={register('app_type', {
-                                                    required: true,
-                                                })}
-                                                sx={{width: "70%"}}
-                                                error={errors.app_type !== undefined}
-                                                helperText={errors.app_type?.type === 'required' ? 'Por favor seleccione una opción' : ''}
-                                            >
-                                                {MBA_TYPES.map((option) => (
-                                                    <MenuItem key={option.id} value={option.id}>
-                                                        {option.name}
-                                                    </MenuItem>
-                                                ))}
-                                            </TextField>
-                                        </Grid>
-                                    </Paper>
+                        <Grid container>
+                            <Grid item xs={12} display={'flex'} justifyContent={"center"}>
+                                <TextField required label="GMAT" margin="normal" type={"number"} size="small"
+                                           inputProps={{min: 0,step: 10}}
+                                           {...register('gmat', {
+                                               required: true,
+                                               max: 800
+                                           })}
+                                           sx={{width: "100%","& .MuiOutlinedInput-root.Mui-focused": {
+                                                   "& > fieldset": {
+                                                       borderColor: COLOR_SEC
+                                                   }}
+                                }}
+                                           error={errors.gmat !== undefined}
+                                           helperText={errorGmatMsg}
+                                />
+                                <Grid item display={'flex'} justifyContent={"center"} alignItems={"center"}
+                                      sx={{ml: 1}}>
+                                    <CompTooltipGrade type={GRADES_KEYS.GMAT}/>
                                 </Grid>
                             </Grid>
-                            <Grid container justifyContent={"space-around"} sx={{mt: 3}}>
-                                <Grid item>
-                                    <Button variant="outlined" size="large" onClick={onClear}>Limpiar</Button>
-                                </Grid>
-                                <Grid item>
-                                    <Button variant="contained" size="large" type="submit">Predecir</Button>
+                            <Grid item xs={12} display={'flex'} justifyContent={"center"}>
+                                <TextField required label="GPA" margin="normal" type={"number"} size="small"
+                                           inputProps={{step: 0.1, min: 0}}
+                                           {...register('gpa', {
+                                               required: true,
+                                               min: 0
+                                           })}
+                                           sx={{width: "100%","& .MuiOutlinedInput-root.Mui-focused": {
+                                                   "& > fieldset": {
+                                                       borderColor: COLOR_SEC
+                                                   }}
+                                           }}
+                                           error={errors.gpa !== undefined}
+                                           helperText={ errors.app_type?.type === 'required' ? 'Por favor ingrese este campo' : 'Ejemplo:4'}
+                                />
+                                <Grid item display={'flex'} justifyContent={"center"} alignItems={"center"}
+                                      sx={{ml: 1}}>
+                                    <CompTooltipGrade type={GRADES_KEYS.GPA}/>
                                 </Grid>
                             </Grid>
-                        </form>
-                }
-            </Paper>
+                            <Grid item xs={12} display={'flex'} justifyContent={"center"}>
+                                <TextField required label="Experiencia Laboral" margin="normal" size="small"
+                                           sx={{width: "100%","& .MuiOutlinedInput-root.Mui-focused": {
+                                                   "& > fieldset": {
+                                                       borderColor: COLOR_SEC
+                                                   }}
+                                           }}
+                                           inputProps={{min: 0}} type={"number"}
+                                           {...register('wk_xp', {
+                                               required: true,
+                                               min: 0,
+                                               valueAsNumber: true
+                                           })}
+                                           error={errors.wk_xp !== undefined}
+                                           helperText={errors.wk_xp?.type === 'required' ? 'Por favor ingrese este campo' : '*Tiempo en años'}
+                                ></TextField>
+                                <Grid item display={'flex'} justifyContent={"center"} alignItems={"center"}
+                                      sx={{ml: 1}}>
+                                    <CompTooltipGrade type={GRADES_KEYS.WORk_EXP}/>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} display={'flex'} justifyContent={"center"}>
+                                <TextField
+                                    size="small"
+                                    select
+                                    required
+                                    label="Tipo de MBA"
+                                    margin="normal"
+                                    inputProps={register('app_type', {
+                                        required: true,
+                                    })}
+                                    sx={{width: "100%","& .MuiOutlinedInput-root.Mui-focused": {
+                                            "& > fieldset": {
+                                                borderColor: COLOR_SEC
+                                            }}
+                                    }}
+                                    error={errors.app_type !== undefined}
+                                    helperText={errors.app_type?.type === 'required' ? 'Por favor seleccione una opción' : ''}
+                                >
+                                    {MBA_TYPES.map((option) => (
+                                        <MenuItem key={option.id} value={option.id}>
+                                            {option.name}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                                <Grid item display={'flex'} justifyContent={"center"} alignItems={"center"}
+                                      sx={{ml: 1}}>
+                                    <CompTooltipGrade type={GRADES_KEYS.APP_TYPE}/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid container justifyContent={"space-around"} sx={{mt: 3}}>
+                            <Grid item>
+                                <Button variant="outlined" size="large" onClick={onClear} sx={{color:"#3966ff",borderColor:"#3966ff"}}>Limpiar</Button>
+                            </Grid>
+                            <Grid item>
+                                <Button variant="contained" size="large" type="submit" sx={{backgroundColor:COLOR_SEC}}>Predecir</Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+            }
         </Box>
 
     );

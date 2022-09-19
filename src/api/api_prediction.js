@@ -32,7 +32,7 @@ export const massivePrediction = (file, user_id) => {
 }
 export const getPredictionsByUser = (data) => {
     let config = {
-        url: URL_TRUE_SIGHT_BACKEND + 'predictionbyid/',
+        url: URL_TRUE_SIGHT_BACKEND + 'getpredictionsbydate/',
         method: 'post',
         headers,
         data

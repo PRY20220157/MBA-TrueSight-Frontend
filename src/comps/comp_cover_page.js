@@ -45,6 +45,12 @@ export const CompCoverPage = (props) => {
             return '#F2F2F2'
     }
 
+    const handleSelectedColor = (route) => {
+        if (location.pathname === route)
+            return '#04094A'
+        else return '#ffffff'
+    }
+
     const checkAccess = () => {
         let values = [],
             keys = Object.keys(localStorage),
@@ -65,26 +71,6 @@ export const CompCoverPage = (props) => {
 
     return (
         <Box sx={{display: 'flex', height: "100vh"}}>
-            <CssBaseline/>
-            <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
-                <Toolbar sx={{backgroundColor:"#04094A"}}>
-                    <img className='imglogo' style={{mr: 2, cursor: 'pointer'}}
-                         onClick={(e) => navigate(routes.PRINCIPAL)}
-                         src={BarLogo}/>
-                    &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;
-                    <Typography className='typo' color="white" variant="h6" component="div" sx={{cursor:"pointer",flexGrow: 1}}
-                                onClick={(e) => auth.handleLogout()}>
-                        MBA True Sight
-                    </Typography>
-                    <AccountCircle htmlColor='white' fontSize="large" sx={{cursor:"pointer"}}
-                                   onClick={(e) => navigate(routes.PROFILE)}/>
-                    &nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;
-                    <Logout htmlColor='white' fontSize="large" sx={{cursor:"pointer"}}
-                            onClick={(e) => auth.handleLogout()}/>
-                </Toolbar>
-            </AppBar>
             <Drawer
                 variant="permanent"
                 sx={{
@@ -93,55 +79,70 @@ export const CompCoverPage = (props) => {
                     [`& .MuiDrawer-paper`]: {
                         width: drawerWidth,
                         boxSizing: 'border-box',
-                        backgroundColor: '#ffffff'
+                        backgroundColor: '#04094A'
                     },
                     display: props.display,
-                }}
-            >
-                &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;
-                <Toolbar/>
+                }}>
+                <Box display={"inline-flex"} alignItems={'center'} justifyContent={'center'} sx={{mt: 2}}>
+                    <img className='imglogo' style={{mr: 2, cursor: 'pointer'}}
+                         onClick={(e) => navigate(routes.PRINCIPAL)}
+                         src={BarLogo}/>
+                    <Typography className='typo' color="white" variant="h5" component="div"
+                                sx={{cursor: "pointer"}}
+                                onClick={(e) => auth.handleLogout()}>
+                        True Sight
+                    </Typography>
+                </Box>
                 <Box sx={{overflow: 'auto'}}>
                     <List>
-                        {
-                            isRecruiter() ?
-                                < ListItem key={'prediction_massive'} disablePadding
-                                           onClick={(e) => navigate(routes.MASSIVE_PREDICTION)}
-                                           sx={{backgroundColor: handleSelected(routes.MASSIVE_PREDICTION)}}>
-                                    <ListItemButton>
-                                        <ListItemIcon>< CalculateIcon/></ListItemIcon>
-                                        <ListItemText primary='Predicción Masiva'/>
-                                    </ListItemButton>
-                                </ListItem> : <></>
-                        }
-                        <ListItem key={'prediction'} disablePadding onClick={(e) => navigate(routes.PREDICTION)}
-                                  sx={{backgroundColor: handleSelected(routes.PREDICTION)}}>
-                            <ListItemButton>
-                                <ListItemIcon>< CalculateIcon/></ListItemIcon>
-                                <ListItemText primary='Predicción Simple'/>
-                            </ListItemButton>
-                        </ListItem>
                         <ListItem key={'history'} disablePadding onClick={(e) => navigate(routes.HISTORY)}
-                                  sx={{backgroundColor: handleSelected(routes.HISTORY)}}>
+                                  sx={{
+                                      color: handleSelectedColor(routes.HISTORY),
+                                      backgroundColor: handleSelected(routes.HISTORY)
+                                  }}>
                             <ListItemButton>
-                                <ListItemIcon>< UpdateIcon/></ListItemIcon>
-                                <ListItemText primary='Historial'/>
+                                <ListItemIcon>< UpdateIcon
+                                    sx={{color: handleSelectedColor(routes.HISTORY)}}/></ListItemIcon>
+                                <ListItemText primary='Predicciones'/>
                             </ListItemButton>
                         </ListItem>
                         <ListItem key={'tutorial'} disablePadding onClick={(e) => navigate(routes.TUTORIAL)}
-                                  sx={{backgroundColor: handleSelected(routes.TUTORIAL)}}>
+                                  sx={{
+                                      color: handleSelectedColor(routes.TUTORIAL),
+                                      backgroundColor: handleSelected(routes.TUTORIAL)
+                                  }}>
                             <ListItemButton>
-                                <ListItemIcon>< OndemandVideoIcon/></ListItemIcon>
+                                <ListItemIcon>< OndemandVideoIcon
+                                    sx={{color: handleSelectedColor(routes.TUTORIAL)}}/></ListItemIcon>
                                 <ListItemText primary='Tutorial'/>
                             </ListItemButton>
                         </ListItem>
                         <ListItem key={'options'} disablePadding onClick={(e) => navigate(routes.OPTIONS)}
-                                  sx={{backgroundColor: handleSelected(routes.OPTIONS)}}>
+                                  sx={{
+                                      color: handleSelectedColor(routes.OPTIONS),
+                                      backgroundColor: handleSelected(routes.OPTIONS)
+                                  }}>
                             <ListItemButton>
-                                <ListItemIcon><TuneIcon/></ListItemIcon>
+                                <ListItemIcon><TuneIcon
+                                    sx={{color: handleSelectedColor(routes.OPTIONS)}}/></ListItemIcon>
                                 <ListItemText primary='Opciones'/>
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem onClick={(e) => navigate(routes.PROFILE)} disablePadding
+                                  sx={{
+                                      color: handleSelectedColor(routes.PROFILE),
+                                      backgroundColor: handleSelected(routes.PROFILE),
+                                  }}>
+                            <ListItemButton>
+                                <ListItemIcon><AccountCircle
+                                    sx={{color: handleSelectedColor(routes.PROFILE)}}/></ListItemIcon>
+                                <ListItemText primary='Perfil del usuario'/>
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem onClick={(e) => auth.handleLogout()} disablePadding sx={{color: "white"}}>
+                            <ListItemButton>
+                                <ListItemIcon><Logout sx={{color: "white"}}/></ListItemIcon>
+                                <ListItemText primary='Cerrar Sesión'/>
                             </ListItemButton>
                         </ListItem>
                     </List>

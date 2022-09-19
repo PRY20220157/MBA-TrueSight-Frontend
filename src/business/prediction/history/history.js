@@ -4,11 +4,14 @@ import {deleteMassivePrediction, deletePrediction, getPredictionsByUser} from "a
 import {isRecruiter, isStudent} from "util/util";
 import "core-js/actual/array/group-by";
 import {getDateTime} from "util/date";
+import {COLOR_SEC} from "../../../util/constants";
 
 export function useHistoryPrediction() {
 
     const [predictions, setPredictions] = useState([]);
-    const [filters, setFilters] = useState({userId:5});
+    const [startDate, setStartDate] = useState(new Date('2022-08-15').toLocaleDateString("en-US"));
+    const [endDate, setEndDate] = useState(new Date().toLocaleDateString("en-US"));
+    const [filters, setFilters] = useState({userId:5, startDate, endDate});
     const [predBck, setPredBck] = useState([]);
     const [grades, setGrades] = useState();
     const [result, setResult] = useState();
@@ -18,23 +21,23 @@ export function useHistoryPrediction() {
     const [showingMassivePred, setShowingMassivePred] = useState(false);
     const [loading, setLoading] = useState(false);
     const columns = [
-        {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center',},
+        {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center',color:COLOR_SEC},
         {field: 'creationDate', headerName: 'FECHA EJECUCIÓN', align: 'center', flex: 1, headerAlign: 'center',},
         {field: 'type', headerName: 'TIPO', align: 'center', flex: 1, headerAlign: 'center', hide: isStudent()},
         {
-            field: "ACTIONS", flex: 1,
+            field: "ACCIONES", flex: 1,
             headerAlign: 'center',
             align: 'center',
             sortable:false,
             renderCell: (cellValues) => {
                 return (
                     <>
-                        <Button onClick={(event) => {
+                        <Button sx={{color:COLOR_SEC}} onClick={(event) => {
                             viewDetail(event, cellValues);
                         }}>
                             Ver
                         </Button>
-                        <Button onClick={(event) => {
+                        <Button sx={{color:COLOR_SEC}} onClick={(event) => {
                             handleDelete(event, cellValues);
                         }}>
                             Eliminar
@@ -51,6 +54,7 @@ export function useHistoryPrediction() {
         {field: 'workExp', headerName: 'Experiencia Laboral', flex: 1, align: 'center', headerAlign: 'center',},
         {field: 'appType', headerName: 'Tipo de MBA', flex: 1, align: 'center', headerAlign: 'center',},
         {field: 'gradGpaScore', headerName: 'RESULT', flex: 1, align: 'center', headerAlign: 'center',}]
+
     const viewDetail = (event, cellValues) => {
         console.log(cellValues.row.type)
         if (cellValues.row.type === 'Masiva') {
@@ -90,13 +94,13 @@ export function useHistoryPrediction() {
     
     const deletePred = async (event, cellValues) => {
         await deletePrediction(cellValues.row.id).then(() => {
-            init()
+            loadData()
         })
     }
     
     const deleteMassPred = async (event, cellValues) => {
         await deleteMassivePrediction(cellValues.row.id).then(() => {
-            init()
+            loadData()
         })
     }
     
@@ -106,10 +110,10 @@ export function useHistoryPrediction() {
     }
 
     useEffect(() => {
-        init()
-    }, []);
+        loadData()
+    }, [filters]);
     
-    const init = async () => {
+    const loadData = async () => {
         setLoading(true)
         let tmp = []
         let bckp = []
@@ -159,9 +163,16 @@ export function useHistoryPrediction() {
         setLoading(false)
     }
 
+    function handleFilter(){
+        setFilters({
+            userId: 5,
+            startDate,
+            endDate
+        })
+    }
 
     return {
-        predictions, columns, showPrediction, setShowPrediction, grades, result, handleBack,
-        columns_massive_tbl, rows, showingMassivePred,loading
+        predictions, columns, showPrediction, setShowPrediction, grades, result, handleBack,handleFilter,
+        columns_massive_tbl, rows, showingMassivePred,loading,setEndDate, setStartDate,startDate,endDate
     }
 }
