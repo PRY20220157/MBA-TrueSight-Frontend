@@ -41,7 +41,7 @@ export function  usePredictionMassive() {
     }
  const downloadTemplate = () =>{
 
-         window.location.href = URL_FRONTAL + 'templates/' + '/BU_MBA_salaries.csv';
+         window.location.href = URL_FRONTAL + 'templates/' + 'BU_MBA_salaries.csv';
 
  }
 

@@ -1,10 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {Button} from "@mui/material";
+import {Button, Tooltip} from "@mui/material";
 import {deleteMassivePrediction, deletePrediction, getPredictionsByUser} from "api/api_prediction";
 import {getUserId, isRecruiter, isStudent} from "util/util";
 import "core-js/actual/array/group-by";
 import {getDateTime} from "util/date";
 import {COLOR_SEC} from "../../../util/constants";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import DeleteIcon from '@mui/icons-material/Delete';
+import GroupsIcon from '@mui/icons-material/Groups';
+import PersonIcon from '@mui/icons-material/Person';
+import {toast} from "react-toastify";
 
 export function useHistoryPrediction() {
 
@@ -22,26 +27,43 @@ export function useHistoryPrediction() {
     const [showingMassivePred, setShowingMassivePred] = useState(false);
     const [loading, setLoading] = useState(false);
     const columns = [
-        {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center',color:COLOR_SEC},
+        {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center', color: COLOR_SEC, hide: true},
         {field: 'creationDate', headerName: 'FECHA EJECUCIÓN', align: 'center', flex: 1, headerAlign: 'center',},
-        {field: 'type', headerName: 'TIPO', align: 'center', flex: 1, headerAlign: 'center', hide: isStudent()},
+        {
+            field: 'type', headerName: 'TIPO', align: 'center', flex: 1, headerAlign: 'center', hide: isStudent(),
+            renderCell: (cellValues) => {
+                return (<>
+                    {cellValues.row.type !== 'Simple' ?
+                        <><GroupsIcon sx={{color: COLOR_SEC}}/><>&nbsp;</>
+                            {cellValues.row.type}</> :
+                        <><PersonIcon sx={{color: COLOR_SEC}}/><>&nbsp;</>
+                            {cellValues.row.type}</>
+                    }
+                </>)
+            }
+        },
         {
             field: "ACCIONES", flex: 1,
             headerAlign: 'center',
             align: 'center',
-            sortable:false,
+            sortable: false,
             renderCell: (cellValues) => {
                 return (
                     <>
-                        <Button sx={{color:COLOR_SEC}} onClick={(event) => {
+                        <Button sx={{color: COLOR_SEC}} onClick={(event) => {
                             viewDetail(event, cellValues);
                         }}>
-                            Ver
+                            <Tooltip title={"Ver Detalle"} placement="top">
+                                <VisibilityIcon sx={{color: COLOR_SEC}}/>
+                            </Tooltip>
+
                         </Button>
-                        <Button sx={{color:COLOR_SEC}} onClick={(event) => {
+                        <Button sx={{color: COLOR_SEC}} onClick={(event) => {
                             handleDelete(event, cellValues);
                         }}>
-                            Eliminar
+                            <Tooltip title={"Eliminar"} placement="top">
+                                <DeleteIcon sx={{color: COLOR_SEC}}/>
+                            </Tooltip>
                         </Button>
                     </>
                 );
@@ -55,7 +77,11 @@ export function useHistoryPrediction() {
         {field: 'workExp', headerName: 'Experiencia Laboral', flex: 1, align: 'center', headerAlign: 'center',},
         {field: 'appType', headerName: 'Tipo de MBA', flex: 1, align: 'center', headerAlign: 'center',},
         {field: 'gradGpaScore', headerName: 'RESULT', flex: 1, align: 'center', headerAlign: 'center',}]
-
+    const [showDialog, setShowDialog] = useState(false);
+    const [showDialogMassive, setShowDialogMassive] = useState(false);
+    const [idToDelete, setIdToDelete] = useState();
+    const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
     const viewDetail = (event, cellValues) => {
         console.log(cellValues.row.type)
         if (cellValues.row.type === 'Masiva') {
@@ -85,26 +111,41 @@ export function useHistoryPrediction() {
     };
 
     const handleDelete = (event, cellValues) => {
+        setIdToDelete(cellValues.row.id)
+        if (cellValues.row.type === 'Masiva')
+            setShowDialogMassive(true)
+        else
+            setShowDialog(true)
+    }
+
+
+    const handleCloseDialog = () => {
+        setShowDialog(false)
+    }
+    const handleCloseDialogMassive = () => {
+        console.log("CLOSING")
+        setShowDialogMassive(false)
+    }
+    const deletePred = async () => {
+        setShowDialog(false)
         setLoading(true)
-        if (cellValues.row.type === 'Masiva') {
-            deleteMassPred(event, cellValues)
-        } else {
-            deletePred(event, cellValues)
-        }
-    }
-    
-    const deletePred = async (event, cellValues) => {
-        await deletePrediction(cellValues.row.id).then(() => {
-            loadData()
+        await deletePrediction(idToDelete).then(() => {
+            setAlertMessage('Predicción eliminada exitosamente')
+            setShowAlertSuccess(true)
+            loadData().then(() => setShowAlertSuccess(false))
         })
     }
-    
-    const deleteMassPred = async (event, cellValues) => {
-        await deleteMassivePrediction(cellValues.row.id).then(() => {
-            loadData()
+
+    const deleteMassPred = async () => {
+        setShowDialogMassive(false)
+        setLoading(true)
+        await deleteMassivePrediction(idToDelete).then(() => {
+            setAlertMessage('Predicción masiva eliminada exitosamente')
+            setShowAlertSuccess(true)
+            loadData().then(() => setShowAlertSuccess(false))
         })
     }
-    
+
     const handleBack = () => {
         setShowingMassivePred(false)
         setShowPrediction(false)
@@ -113,7 +154,7 @@ export function useHistoryPrediction() {
     useEffect(() => {
         loadData()
     }, [filters]);
-    
+
     const loadData = async () => {
         setLoading(true)
         let tmp = []
@@ -156,7 +197,11 @@ export function useHistoryPrediction() {
                     i = keys.length;
                 while (i--) {
                     let mass_pred = groupByMassiveId[keys[i]][0]
-                    tmp.push({id: mass_pred.massivePredictionId, creationDate: getDateTime(mass_pred.creationDate), type: 'Masiva'})
+                    tmp.push({
+                        id: mass_pred.massivePredictionId,
+                        creationDate: getDateTime(mass_pred.creationDate),
+                        type: 'Masiva'
+                    })
                 }
             }
             setPredictions(tmp)
@@ -164,7 +209,7 @@ export function useHistoryPrediction() {
         setLoading(false)
     }
 
-    function handleFilter(){
+    function handleFilter() {
         setFilters({
             userId,
             startDate,
@@ -173,7 +218,9 @@ export function useHistoryPrediction() {
     }
 
     return {
-        predictions, columns, showPrediction, setShowPrediction, grades, result, handleBack,handleFilter,
-        columns_massive_tbl, rows, showingMassivePred,loading,setEndDate, setStartDate,startDate,endDate
+        predictions, columns, showPrediction, setShowPrediction, grades, result, handleBack, handleFilter,
+        columns_massive_tbl, rows, showingMassivePred, loading, setEndDate, setStartDate, startDate, endDate,
+        showDialog, deletePred, deleteMassPred, handleCloseDialog, handleCloseDialogMassive, showDialogMassive,
+        showAlertSuccess,alertMessage,setShowAlertSuccess
     }
 }

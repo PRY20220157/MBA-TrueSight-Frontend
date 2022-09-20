@@ -18,10 +18,14 @@ import {ContSinglePrediction} from "../prediction/single/cont_single_prediction"
 import PredictionProvider from "../../business/prediction/single/provider";
 import {ContMassivePrediction} from "../prediction/massive/cont_massive_prediction";
 import PredictionMassiveProvider from "../../business/prediction/massive/provider";
-import {COLOR_SEC} from "../../util/constants";
+import {COLOR_PRIM, COLOR_SEC} from "../../util/constants";
+import {CompDialogDelete} from "../../comps/dialog/comp_dialog_delete";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+    const {children, value, index, ...other} = props;
 
     return (
         <div
@@ -32,7 +36,7 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 2 }}>
+                <Box sx={{p: 2}}>
                     <Typography>{children}</Typography>
                 </Box>
             )}
@@ -49,6 +53,7 @@ export const ViewHistory = props => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
     const handleStats = () => {
         setShowStatistics(!showStatistics)
     }
@@ -56,6 +61,7 @@ export const ViewHistory = props => {
     const handleStartDate = (data, event) => {
         hook.setStartDate(data.toLocaleDateString("en-US"))
     }
+
     const handleEndDate = (data) => {
         hook.setEndDate(data.toLocaleDateString("en-US"))
     }
@@ -67,6 +73,21 @@ export const ViewHistory = props => {
         };
     }
 
+    useEffect(() => {
+        if (hook.showAlertSuccess) {
+            toast.success(hook.alertMessage, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            hook.setShowAlertSuccess(false)
+        }
+    }, [hook.showAlertSuccess]);
+
     return (
         <Box sx={{
             display: "flex",
@@ -77,6 +98,24 @@ export const ViewHistory = props => {
             ml: 1,
             mr: 1
         }}>
+            <ToastContainer
+                theme="colored"
+                position="top-right"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            <CompDialogDelete labelAccept={'Eliminar'} message={'¿Seguro que desea eliminar la predicción?'}
+                              handleClose={hook.handleCloseDialog} execFunc={hook.deletePred} open={hook.showDialog}
+                              title='Eliminar Predicción'/>
+            <CompDialogDelete labelAccept={'Eliminar'} message={'¿Seguro que desea eliminar la predicción masiva?'}
+                              handleClose={hook.handleCloseDialogMassive} execFunc={hook.deleteMassPred}
+                              open={hook.showDialogMassive} title='Eliminar Predicción Masiva'/>
             <Grid container>
                 <Grid item xs={12}>
                     {
@@ -124,7 +163,8 @@ export const ViewHistory = props => {
                                 <Paper sx={{width: "100%", borderRadius: 3, background: 'rgba(250, 250, 250, 0.95)'}}
                                        elevation={24}>
                                     <Grid item xs={12} sx={{pt: 2, pl: 2}}>
-                                        <h3 style={{color:"#3966ff"}}><strong>Historial de Predicciones realizadas</strong></h3>
+                                        <h3 style={{color: "#3966ff"}}><strong>Historial de Predicciones
+                                            realizadas</strong></h3>
 
                                     </Grid>
                                     <form onSubmit={handleSubmit(hook.handleFilter)}>
@@ -142,7 +182,7 @@ export const ViewHistory = props => {
                                                             onChange={handleStartDate}
                                                             maxDate={Date.now()}
                                                             renderInput={(params) => <TextField {...params}
-                                                                                                sx={{svg: { color:COLOR_SEC}}} />}
+                                                                                                sx={{svg: {color: COLOR_SEC}}}/>}
                                                         />
                                                         <DesktopDatePicker
                                                             label="Hasta"
@@ -152,37 +192,45 @@ export const ViewHistory = props => {
                                                             onChange={handleEndDate}
                                                             maxDate={Date.now()}
                                                             renderInput={(params) => <TextField {...params}
-                                                                                                sx={{svg: { color:COLOR_SEC}}}/>}
+                                                                                                sx={{svg: {color: COLOR_SEC}}}/>}
                                                         />
-                                                        <Button variant="outlined" type="submit" size="large" sx={{color:COLOR_SEC, borderColor:COLOR_SEC}}> Filtrar</Button>
+                                                        <Button variant="outlined" type="submit" size="large" sx={{
+                                                            color: COLOR_SEC,
+                                                            borderColor: COLOR_SEC
+                                                        }}><FilterAltIcon sx={{color:COLOR_SEC}}/> Filtrar</Button>
                                                     </Stack>
                                                 </LocalizationProvider>
                                             </Grid>
-                                            <Grid item xs={2} sx={{pr:1}}>
+                                            <Grid item xs={2} sx={{pr: 1}}>
                                                 <CompDrawer label={'Realizar una predicción'}>
                                                     {/*
                                                     TODO:prediccion simple y masiva
                                                     <PredictionMassiveProvider><ContMassivePrediction/></PredictionMassiveProvider>
 */}
-                                                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" color={COLOR_SEC} TabIndicatorProps={{
-                                                            style: {
-                                                                color: COLOR_SEC,
-                                                                backgroundColor: COLOR_SEC,
-                                                                "& .MuiButtonBase-root-MuiTab-root.Mui-selected": {
-                                                                    color: 'red'
-                                                                }
-                                                            }
-                                                        }}>
-                                                            <Tab label="INDIVIDUAL" {...a11yProps(0)} sx={{color:COLOR_SEC}}/>
-                                                            <Tab label="MASIVA" {...a11yProps(1)} sx={{color:COLOR_SEC}}/>
+                                                    <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+                                                        <Tabs value={value} onChange={handleChange}
+                                                              aria-label="basic tabs example" color={COLOR_SEC}
+                                                              TabIndicatorProps={{
+                                                                  style: {
+                                                                      color: COLOR_SEC,
+                                                                      backgroundColor: COLOR_SEC,
+                                                                      "& .MuiButtonBase-root-MuiTab-root.Mui-selected": {
+                                                                          color: 'red'
+                                                                      }
+                                                                  }
+                                                              }}>
+                                                            <Tab label="INDIVIDUAL" {...a11yProps(0)}
+                                                                 sx={{color: COLOR_SEC}}/>
+                                                            <Tab label="MASIVA" {...a11yProps(1)}
+                                                                 sx={{color: COLOR_SEC}}/>
                                                         </Tabs>
                                                     </Box>
                                                     <TabPanel value={value} index={0}>
                                                         <PredictionProvider><ContSinglePrediction/></PredictionProvider>
                                                     </TabPanel>
                                                     <TabPanel value={value} index={1}>
-                                                        <PredictionMassiveProvider><ContMassivePrediction/></PredictionMassiveProvider>                                                    </TabPanel>
+                                                        <PredictionMassiveProvider><ContMassivePrediction/></PredictionMassiveProvider>
+                                                    </TabPanel>
                                                 </CompDrawer>
                                             </Grid>
                                         </Grid>
@@ -196,6 +244,17 @@ export const ViewHistory = props => {
                                             disableMultipleSelection={true}
                                             disableSelectionOnClick
                                             loading={hook.loading}
+                                            sx={{
+                                                "& .MuiDataGrid-columnHeaders": {
+                                                    backgroundColor: COLOR_SEC,
+                                                    color: "rgb(255,255,255)",
+                                                    fontSize: 16
+                                                },
+                                                borderColor: COLOR_SEC,
+                                                '& .MuiDataGrid-cell:hover': {
+                                                    color: COLOR_PRIM,
+                                                },
+                                            }}
                                         />
                                     </Box>
                                 </Paper>

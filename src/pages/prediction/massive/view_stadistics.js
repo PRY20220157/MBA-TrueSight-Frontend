@@ -13,8 +13,9 @@ import {Pie} from 'react-chartjs-2';
 import {Box, Grid, Paper} from "@mui/material";
 import Button from "@mui/material/Button";
 import {Line} from 'react-chartjs-2';
-import {MBA_TYPES} from "../../../util/constants";
+import {GRADES_KEYS, MBA_TYPES} from "../../../util/constants";
 import {CompGrade} from "../../../comps/comp_grade";
+import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_gpa";
 
 ChartJS.register(ArcElement, Tooltip, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 export const data = {
@@ -155,12 +156,15 @@ export const ViewStadistics = props => {
                                 <h3><strong>Puntajes promedio</strong></h3>
                             </Grid>
                             <Grid container>
-                                <CompGrade grade={parseInt(averages.avg_gmat)} obs={'obs'} type={'GMAT'} size={6} showObs={false}/>
+                                <CompGrade grade={parseInt(averages.avg_gmat)} obs={'obs'} type={'GMAT'} size={6} showObs={false}
+                                           tooltip={<CompTooltipGrade type={GRADES_KEYS.GMAT}/>} />
                                 <CompGrade grade={parseFloat(averages.avg_gpa).toFixed(2)} obs={'obs'} type={'GPA'}
-                                           size={6}  showObs={false}/>
+                                           size={6}  showObs={false} tooltip={<CompTooltipGrade type={GRADES_KEYS.GPA}/>}/>
                                 <CompGrade grade={parseFloat(averages.avg_wk_xp).toFixed(2)} obs={'obs'}
-                                           type={'Años de Experiencia'} size={6}  showObs={false}/>
-                                <CompGrade grade={loadMBAType()} obs={'obs'} type={'Tipo de MBA'} size={6}  showObs={false}/>
+                                           type={'Años de Experiencia'} size={6}  showObs={false}
+                                           tooltip={<CompTooltipGrade type={GRADES_KEYS.WORk_EXP}/>}/>
+                                <CompGrade grade={loadMBAType()} obs={'obs'} type={'Tipo de MBA'} size={6}  showObs={false}
+                                           tooltip={<CompTooltipGrade type={GRADES_KEYS.APP_TYPE}/>}/>
                             </Grid>
                         </Paper>
                     </Grid>

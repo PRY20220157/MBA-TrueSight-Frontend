@@ -3,10 +3,11 @@ import {encryptWithAES} from "./AES";
 const PROFILE = 'LOCAL'; //LOCAL // DEV
 const URl_TRUESIGHT_ALL = {
     'LOCAL': 'https://truesightupc.herokuapp.com/',
-    'DEV': 'http://ec2-18-223-22-15.us-east-2.compute.amazonaws.com:8000',
+    'DEV': 'https://truesightupc.herokuapp.com/',
 }
 const URL_FRONTAL_ALL = {
-    'LOCAL': 'https://truesightupc.herokuapp.com/',
+    'LOCAL': 'https://localhost:3000/',
+    'DEV': 'https://truesightupc.herokuapp.com/',
 }
 export const URL_FRONTAL = URL_FRONTAL_ALL[PROFILE]
 export const URL_TRUE_SIGHT_BACKEND = URl_TRUESIGHT_ALL[PROFILE]
@@ -79,5 +80,5 @@ export const MBA_TYPES = [
     {"id": 28, "name": "MS·MBA in Health Sector Management"},
     {"id": 29, "name": "MBA in Public and Nonprofit Management/MA in Economics"}
 ]
-export const COLOR_PRIM = ""
+export const COLOR_PRIM = "#04094A"
 export const COLOR_SEC = "#3966ff"
