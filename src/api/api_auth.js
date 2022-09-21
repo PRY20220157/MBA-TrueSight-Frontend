@@ -13,6 +13,17 @@ export const authenticate = async (data) => {
         data
     }
     let result = await axios(config).then();
-console.log(result)
+    console.log(result)
+    return result;
+}
+export const resetPassword = async (data) => {
+    let config = {
+        url: URL_TRUE_SIGHT_BACKEND + 'auth/users/reset_password/',
+        method: 'post',
+        headers,
+        data:{
+            email:"yvanpb.2000.yp@gmail.com"
+        }
+    }
     return conn.send(config);
 }

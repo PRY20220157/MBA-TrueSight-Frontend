@@ -203,10 +203,6 @@ export const ViewHistory = props => {
                                             </Grid>
                                             <Grid item xs={2} sx={{pr: 1}}>
                                                 <CompDrawer label={'Realizar una predicción'}>
-                                                    {/*
-                                                    TODO:prediccion simple y masiva
-                                                    <PredictionMassiveProvider><ContMassivePrediction/></PredictionMassiveProvider>
-*/}
                                                     <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                                                         <Tabs value={value} onChange={handleChange}
                                                               aria-label="basic tabs example" color={COLOR_SEC}

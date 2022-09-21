@@ -17,14 +17,42 @@ import useLogin from "../../business/auth";
 import './view_login.css'
 import {useForm} from 'react-hook-form';
 import LoginPhoto from './images/TrueSightLoginLogo.png'
+import { ToastContainer, toast } from 'react-toastify';
+import {useEffect} from "react";
 const theme = createTheme();
 
 export const ViewLogin = () => {
     const {register,reset,formState: { errors },handleSubmit}= useForm();
     const hook = useLogin();
-   
+
+    useEffect(() => {
+        if (hook.showAlert) {
+            toast.error(hook.alertContent, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            hook.setShowAlert(false)
+        }
+    }, [hook.showAlert]);
     return (
         <ThemeProvider theme={theme}>
+            <ToastContainer
+                theme="colored"
+                position="top-right"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <div className='background'>
             <Container sx={{minWidth: '100% !important',height: '100vh'}} >
                 <Box

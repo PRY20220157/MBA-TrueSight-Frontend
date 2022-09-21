@@ -82,3 +82,4 @@ export const MBA_TYPES = [
 ]
 export const COLOR_PRIM = "#04094A"
 export const COLOR_SEC = "#3966ff"
+export const COLOR_DANG = '#C32826'

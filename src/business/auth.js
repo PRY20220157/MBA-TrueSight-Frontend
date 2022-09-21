@@ -9,6 +9,8 @@ import {decryptWithAES, encryptWithAES} from "../util/AES";
 function useLogin(key, value) {
 
     const navigate = useNavigate();
+    const [alertContent, setAlertContent] = useState();
+    const [showAlert, setShowAlert] = useState(false);
 
     async function handleLogin(event) {
 
@@ -16,23 +18,28 @@ function useLogin(key, value) {
             email: event.Email,
             password: event.Password,
         }).then(async res => {
-            localStorage.setItem(OWL_MBA_TS, res.access);
+            localStorage.setItem(OWL_MBA_TS, res.data.access);
             await getUserInfo(event.Email).then(info => {
                 localStorage.setItem(LS_USER_ID, encryptWithAES(info[0].user[0].userId + ''));
                 localStorage.setItem(LS_USER_TP, encryptWithAES(info[0].user[0].userTypeId + ''));
                 localStorage.setItem(LS_USER_EMAIL, encryptWithAES(event.Email));
                 navigate(routes.HISTORY);
             })
-        }).catch(res => {console.log(res)})
-    };
+        }).catch(res => {
+            if (res.response.status === 401) {
+                setAlertContent("Usuario o contraseña incorrectos.")
+                setShowAlert(true)
+            }
+            if (res.response.status === 404 || res.status === 500) {
+                setAlertContent("Error en el servidos")
+                setShowAlert(true)
+            }
+        })
+    }
 
     function handleLogout() {
         localStorage.clear();
         navigate(routes.SIGN_IN);
-    }
-
-    function validateSession() {
-
     }
 
     const goToRegisterPage = () => {
@@ -55,7 +62,8 @@ function useLogin(key, value) {
         handleSubmit: handleLogin,
         handleLogout,
         goToForgotPasswordPage,
-        goToRecoverPasswordPage, goToRegisterPage, goToLogin, goToRegisterFormPage
+        goToRecoverPasswordPage, goToRegisterPage, goToLogin, goToRegisterFormPage,
+        showAlert, setShowAlert, alertContent
     }
 }
 
