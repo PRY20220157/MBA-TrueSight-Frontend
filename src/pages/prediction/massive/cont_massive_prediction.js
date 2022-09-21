@@ -29,43 +29,44 @@ export const ContMassivePrediction = props => {
     }
 
     useEffect(() => {
-       if(showStatistics){
-           setClassName("")
-       }else {
-           setClassName("massiveprediction-container")
-       }
+        if (showStatistics) {
+            setClassName("")
+        } else {
+            setClassName("massiveprediction-container")
+        }
     }, [showStatistics]);
 
     return (
         <>
-                    {!showResult ?
-                        <ViewMassiveForm/> :
-                        <>
-                            {
-                                showStatistics ?
-                                    <Box sx={{
-                                        display: "flex", justifyContent: "center", alignItems: "center", flexGrow: 1, ml: 1, mr: 1
-                                    }}>
-                                        <ViewStadistics predictions={result} back={showResults}/>
-                                    </Box>
-                                    :
-                                    <Box sx={{
-                                        display: "flex", justifyContent: "center", alignItems: "center",
-                                        height: "100vh", flexGrow: 1, ml: 1, mr: 1,width:'500px'
-                                    }}>
-                                        <Paper sx={{
-                                            width: "100%",
-                                            borderRadius: 3,
-                                            background: 'rgba(250, 250, 250, 0.95)'
-                                        }}
-                                               elevation={24}>
-                                            <ViewMassiveResult rows={hook.rows} columns={hook.columns} exit={back}
-                                                               showStadistics={showStats}/>
-                                        </Paper>
-                                    </Box>
-                            }
-                        </>
+            {!showResult ?
+                <ViewMassiveForm/> :
+                <>
+                    {
+                        showStatistics ?
+                            <Box sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexGrow: 1,
+                                ml: 1,
+                                mr: 1
+                            }}>
+                                <ViewStadistics predictions={result} back={showResults}/>
+                            </Box>
+                            :
+                            <Box sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexGrow: 1,
+                                width: '1280px',
+                            }}>
+                                <ViewMassiveResult rows={hook.rows} columns={hook.columns} exit={back}
+                                                   showStadistics={showStats}/>
+                            </Box>
                     }
+                </>
+            }
         </>
     )
 }

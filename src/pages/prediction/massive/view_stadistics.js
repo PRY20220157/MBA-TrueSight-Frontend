@@ -13,7 +13,7 @@ import {Pie} from 'react-chartjs-2';
 import {Box, Grid, Paper} from "@mui/material";
 import Button from "@mui/material/Button";
 import {Line} from 'react-chartjs-2';
-import {GRADES_KEYS, MBA_TYPES} from "../../../util/constants";
+import {COLOR_SEC, GRADES_KEYS, MBA_TYPES} from "../../../util/constants";
 import {CompGrade} from "../../../comps/comp_grade";
 import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_gpa";
 
@@ -129,7 +129,7 @@ export const ViewStadistics = props => {
         }}>
             <Grid container spacing={1} align="center" sx={{height: "100%", marginBottom: 3}}>
                 <Grid item xs={12}>
-                    <Button variant="contained" size="large"
+                    <Button variant="contained" size="large" sx={{backgroundColor:COLOR_SEC}}
                             onClick={props.back}>Volver a resultados</Button>
                 </Grid>
                 <Grid item xs={6}>

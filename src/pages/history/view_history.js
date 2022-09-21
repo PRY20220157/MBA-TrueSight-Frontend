@@ -131,7 +131,7 @@ export const ViewHistory = props => {
                                                     <Paper sx={{
                                                         width: "100%",
                                                         borderRadius: 3,
-                                                        background: 'rgba(250, 250, 250, 0.95)'
+                                                        background: 'rgba(250, 250, 250, 0.95)',
                                                     }}
                                                            elevation={24}>
                                                         <ViewMassiveResult rows={hook.rows}
@@ -248,7 +248,10 @@ export const ViewHistory = props => {
                                                 "& .MuiDataGrid-columnHeaders": {
                                                     backgroundColor: COLOR_SEC,
                                                     color: "rgb(255,255,255)",
-                                                    fontSize: 16
+                                                    fontSize: 16,
+                                                    '& .MuiButtonBase-root':{
+                                                        color:'white'
+                                                    }
                                                 },
                                                 borderColor: COLOR_SEC,
                                                 '& .MuiDataGrid-cell:hover': {
