@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {deleteAllPredictions} from "../api/api_prediction";
+import {sendResetPasswordEmail} from "../api/api_auth";
 
 export const useOptions = () => {
 
@@ -37,6 +38,11 @@ export const useOptions = () => {
             case 2:
                 break;
             case 3:
+                await sendResetPasswordEmail().then(res => {
+                    setContentAlert('Correo enviado. Revise su bandeja por favor.')
+                    setShowDialog(false)
+                    setShowAlert(true)
+                })
                 break;
         }
     }

@@ -1,5 +1,5 @@
 import {decryptWithAES} from "./AES";
-import {LS_USER_EMAIL, LS_USER_ID, LS_USER_TP, USER_TYPES} from "./constants";
+import {LS_USER_EMAIL, LS_USER_ID, LS_USER_TP, OWL_MBA_TS, USER_TYPES} from "./constants";
 
 const checkProfile = (profile) => {
     let keys = Object.keys(localStorage),
@@ -26,6 +26,11 @@ export const getUserId = () => {
 export const getUserEmail = () => {
    return getItemFromLS(LS_USER_EMAIL)
 }
+
+export const getToken = () => {
+    return  getItemFromLS(OWL_MBA_TS);
+}
+
 
 export const isStudent = () => {
     return checkProfile(USER_TYPES.STUDENT)

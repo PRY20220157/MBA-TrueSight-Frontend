@@ -1,7 +1,7 @@
-import {useNavigate} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import routes from "../router/routes";
 import {useEffect, useState} from "react";
-import {authenticate} from "../api/api_auth";
+import {authenticate, resetPasswd, resetPasswordConfirm} from "../api/api_auth";
 import {LS_USER_EMAIL, LS_USER_ID, LS_USER_TP, OWL_MBA_TS, SECRET_KEY} from "../util/constants";
 import {getUserInfo} from "../api/api_user";
 import {decryptWithAES, encryptWithAES} from "../util/AES";
@@ -11,6 +11,7 @@ function useLogin(key, value) {
     const navigate = useNavigate();
     const [alertContent, setAlertContent] = useState();
     const [showAlert, setShowAlert] = useState(false);
+    let { uid,token } = useParams();
 
     async function handleLogin(event) {
 
@@ -58,11 +59,23 @@ function useLogin(key, value) {
         navigate(routes.Recover_Password)
     }
 
+    const resetPassword = (event) => {
+        resetPasswd({
+            uid,
+            token,
+            new_password: event.NewPassword,
+            re_new_password: event.RepeatPassword
+        }).then(r  =>{
+            setAlertContent("Contraseña cambiada exitosamente.")
+            setShowAlert(true)
+            goToLogin()
+        })
+    }
     return {
         handleSubmit: handleLogin,
         handleLogout,
         goToForgotPasswordPage,
-        goToRecoverPasswordPage, goToRegisterPage, goToLogin, goToRegisterFormPage,
+        goToRecoverPasswordPage, goToRegisterPage, goToLogin, goToRegisterFormPage,resetPassword,
         showAlert, setShowAlert, alertContent
     }
 }

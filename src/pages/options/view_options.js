@@ -2,7 +2,7 @@ import {Button, Paper} from "@mui/material";
 import ReactPlayer from "react-player";
 import {CompCoverPage} from "../../comps/comp_cover_page";
 import Box from "@mui/material/Box";
-import {resetPassword} from "../../api/api_auth";
+import {sendResetPasswordEmail} from "../../api/api_auth";
 import Grid from "@mui/material/Grid";
 import * as React from "react";
 import {ViewOption} from "./view_option";
