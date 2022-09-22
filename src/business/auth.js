@@ -20,8 +20,12 @@ function useAuth(init={activate:false}) {
     const [open, setOpen] = useState(false);
     let {uid, token} = useParams();
     useEffect(() => {
-        if(init.activate)
-            activateAccount().then(r => console.log(r))
+        if(init.activate){
+            console.log(uid,token)
+            activateAccount({
+                uid,token
+            }).then(() => goToLogin())
+        }
     }, []);
 
     const registerUser =(acc,info) => {
