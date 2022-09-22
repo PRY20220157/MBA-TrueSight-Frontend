@@ -1,6 +1,6 @@
 import {encryptWithAES} from "./AES";
 
-const PROFILE = 'DEV'; //LOCAL // DEV
+const PROFILE = 'LOCAL'; //LOCAL // DEV
 const URl_TRUESIGHT_ALL = {
     'LOCAL': 'https://truesightupc.herokuapp.com/',
     'DEV': 'https://truesightupc.herokuapp.com/',
