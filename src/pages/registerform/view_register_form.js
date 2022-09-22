@@ -52,15 +52,6 @@ export const ViewRegisterForm = props => {
                 </Grid>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Grid container justifyContent="center">
-                        <TextField variant="filled" label="Usuario" margin="normal" sx={{minWidth: 450}}
-                                   {...register('Usuario', {
-                                       required: true,
-                                   })}
-                                   error={errors.Usuario?.type === 'required'}
-                                   helperText={errors.Usuario?.type === 'required' && "Usuario requerido"}
-                        ></TextField>
-                    </Grid>
-                    <Grid container justifyContent="center">
                         <TextField variant="filled" label="Nombre" margin="normal"
                                    {...register('Nombre', {
                                        required: true,
