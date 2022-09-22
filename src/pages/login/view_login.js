@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import useLogin from "../../business/auth";
+import useAuth from "../../business/auth";
 import './view_login.css'
 import {useForm} from 'react-hook-form';
 import LoginPhoto from './images/TrueSightLoginLogo.png'
@@ -23,7 +23,7 @@ const theme = createTheme();
 
 export const ViewLogin = () => {
     const {register,reset,formState: { errors },handleSubmit}= useForm();
-    const hook = useLogin();
+    const hook = useAuth();
 
     useEffect(() => {
         if (hook.showAlert) {

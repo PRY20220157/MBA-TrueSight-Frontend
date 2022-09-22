@@ -24,7 +24,7 @@ import BarLogo from './images/BarLogo.png'
 import {useEffect} from "react";
 import {color, width} from '@mui/system';
 import './comp_cover_page.css'
-import useLogin from "../business/auth";
+import useAuth from "../business/auth";
 import {LS_USER_TP, OWL_MBA_TS, USER_TYPES} from "../util/constants";
 import {decryptWithAES} from "../util/AES";
 import {isRecruiter} from "../util/util";
@@ -38,7 +38,7 @@ export const CompCoverPage = (props) => {
     }, []);
     const navigate = useNavigate();
     const location = useLocation();
-    const auth = useLogin();
+    const auth = useAuth();
 
     const handleSelected = (route) => {
         if (location.pathname === route)

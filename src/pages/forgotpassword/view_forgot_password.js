@@ -1,12 +1,12 @@
 import {Alert, Box, Button, Container, Grid, Paper, Stack, TextField, Typography} from "@mui/material";
-import useLogin from "../../business/auth";
+import useAuth from "../../business/auth";
 import {useForm} from 'react-hook-form';
 
 const {ThemeProvider} = require("@mui/system");
 
 
 function ForgotPassword() {
-    const hook = useLogin();
+    const hook = useAuth();
     const {register, reset, formState: {errors}, handleSubmit} = useForm();
     const submit = (data) => {
         console.log(data)

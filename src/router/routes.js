@@ -6,6 +6,7 @@ const routes = Object.freeze({
     SIGN_UP_FORM: "/sign-up/form",
     Forgot_Password:"/forgotpassword",
     Recover_Password:"/password/reset/confirm/:uid/:token",
+    ACTIVATE_ACC : "/activate/:uid/:token",
     PRINCIPAL:"/main",
     PREDICTION: "/prediction",
     MASSIVE_PREDICTION: "/massive_prediction",

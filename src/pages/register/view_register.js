@@ -1,5 +1,5 @@
 import {Paper, Grid, Typography, Stack, Button} from "@mui/material";
-import useLogin from "business/auth";
+import useAuth from "business/auth";
 import Estudiante from './images/Estudiante.png';
 import Estudianteelegido from './images/Estudianteelegido.png';
 import Reclutador from './images/Reclutador.png';
@@ -10,7 +10,7 @@ import {useNavigate} from "react-router";
 import routes from "../../router/routes";
 
 export const ViewRegister = props => {
-    const hook = useLogin();
+    const hook = useAuth();
     const navigate = useNavigate();
 
     return (<>

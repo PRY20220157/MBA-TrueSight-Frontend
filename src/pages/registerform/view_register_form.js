@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import * as React from 'react';
 import {useForm} from 'react-hook-form';
-import useLogin from "../../business/auth";
+import useAuth from "../../business/auth";
 import routes from "../../router/routes";
 import {useNavigate} from "react-router";
 import {decryptWithAES} from "../../util/AES";
@@ -22,7 +22,7 @@ export const ViewRegisterForm = props => {
 
 
     const {register, reset, formState: {errors}, handleSubmit, watch} = useForm();
-    const hook = useLogin();
+    const hook = useAuth();
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const watchPassword = watch("Password", false);

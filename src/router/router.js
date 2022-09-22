@@ -16,6 +16,7 @@ import {ContSinglePrediction} from "../pages/prediction/single/cont_single_predi
 import PredictionMassiveProvider from "../business/prediction/massive/provider";
 import PredictionProvider from "../business/prediction/single/provider";
 import {ContProfile} from "../pages/profile/cont_profile";
+import {ViewActivation} from "../pages/activation/view_activation";
 
 function Router() {
 
@@ -34,6 +35,7 @@ function Router() {
                 <Route exact path={routes.HISTORY} element={<ContHistory/>}/>
                 <Route exact path={routes.Forgot_Password} element={<ContForgotPassword/>}></Route>
                 <Route exact path={routes.Recover_Password} element={<ContRecoverPassword/>}></Route>
+                <Route exact path={routes.ACTIVATE_ACC} element={<ViewActivation/>}></Route>
                 <Route exact path={routes.PROFILE} element={<ContProfile/>}></Route>
             </Routes>
         </BrowserRouter>

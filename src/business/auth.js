@@ -1,17 +1,27 @@
 import {useNavigate, useParams} from "react-router";
 import routes from "../router/routes";
 import {useEffect, useState} from "react";
-import {authenticate, resetPasswd, resetPasswordConfirm, sendResetPasswordEmail} from "../api/api_auth";
+import {
+    activateAccount,
+    authenticate,
+    resetPasswd,
+    resetPasswordConfirm,
+    sendResetPasswordEmail
+} from "../api/api_auth";
 import {LS_USER_EMAIL, LS_USER_ID, LS_USER_TP, OWL_MBA_TS, SECRET_KEY} from "../util/constants";
 import {getUserInfo} from "../api/api_user";
 import {decryptWithAES, encryptWithAES} from "../util/AES";
 
-function useLogin(key, value) {
+function useAuth(init={activate:false}) {
 
     const navigate = useNavigate();
     const [alertContent, setAlertContent] = useState();
     const [showAlert, setShowAlert] = useState(false);
     let {uid, token} = useParams();
+    useEffect(() => {
+        if(init.activate)
+            activateAccount().then(r => console.log(r))
+    }, []);
 
     async function handleLogin(event) {
 
@@ -75,6 +85,22 @@ function useLogin(key, value) {
             }
         })
     }
+    const activateAcc = () => {
+        activateAccount({
+            uid,
+            token
+        }).then(r => {
+            setAlertContent("Su cuenta ha sido activada")
+            setShowAlert(true)
+            goToLogin()
+        }).catch(res => {
+            if (res.response.status === 404 || res.status === 500) {
+                setAlertContent("Error en el servidor")
+                setShowAlert(true)
+            }
+        })
+    }
+
 
     const resetPassword = (event) => {
         resetPasswd({
@@ -93,8 +119,8 @@ function useLogin(key, value) {
         handleLogout,
         goToForgotPasswordPage,
         goToRecoverPasswordPage, goToRegisterPage, goToLogin, goToRegisterFormPage, resetPassword, sendEmailResetPasswd,
-        showAlert, setShowAlert, alertContent
+        showAlert, setShowAlert, alertContent,activateAcc
     }
 }
 
-export default useLogin;
+export default useAuth;

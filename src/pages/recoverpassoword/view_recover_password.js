@@ -1,7 +1,7 @@
 import {Alert, Box, Button, Container, Grid, Paper, Stack, TextField, Typography} from "@mui/material";
 import {useForm} from 'react-hook-form';
 import {useParams} from "react-router";
-import useLogin from "../../business/auth";
+import useAuth from "../../business/auth";
 import {toast, ToastContainer} from "react-toastify";
 import * as React from "react";
 import {useEffect} from "react";
@@ -10,7 +10,7 @@ function RecoverPassword(props) {
 
     const {register, reset, formState: {errors}, handleSubmit, watch} = useForm();
     const watchShowAge = watch("NewPassword", false);
-    const hook = useLogin()
+    const hook = useAuth()
     const submit = (data) => {
         console.log(data)
     }

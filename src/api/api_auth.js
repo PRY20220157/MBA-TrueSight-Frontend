@@ -37,3 +37,12 @@ export const resetPasswd = async (data) => {
     }
     return conn.send(config);
 }
+export const activateAccount = async (data) => {
+    let config = {
+        url: URL_TRUE_SIGHT_BACKEND + 'auth/users/activation/',
+        method: 'post',
+        headers,
+        data
+    }
+    return conn.send(config);
+}
