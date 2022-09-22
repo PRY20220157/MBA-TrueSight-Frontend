@@ -17,13 +17,13 @@ export const authenticate = async (data) => {
     console.log(result)
     return result;
 }
-export const sendResetPasswordEmail = async (data) => {
+export const sendResetPasswordEmail = async (email) => {
     let config = {
         url: URL_TRUE_SIGHT_BACKEND + 'auth/users/reset_password/',
         method: 'post',
         headers,
-        data:{
-            email:getUserEmail()
+        data: {
+            email: email ?? getUserEmail()
         }
     }
     return conn.send(config);

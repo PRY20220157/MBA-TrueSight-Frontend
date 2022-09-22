@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router";
 import routes from "../router/routes";
 import {useEffect, useState} from "react";
-import {authenticate, resetPasswd, resetPasswordConfirm} from "../api/api_auth";
+import {authenticate, resetPasswd, resetPasswordConfirm, sendResetPasswordEmail} from "../api/api_auth";
 import {LS_USER_EMAIL, LS_USER_ID, LS_USER_TP, OWL_MBA_TS, SECRET_KEY} from "../util/constants";
 import {getUserInfo} from "../api/api_user";
 import {decryptWithAES, encryptWithAES} from "../util/AES";
@@ -11,7 +11,7 @@ function useLogin(key, value) {
     const navigate = useNavigate();
     const [alertContent, setAlertContent] = useState();
     const [showAlert, setShowAlert] = useState(false);
-    let { uid,token } = useParams();
+    let {uid, token} = useParams();
 
     async function handleLogin(event) {
 
@@ -59,13 +59,30 @@ function useLogin(key, value) {
         navigate(routes.Recover_Password)
     }
 
+    const sendEmailResetPasswd = (event) => {
+        sendResetPasswordEmail(event.Email).then(r => {
+            setAlertContent("Correo enviado, por favor revise su bandeja.")
+            setShowAlert(true)
+            goToLogin()
+        }).catch(res => {
+            if (res.response.status === 401) {
+                setAlertContent("Usuario o contraseña incorrectos.")
+                setShowAlert(true)
+            }
+            if (res.response.status === 404 || res.status === 500) {
+                setAlertContent("Error en el servidos")
+                setShowAlert(true)
+            }
+        })
+    }
+
     const resetPassword = (event) => {
         resetPasswd({
             uid,
             token,
             new_password: event.NewPassword,
             re_new_password: event.RepeatPassword
-        }).then(r  =>{
+        }).then(r => {
             setAlertContent("Contraseña cambiada exitosamente.")
             setShowAlert(true)
             goToLogin()
@@ -75,7 +92,7 @@ function useLogin(key, value) {
         handleSubmit: handleLogin,
         handleLogout,
         goToForgotPasswordPage,
-        goToRecoverPasswordPage, goToRegisterPage, goToLogin, goToRegisterFormPage,resetPassword,
+        goToRecoverPasswordPage, goToRegisterPage, goToLogin, goToRegisterFormPage, resetPassword, sendEmailResetPasswd,
         showAlert, setShowAlert, alertContent
     }
 }
