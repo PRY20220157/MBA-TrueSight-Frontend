@@ -16,7 +16,7 @@ export function useHistoryPrediction() {
     const [predictions, setPredictions] = useState([]);
     const [startDate, setStartDate] = useState(new Date('2022-08-15').toLocaleDateString("en-US"));
     const [endDate, setEndDate] = useState(new Date().toLocaleDateString("en-US"));
-    const userId = parseInt(getUserId())
+    const userId = getUserId()
     const [filters, setFilters] = useState({userId, startDate, endDate});
     const [predBck, setPredBck] = useState([]);
     const [grades, setGrades] = useState();

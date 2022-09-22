@@ -2,13 +2,14 @@ import * as apiPrediction from "../../../api/api_prediction";
 import {useState} from "react";
 import {GRADES_KEYS} from "../../../util/constants";
 import {usePredictionContext} from "./context";
+import {getUserId} from "../../../util/util";
 
 
 export const usePrediction = () => {
 
     const {setResult, setShowResult, setGrades} = usePredictionContext()
     const [loading, setLoading] = useState(false);
-    const userId = 5
+    const userId = getUserId()
 
     async function onSubmit(data) {
         setLoading(true)

@@ -20,15 +20,15 @@ const getItemFromLS = key => {
     }
 }
 export const getUserId = () => {
-   return  getItemFromLS(LS_USER_ID);
+    return parseInt(getItemFromLS(LS_USER_ID));
 }
 
 export const getUserEmail = () => {
-   return getItemFromLS(LS_USER_EMAIL)
+    return getItemFromLS(LS_USER_EMAIL)
 }
 
 export const getToken = () => {
-    return  getItemFromLS(OWL_MBA_TS);
+    return getItemFromLS(OWL_MBA_TS);
 }
 
 

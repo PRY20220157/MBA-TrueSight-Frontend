@@ -26,7 +26,9 @@ export const sendResetPasswordEmail = async (email) => {
             email: email ?? getUserEmail()
         }
     }
-    return conn.send(config);
+    let result = await axios(config).then();
+    console.log(result)
+    return result;
 }
 export const resetPasswd = async (data) => {
     let config = {
@@ -35,7 +37,9 @@ export const resetPasswd = async (data) => {
         headers,
         data
     }
-    return conn.send(config);
+    let result = await axios(config).then();
+    console.log(result)
+    return result;
 }
 export const activateAccount = async (data) => {
     let config = {
@@ -44,7 +48,9 @@ export const activateAccount = async (data) => {
         headers,
         data
     }
-    return conn.send(config);
+    let result = await axios(config).then();
+    console.log(result)
+    return result;
 }
 export const register = async (data) => {
     let config = {
@@ -53,8 +59,9 @@ export const register = async (data) => {
         headers,
         data
     }
-    return conn.send(config);
-}
+    let result = await axios(config).then();
+    console.log(result)
+    return result;}
 export const registerUserInfo = async (data) => {
     let config = {
         url: URL_TRUE_SIGHT_BACKEND + 'userinfo/',
@@ -62,5 +69,7 @@ export const registerUserInfo = async (data) => {
         headers,
         data
     }
-    return conn.send(config);
+    let result = await axios(config).then();
+    console.log(result)
+    return result;
 }
