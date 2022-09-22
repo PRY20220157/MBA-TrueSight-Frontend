@@ -46,3 +46,21 @@ export const activateAccount = async (data) => {
     }
     return conn.send(config);
 }
+export const register = async (data) => {
+    let config = {
+        url: URL_TRUE_SIGHT_BACKEND + 'auth/users/',
+        method: 'post',
+        headers,
+        data
+    }
+    return conn.send(config);
+}
+export const registerUserInfo = async (data) => {
+    let config = {
+        url: URL_TRUE_SIGHT_BACKEND + 'userinfo/',
+        method: 'post',
+        headers,
+        data
+    }
+    return conn.send(config);
+}

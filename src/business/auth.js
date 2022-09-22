@@ -3,7 +3,7 @@ import routes from "../router/routes";
 import {useEffect, useState} from "react";
 import {
     activateAccount,
-    authenticate,
+    authenticate, register, registerUserInfo,
     resetPasswd,
     resetPasswordConfirm,
     sendResetPasswordEmail
@@ -17,11 +17,20 @@ function useAuth(init={activate:false}) {
     const navigate = useNavigate();
     const [alertContent, setAlertContent] = useState();
     const [showAlert, setShowAlert] = useState(false);
+    const [open, setOpen] = useState(false);
     let {uid, token} = useParams();
     useEffect(() => {
         if(init.activate)
             activateAccount().then(r => console.log(r))
     }, []);
+
+    const registerUser =(acc,info) => {
+        register(acc).then(r => {
+            registerUserInfo(info).then(res => {
+                setOpen(true)
+            })
+        })
+    }
 
     async function handleLogin(event) {
 
@@ -119,7 +128,7 @@ function useAuth(init={activate:false}) {
         handleLogout,
         goToForgotPasswordPage,
         goToRecoverPasswordPage, goToRegisterPage, goToLogin, goToRegisterFormPage, resetPassword, sendEmailResetPasswd,
-        showAlert, setShowAlert, alertContent,activateAcc
+        showAlert, setShowAlert, alertContent,activateAcc,open,registerUser
     }
 }
 

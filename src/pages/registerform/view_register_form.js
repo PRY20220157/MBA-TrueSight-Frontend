@@ -24,7 +24,6 @@ export const ViewRegisterForm = props => {
     const {register, reset, formState: {errors}, handleSubmit, watch} = useForm();
     const hook = useAuth();
     const navigate = useNavigate();
-    const [open, setOpen] = React.useState(false);
     const watchPassword = watch("Password", false);
 
     const onSubmit = (data) => {
@@ -35,17 +34,16 @@ export const ViewRegisterForm = props => {
             re_password: data.RepeatPassword
         }
         let info = {
-            countryId:2,
-            universityId:1,
+            countryId: 2,
+            universityId: 1,
             firstName: data.Nombre,
-            lastName:data.Apellidos
+            lastName: data.Apellidos
         }
         console.log(acc)
         console.log(info)
-        setOpen(true);
+        hook.registerUser(acc, info)
     }
     return (<>
-
 
         <Paper elevation={10} sx={{minWidth: 600, borderRadius: 3, background: 'rgba(250, 250, 250, 0.9)'}}>
             <Stack spacing={5}>
@@ -115,13 +113,14 @@ export const ViewRegisterForm = props => {
                     </Grid>
                     &nbsp;&nbsp;
                     <Grid container justifyContent={"space-around"}>
-                        <Button variant="contained" size="large" onClick={(e) => navigate(routes.SIGN_IN)}>Cancelar</Button>
+                        <Button variant="contained" size="large"
+                                onClick={(e) => navigate(routes.SIGN_IN)}>Cancelar</Button>
                         <Button variant="contained" size="large" type="submit">Registrarme</Button>
                     </Grid>
                     &nbsp;&nbsp;
                 </form>
                 <Dialog
-                    open={open}
+                    open={hook.open}
                 >
                     <Grid container justifyContent="center">
                         <Typography variant="h3"> Registro</Typography>

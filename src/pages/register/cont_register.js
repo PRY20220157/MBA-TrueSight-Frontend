@@ -12,7 +12,7 @@ export const ContRegister = props => {
     const [userType, setUserType] = useState();
     return (<>
         <div className='background'>
-            <Container sx={{minWidth: '100% !important', height: '120vh'}}>
+            <Container sx={{minWidth: '100% !important', height: '100vh'}}>
                 <Box
                     display="flex"
                     justifyContent="center"
