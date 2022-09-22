@@ -16,6 +16,10 @@ export const ContMassivePrediction = props => {
     const [className, setClassName] = useState("massiveprediction-container");
     const [style, setStyle] = useState({});
 
+    useEffect(() => {
+        props.setReload(true)
+    }, [showResult]);
+
     function showStats() {
         setShowStatistics(true)
     }

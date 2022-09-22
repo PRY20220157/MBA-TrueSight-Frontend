@@ -20,9 +20,10 @@ import {ContMassivePrediction} from "../prediction/massive/cont_massive_predicti
 import PredictionMassiveProvider from "../../business/prediction/massive/provider";
 import {COLOR_PRIM, COLOR_SEC} from "../../util/constants";
 import {CompDialogDelete} from "../../comps/dialog/comp_dialog_delete";
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import {SearchOff} from "@mui/icons-material";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -180,7 +181,7 @@ export const ViewHistory = props => {
                                                             value={hook.startDate}
                                                             name="fechadesde"
                                                             onChange={handleStartDate}
-                                                            maxDate={Date.now()}
+                                                            maxDate={hook.getDefaultDate()}
                                                             renderInput={(params) => <TextField {...params}
                                                                                                 sx={{svg: {color: COLOR_SEC}}}/>}
                                                         />
@@ -190,14 +191,14 @@ export const ViewHistory = props => {
                                                             value={hook.endDate}
                                                             name="fechahasta"
                                                             onChange={handleEndDate}
-                                                            maxDate={Date.now()}
+                                                            maxDate={hook.getDefaultDate()}
                                                             renderInput={(params) => <TextField {...params}
                                                                                                 sx={{svg: {color: COLOR_SEC}}}/>}
                                                         />
                                                         <Button variant="outlined" type="submit" size="large" sx={{
                                                             color: COLOR_SEC,
                                                             borderColor: COLOR_SEC
-                                                        }}><FilterAltIcon sx={{color:COLOR_SEC}}/> Filtrar</Button>
+                                                        }}><FilterAltIcon sx={{color: COLOR_SEC}}/> Filtrar</Button>
                                                     </Stack>
                                                 </LocalizationProvider>
                                             </Grid>
@@ -222,10 +223,12 @@ export const ViewHistory = props => {
                                                         </Tabs>
                                                     </Box>
                                                     <TabPanel value={value} index={0}>
-                                                        <PredictionProvider><ContSinglePrediction/></PredictionProvider>
+                                                        <PredictionProvider><ContSinglePrediction
+                                                            setReload={hook.setReload}/></PredictionProvider>
                                                     </TabPanel>
                                                     <TabPanel value={value} index={1}>
-                                                        <PredictionMassiveProvider><ContMassivePrediction/></PredictionMassiveProvider>
+                                                        <PredictionMassiveProvider><ContMassivePrediction
+                                                            setReload={hook.setReload}/></PredictionMassiveProvider>
                                                     </TabPanel>
                                                 </CompDrawer>
                                             </Grid>
@@ -233,6 +236,14 @@ export const ViewHistory = props => {
                                     </form>
                                     <Box sx={{height: "65vh", display: "flex", justifyContent: "center", p: 1}}>
                                         <DataGrid
+                                            components={{
+                                                NoRowsOverlay: () => (
+                                                    <Stack height="100%" alignItems="center" justifyContent="center"
+                                                           sx={{color: "gray"}}>
+                                                        <SearchOff/> No ha realizado predicciones aún.
+                                                    </Stack>
+                                                )
+                                            }}
                                             rows={hook.predictions}
                                             columns={hook.columns}
                                             pageSize={10}
@@ -245,8 +256,8 @@ export const ViewHistory = props => {
                                                     backgroundColor: COLOR_SEC,
                                                     color: "rgb(255,255,255)",
                                                     fontSize: 16,
-                                                    '& .MuiButtonBase-root':{
-                                                        color:'white'
+                                                    '& .MuiButtonBase-root': {
+                                                        color: 'white'
                                                     }
                                                 },
                                                 borderColor: COLOR_SEC,

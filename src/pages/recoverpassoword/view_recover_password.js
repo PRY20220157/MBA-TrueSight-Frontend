@@ -1,4 +1,16 @@
-import {Alert, Box, Button, Container, Grid, Paper, Stack, TextField, Typography} from "@mui/material";
+import {
+    Alert,
+    Box,
+    Button,
+    Container,
+    Dialog, DialogActions,
+    DialogContent, DialogContentText,
+    Grid,
+    Paper,
+    Stack,
+    TextField,
+    Typography
+} from "@mui/material";
 import {useForm} from 'react-hook-form';
 import {useParams} from "react-router";
 import useAuth from "../../business/auth";
@@ -19,7 +31,7 @@ function RecoverPassword(props) {
     }
     useEffect(() => {
         if (hook.showAlert) {
-            toast.success(hook.alertContent, {
+            toast.error(hook.alertContent, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -34,6 +46,18 @@ function RecoverPassword(props) {
     return (
 
         <>
+            <Dialog open={hook.open}>
+                <DialogContent>
+                    <DialogContentText>
+                        Su contraseña fue cambiada con éxito
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Grid container justifyContent="center">
+                        <Button variant="contained" onClick={hook.goToLogin}>Ok</Button>
+                    </Grid>
+                </DialogActions>
+            </Dialog>
             <ToastContainer
                 theme="colored"
                 position="top-right"

@@ -127,12 +127,12 @@ export const ViewRegisterForm = props => {
                     </Grid>
                     <DialogContent>
                         <DialogContentText>
-                            Se ha enviado un correo de verificación al correo registrado
+                            Se ha enviado un correo de activación de cuenta al correo registrado
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Grid container justifyContent="center">
-                            <Button variant="contained" onClick={hook.goToLogin}> Continuar</Button>
+                            <Button variant="contained" onClick={hook.goToLogin}>Ir a LogIn</Button>
                         </Grid>
                     </DialogActions>
                 </Dialog>

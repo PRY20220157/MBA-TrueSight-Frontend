@@ -15,7 +15,7 @@ export function useHistoryPrediction() {
 
     const [predictions, setPredictions] = useState([]);
     const [startDate, setStartDate] = useState(new Date('2022-08-15').toLocaleDateString("en-US"));
-    const [endDate, setEndDate] = useState(new Date().toLocaleDateString("en-US"));
+    const [endDate, setEndDate] = useState(getDefaultDate());
     const userId = getUserId()
     const [filters, setFilters] = useState({userId, startDate, endDate});
     const [predBck, setPredBck] = useState([]);
@@ -82,8 +82,10 @@ export function useHistoryPrediction() {
     const [idToDelete, setIdToDelete] = useState();
     const [showAlertSuccess, setShowAlertSuccess] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
+    const [reload, setReload] = useState(false);
+
     const viewDetail = (event, cellValues) => {
-        console.log(cellValues.row.type)
+        console.log(cellValues)
         if (cellValues.row.type === 'Masiva') {
             let preds = massPredBck[cellValues.row.id]
             preds.forEach((t, index) => {
@@ -155,11 +157,21 @@ export function useHistoryPrediction() {
         loadData()
     }, [filters]);
 
+    useEffect(() => {
+        if (reload)
+            loadData()
+    }, [reload]);
     const loadData = async () => {
         setLoading(true)
         let tmp = []
         let bckp = []
         await getPredictionsByUser(filters).then(res => {
+            if (!res.length > 0) {
+                setPredictions([])
+                setPredBck([])
+                setMassPredBck([])
+                return;
+            }
             console.log(res)
             if (isStudent()) {//singular
                 res.forEach(p => {
@@ -169,11 +181,14 @@ export function useHistoryPrediction() {
                     }
                 })
                 setPredBck(bckp)
+                tmp.sort(function(a,b){
+                    return new Date(b.creationDate) - new Date(a.creationDate);
+                });
                 setPredictions(tmp)
             } else {
                 let helper = []
                 helper = [...res]
-                if(helper.length <1) return []
+                if (helper.length < 1) return []
                 console.log(helper)
                 let all_preds = helper.reduce((group, pr) => {
                     const {predictionTypeId} = pr;
@@ -181,47 +196,69 @@ export function useHistoryPrediction() {
                     group[predictionTypeId].push(pr);
                     return group;
                 }, {})
-                all_preds[1].forEach(p => {
-                    tmp.push({id: p.predictionId, creationDate: getDateTime(p.creationDate), type: 'Simple'})
-                    bckp.push(p)
-                })
-                setPredBck(bckp)
-                const groupByMassiveId = all_preds[2].reduce((group, prediction) => {
-                    const {massivePredictionId} = prediction;
-                    group[massivePredictionId] = group[massivePredictionId] ?? [];
-                    group[massivePredictionId].push(prediction);
-                    return group;
-                }, {});
-                console.log(groupByMassiveId)
-                setMassPredBck(groupByMassiveId)
-                let keys = Object.keys(groupByMassiveId),
-                    i = keys.length;
-                while (i--) {
-                    let mass_pred = groupByMassiveId[keys[i]][0]
-                    tmp.push({
-                        id: mass_pred.massivePredictionId,
-                        creationDate: getDateTime(mass_pred.creationDate),
-                        type: 'Masiva'
+                console.log(all_preds)
+                if (all_preds[1] !== undefined) {
+                    all_preds[1].forEach(p => {
+                        tmp.push({id: p.predictionId, creationDate: getDateTime(p.creationDate), type: 'Simple'})
+                        bckp.push(p)
                     })
+                    setPredBck(bckp)
+                }
+                if (all_preds[2] !== undefined) {
+
+                    const groupByMassiveId = all_preds[2].reduce((group, prediction) => {
+                        const {massivePredictionId} = prediction;
+                        group[massivePredictionId] = group[massivePredictionId] ?? [];
+                        group[massivePredictionId].push(prediction);
+                        return group;
+                    }, {});
+                    console.log(groupByMassiveId)
+                    setMassPredBck(groupByMassiveId)
+                    let keys = Object.keys(groupByMassiveId),
+                        i = keys.length;
+                    while (i--) {
+                        let mass_pred = groupByMassiveId[keys[i]][0]
+                        tmp.push({
+                            id: mass_pred.massivePredictionId,
+                            creationDate: getDateTime(mass_pred.creationDate),
+                            type: 'Masiva'
+                        })
+                    }
                 }
             }
+            tmp.sort(function(a,b){
+                return new Date(b.creationDate) - new Date(a.creationDate);
+            });
             setPredictions(tmp)
         })
         setLoading(false)
+        setReload(false)
     }
 
     function handleFilter() {
         setFilters({
             userId,
             startDate,
-            endDate
+            endDate: handleEndDate()
         })
+    }
+
+    function handleEndDate() {
+        let date = new Date(endDate)
+        date.setDate(date.getDate() + 1);
+        return date.toLocaleDateString('en-US')
+    }
+
+    function getDefaultDate() {
+        let date = new Date()
+        date.setDate(date.getDate() + 1);
+        return date.toLocaleDateString('en-US')
     }
 
     return {
         predictions, columns, showPrediction, setShowPrediction, grades, result, handleBack, handleFilter,
         columns_massive_tbl, rows, showingMassivePred, loading, setEndDate, setStartDate, startDate, endDate,
         showDialog, deletePred, deleteMassPred, handleCloseDialog, handleCloseDialogMassive, showDialogMassive,
-        showAlertSuccess,alertMessage,setShowAlertSuccess
+        showAlertSuccess, alertMessage, setShowAlertSuccess, setReload,getDefaultDate
     }
 }

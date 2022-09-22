@@ -12,7 +12,7 @@ import {LS_USER_EMAIL, LS_USER_ID, LS_USER_TP, OWL_MBA_TS, SECRET_KEY} from "../
 import {getUserInfo} from "../api/api_user";
 import {decryptWithAES, encryptWithAES} from "../util/AES";
 
-function useAuth(init={activate:false}) {
+function useAuth(init = {activate: false}) {
 
     const navigate = useNavigate();
     const [alertContent, setAlertContent] = useState();
@@ -20,16 +20,19 @@ function useAuth(init={activate:false}) {
     const [open, setOpen] = useState(false);
     let {uid, token} = useParams();
     useEffect(() => {
-        if(init.activate){
-            console.log(uid,token)
+        if (init.activate) {
+            console.log(uid, token)
             activateAccount({
-                uid,token
+                uid, token
             }).then(() => goToLogin())
         }
     }, []);
 
-    const registerUser =(acc,info) => {
+    const registerUser = (acc, info) => {
         register(acc).then(r => {
+            console.log(acc)
+            info.userId = r.data.userId
+            console.log(info)
             registerUserInfo(info).then(res => {
                 setOpen(true)
             })
@@ -84,16 +87,15 @@ function useAuth(init={activate:false}) {
 
     const sendEmailResetPasswd = (event) => {
         sendResetPasswordEmail(event.Email).then(r => {
-            setAlertContent("Correo enviado, por favor revise su bandeja.")
-            setShowAlert(true)
-            goToLogin()
+            setOpen(true)
         }).catch(res => {
             if (res.response.status === 401) {
                 setAlertContent("Usuario o contraseña incorrectos.")
                 setShowAlert(true)
             }
             if (res.response.status === 404 || res.status === 500) {
-                setAlertContent("Error en el servidos")
+                alert('aa')
+                setAlertContent("Error en el servidor")
                 setShowAlert(true)
             }
         })
@@ -122,9 +124,13 @@ function useAuth(init={activate:false}) {
             new_password: event.NewPassword,
             re_new_password: event.RepeatPassword
         }).then(r => {
-            setAlertContent("Contraseña cambiada exitosamente.")
-            setShowAlert(true)
-            goToLogin()
+            setOpen(true)
+        }).catch(res => {
+            console.log(res)
+            if (res.response.status === 404 || res.status === 500) {
+                setAlertContent("Error en el servidor")
+                setShowAlert(true)
+            }
         })
     }
     return {
@@ -132,7 +138,7 @@ function useAuth(init={activate:false}) {
         handleLogout,
         goToForgotPasswordPage,
         goToRecoverPasswordPage, goToRegisterPage, goToLogin, goToRegisterFormPage, resetPassword, sendEmailResetPasswd,
-        showAlert, setShowAlert, alertContent,activateAcc,open,registerUser
+        showAlert, setShowAlert, alertContent, activateAcc, open, registerUser
     }
 }
 

@@ -13,7 +13,7 @@ async function validateResponse(result) {
     //TODO status validations
 }
 
-async function sendAxios(config) {
+export async function sendAxios(config) {
     return axios(config).then(
         function (response) {
             return response;

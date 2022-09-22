@@ -2,6 +2,7 @@ import * as conn from './connection';
 import {HD_AUTHORIZATION, OWL_MBA_TS, URL_TRUE_SIGHT_BACKEND} from "util/constants";
 import axios from "axios";
 import {getUserEmail} from "../util/util";
+import {sendAxios} from "./connection";
 
 const headers = {
     [HD_AUTHORIZATION]: localStorage.getItem(OWL_MBA_TS),
@@ -37,7 +38,7 @@ export const resetPasswd = async (data) => {
         headers,
         data
     }
-    let result = await axios(config).then();
+    let result = sendAxios(config);
     console.log(result)
     return result;
 }

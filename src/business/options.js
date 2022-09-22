@@ -22,7 +22,6 @@ export const useOptions = () => {
 
 
     const execOption = async () => {
-        alert(option)
         switch (option) {
             case 1:
                 await deleteAllPredictions().then(res => {

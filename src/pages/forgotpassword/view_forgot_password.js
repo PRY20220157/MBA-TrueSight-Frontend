@@ -1,6 +1,21 @@
-import {Alert, Box, Button, Container, Grid, Paper, Stack, TextField, Typography} from "@mui/material";
+import {
+    Alert,
+    Box,
+    Button,
+    Container,
+    Dialog, DialogActions,
+    DialogContent, DialogContentText,
+    Grid,
+    Paper,
+    Stack,
+    TextField,
+    Typography
+} from "@mui/material";
 import useAuth from "../../business/auth";
 import {useForm} from 'react-hook-form';
+import * as React from "react";
+import {toast, ToastContainer} from "react-toastify";
+import {useEffect} from "react";
 
 const {ThemeProvider} = require("@mui/system");
 
@@ -14,9 +29,50 @@ function ForgotPassword() {
     const onclear = () => {
         reset();
     }
+    useEffect(() => {
+        if (hook.showAlert) {
+            toast['error'](hook.alertContent, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            hook.setShowAlert(false)
+        }
+    }, [hook.showAlert]);
     return (
 
         <>
+            <ToastContainer
+                theme="colored"
+                position="top-right"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            <Dialog
+                open={hook.open}
+            >
+                <DialogContent>
+                    <DialogContentText>
+                        Si el correo ingresado se encuentra en nuestra base de datos, recibirá un correo
+                        con un enlace para continuar con el restablecimiento de su contraseña.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Grid container justifyContent="center">
+                        <Button variant="contained" onClick={hook.goToLogin}>Ok</Button>
+                    </Grid>
+                </DialogActions>
+            </Dialog>
             <div className="background">
                 <Container sx={{minWidth: '100% !important', height: '100vh'}}>
                     <Box
