@@ -22,7 +22,7 @@ export const ViewOption = props => {
                     <Grid item xs={12} display={'flex'} justifyContent={'center'} sx={{pt:1}} >
                         <Button variant="contained" size="small"
                                 onClick={props.execFunc}
-                                sx={{backgroundColor: colorButton}}>{props.labelExec}</Button>
+                                sx={{backgroundColor: colorButton}}>{props.icon}{props.labelExec}</Button>
                     </Grid>
                 </Grid>
             </Paper>

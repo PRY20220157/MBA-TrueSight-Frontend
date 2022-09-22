@@ -173,6 +173,7 @@ export function useHistoryPrediction() {
             } else {
                 let helper = []
                 helper = [...res]
+                if(helper.length <1) return []
                 console.log(helper)
                 let all_preds = helper.reduce((group, pr) => {
                     const {predictionTypeId} = pr;
