@@ -19,6 +19,7 @@ import {useForm} from 'react-hook-form';
 import LoginPhoto from './images/TrueSightLoginLogo.png'
 import { ToastContainer, toast } from 'react-toastify';
 import {useEffect} from "react";
+import {COLOR_SEC} from "../../util/constants";
 const theme = createTheme();
 
 export const ViewLogin = () => {
@@ -59,12 +60,10 @@ export const ViewLogin = () => {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                
                 minHeight="100vh"
                 >
-                    <Paper elevation={10} sx={{minWidth:600,borderRadius:8,background: 'rgba(250, 250, 250, 0.9)'}}>
-
-                        <Stack spacing={3}>
+                    <Paper elevation={10} sx={{width:"30%",borderRadius:8,background: 'rgba(250, 250, 250, 0.9)'}}>
+                        <Stack spacing={2}>
                         &nbsp;&nbsp;
                         <Grid container justifyContent={"center"}>
                         <img className='TrueSightLoginLogo'
@@ -75,8 +74,8 @@ export const ViewLogin = () => {
                         </Grid>
                         <form onSubmit={handleSubmit(hook.handleSubmit)}>
 
-                            <Grid container justifyContent={"center"}>
-                            <TextField variant="filled"  label="Email"  margin="normal" type={"email"} sx={{minWidth:400}}
+                            <Grid container justifyContent={"center"} sx={{width:"100%"}}>
+                            <TextField variant="filled"  label="Email"  margin="normal" type={"email"} sx={{width:"70%"}}
                               {...register('Email',{
                                 required:true,
                                 pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
@@ -90,7 +89,7 @@ export const ViewLogin = () => {
                                 {errors.Email?.type === 'required' && <Alert severity="error">Es requerido</Alert>}
                             
                             <Grid container justifyContent={"center"}>
-                            <TextField variant="filled"  label="Password"  margin="normal" type={"password"} sx={{minWidth:400}}
+                            <TextField variant="filled"  label="Password"  margin="normal" type={"password"} sx={{width:"70%"}}
                             {...register('Password',{
                                 required:true,
                               })}
@@ -102,33 +101,22 @@ export const ViewLogin = () => {
                             {errors.Password?.type === 'required' && <Alert severity="error">Es requerido una contraseña</Alert>}
                             &nbsp;&nbsp;
                             <Grid container justifyContent={"center"}>
-                            <Button variant="contained" type='submit' size="large" sx={{minWidth:400}}>Log in </Button>
+                            <Button variant="contained" type='submit' size="large" sx={{ backgroundColor:COLOR_SEC}}>Log in </Button>
                             </Grid>
 
                         </form>
                         <Stack  justifyContent="center" spacing={3} align='center'>
-                                    <Link  href="#" variant="body2" justifyContent="center"  onClick={hook.goToForgotPasswordPage}>
-                                        Forgot password?
+                                    <Link  href="#" variant="body2" justifyContent="center"  onClick={hook.goToForgotPasswordPage}  sx={{color:COLOR_SEC}}>
+                                        ¿Olvidó su contraseña?
                                     </Link>
-                                    <Link href="#" variant="body2" onClick={hook.goToRegisterPage}>
-                                        {"Don't have an account? Sign Up"}
+                                    <Link href="#" variant="body2" onClick={hook.goToRegisterPage}  sx={{color:COLOR_SEC}}>
+                                        {"¿No tiene una cuenta? Regístrese aquí"}
                                     </Link>
-
                         </Stack>
                         &nbsp;&nbsp;
                         </Stack>
-
-
-
                     </Paper>
-
                 </Box>
-
-
-
-
-
-
             </Container>
             </div>
         </ThemeProvider>

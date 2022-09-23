@@ -13,7 +13,7 @@ export const CompGrade = props => {
                 </Grid>
                 <Grid item xs={6} display={'flex'} justifyContent={"center"} alignItems={"center"}>
                     {
-                        type === 'Tipo de MBA' ? <a><strong>{grade}</strong></a> : <h4><strong>{grade}</strong></h4>
+                        type === 'Tipo de MBA' ? <a><strong>{grade}</strong></a> : <>{grade}</>
                     }
                 </Grid>
                 {showObs ?

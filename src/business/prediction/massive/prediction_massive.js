@@ -32,7 +32,13 @@ export function  usePredictionMassive() {
             tmp.forEach((t, index) => {
                 t.id = index + 1;
                 t.grad_gpa = parseFloat(t.grad_gpa).toFixed(2)
+                t.appTypeId =  t.app_type
                 t.app_type = loadMBAType(t.app_type)
+                t.gmatScore = t.gmat
+                t.gpaScore = t.gpa
+                t.workExp = t.wk_xp
+                t.gradGpaScore = t.grad_gpa
+                t.studentId = t.student_id
             })
             setResult(tmp)
             setRows(tmp)

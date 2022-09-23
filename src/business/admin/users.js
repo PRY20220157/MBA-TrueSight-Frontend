@@ -53,6 +53,9 @@ export default function useUsers() {
     }
     const columns = [
         {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center', color: COLOR_SEC, hide: true},
+        {field: 'firstName', headerName: 'NOMBRES', flex: 1, align: 'center', headerAlign: 'center'},
+        {field: 'lastName', headerName: 'APELLIDOS', flex: 1, align: 'center', headerAlign: 'center'},
+        {field: 'email', headerName: 'CORREO', flex: 2, align: 'center', headerAlign: 'center'},
         {
             field: 'userType', headerName: 'TIPO', align: 'center', flex: 1, headerAlign: 'center',
             renderCell: (cellValues) => {
@@ -65,12 +68,9 @@ export default function useUsers() {
                 return (  <Checkbox disabled checked={cellValues.row.is_active} />)
             }
         },
-        {field: 'firstName', headerName: 'NOMBRES', flex: 1, align: 'center', headerAlign: 'center'},
-        {field: 'lastName', headerName: 'APELLIDOS', flex: 1, align: 'center', headerAlign: 'center'},
+        {field: 'creationDate', headerName: 'FECHA DE CREACION', flex: 1, align: 'center', headerAlign: 'center'},
         {field: 'country', headerName: 'PAÍS', flex: 0.5, align: 'center', headerAlign: 'center'},
         {field: 'university', headerName: 'UNIVERSIDAD', flex: 2, align: 'center', headerAlign: 'center'},
-        {field: 'email', headerName: 'CORREO', flex: 2, align: 'center', headerAlign: 'center'},
-        {field: 'creationDate', headerName: 'FECHA DE CREACION', flex: 1, align: 'center', headerAlign: 'center'},
         {
             field: "ACCIONES", flex: 1,
             headerAlign: 'center',
@@ -107,11 +107,11 @@ export default function useUsers() {
     const loadUsers = async () => {
         setLoading(true)
         let tmp = []
-        await api_user.getUsers().then(res => {
-            res.data.forEach(u => {
-                    u.id = u.userId
-                    u.userType = USER_TYPES_NAMES[u.userTypeId]
-                api_user.getUserInfo(u.email).then(inf => {
+        await api_user.getUsers().then(async res => {
+            for (const u of res.data) {
+                u.id = u.userId
+                u.userType = USER_TYPES_NAMES[u.userTypeId]
+                await api_user.getUserInfo(u.email).then(inf => {
                     if (inf[1].userInfo.length !== 0) {
                         u.creationDate = getDateTime(inf[1].userInfo[0].creationDate)
                         u.lastUpdateDate = inf[1].userInfo[0].lastUpdateDate
@@ -130,7 +130,7 @@ export default function useUsers() {
 
                 })
                 tmp.push(u)
-            })
+            }
             setUsers(tmp)
             console.log(tmp)
         })

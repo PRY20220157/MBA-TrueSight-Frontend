@@ -24,6 +24,7 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import {SearchOff} from "@mui/icons-material";
+import {isAdmin, isRecruiter} from "../../util/util";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -218,8 +219,11 @@ export const ViewHistory = props => {
                                                               }}>
                                                             <Tab label="INDIVIDUAL" {...a11yProps(0)}
                                                                  sx={{color: COLOR_SEC}}/>
-                                                            <Tab label="MASIVA" {...a11yProps(1)}
-                                                                 sx={{color: COLOR_SEC}}/>
+                                                            {
+                                                                isRecruiter() || isAdmin() ?
+                                                                    <Tab label="MASIVA" {...a11yProps(1)}
+                                                                         sx={{color: COLOR_SEC}}/> : <></>
+                                                            }
                                                         </Tabs>
                                                     </Box>
                                                     <TabPanel value={value} index={0}>

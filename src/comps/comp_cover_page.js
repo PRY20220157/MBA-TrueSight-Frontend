@@ -27,7 +27,7 @@ import './comp_cover_page.css'
 import useAuth from "../business/auth";
 import {LS_USER_TP, OWL_MBA_TS, USER_TYPES} from "../util/constants";
 import {decryptWithAES} from "../util/AES";
-import {isRecruiter} from "../util/util";
+import {isAdmin, isRecruiter} from "../util/util";
 
 const drawerWidth = '15%';
 
@@ -94,18 +94,23 @@ export const CompCoverPage = (props) => {
                     </Typography>
                 </Box>
                 <Box sx={{overflow: 'auto'}}>
+
                     <List>
-                        <ListItem key={'users'} disablePadding onClick={(e) => navigate(routes.USERS)}
-                                  sx={{
-                                      color: handleSelectedColor(routes.USERS),
-                                      backgroundColor: handleSelected(routes.USERS)
-                                  }}>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    < People sx={{color: handleSelectedColor(routes.USERS)}}/></ListItemIcon>
-                                <ListItemText primary='Usuarios'/>
-                            </ListItemButton>
-                        </ListItem>
+                        {
+                            isAdmin() ?
+                                <ListItem key={'users'} disablePadding onClick={(e) => navigate(routes.USERS)}
+                                          sx={{
+                                              color: handleSelectedColor(routes.USERS),
+                                              backgroundColor: handleSelected(routes.USERS)
+                                          }}>
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            < People sx={{color: handleSelectedColor(routes.USERS)}}/></ListItemIcon>
+                                        <ListItemText primary='Usuarios'/>
+                                    </ListItemButton>
+                                </ListItem>
+                                : <></>
+                        }
                         <ListItem key={'history'} disablePadding onClick={(e) => navigate(routes.HISTORY)}
                                   sx={{
                                       color: handleSelectedColor(routes.HISTORY),

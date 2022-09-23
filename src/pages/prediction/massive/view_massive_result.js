@@ -27,7 +27,7 @@ export const ViewMassiveResult = props => {
     return (
 
         <>
-            <Grid container sx={{width: "100%",p:3}}>
+            <Grid container sx={{width: "100%", p: 3}}>
                 <Grid item xs={12}>
                     <h3 style={{color: COLOR_SEC}}><strong>RESULTADOS OBTENIDOS</strong></h3>
                 </Grid>
@@ -54,8 +54,8 @@ export const ViewMassiveResult = props => {
                                     backgroundColor: COLOR_SEC,
                                     color: "rgb(255,255,255)",
                                     fontSize: 16,
-                                    '& .MuiButtonBase-root':{
-                                        color:'white'
+                                    '& .MuiButtonBase-root': {
+                                        color: 'white'
                                     }
                                 },
                                 borderColor: COLOR_SEC,
@@ -65,7 +65,7 @@ export const ViewMassiveResult = props => {
                                 '& .MuiDataGrid-toolbarContainer': {
                                     color: COLOR_SEC,
                                     '& .MuiButtonBase-root': {
-                                        color:COLOR_SEC
+                                        color: COLOR_SEC
                                     }
                                 }
                             }}

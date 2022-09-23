@@ -1,32 +1,17 @@
 .TrueSightLoginLogo{
-
-    
-    width: 400px;
-    height: 200px;
-    
+    width: 26rem;
+    height: 14rem;
     border-radius: 31px;
-    
-
-}
+    margin: 10px;
+    }
 .RegisterLogo{
-
-    
-    
     height: 200px;
-    
     border-radius: 31px;
-    
-
 }
 .background{
-
     background-image: url('./images/loginphoto.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
-
-
-
-
 }

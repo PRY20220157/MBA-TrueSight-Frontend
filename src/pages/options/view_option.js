@@ -1,7 +1,7 @@
 import {Paper} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import {COLOR_PRIM, COLOR_SEC} from "../../util/constants";
+import {COLOR_LAIT_BLU, COLOR_PRIM, COLOR_SEC} from "../../util/constants";
 import React from "react";
 
 export const ViewOption = props => {
@@ -10,7 +10,7 @@ export const ViewOption = props => {
 
     return (
         <>
-            <Paper sx={{width: "100%", borderRadius: 3, background: 'rgb(210,226,255)',p:1}}
+            <Paper sx={{width: "100%", borderRadius: 3, background: COLOR_LAIT_BLU,p:1}}
                    elevation={24}>
                 <Grid container sx={{width: "100%"}} >
                     <Grid item xs={12} display={'flex'} justifyContent={'center'} >

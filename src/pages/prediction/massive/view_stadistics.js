@@ -16,34 +16,10 @@ import {Line} from 'react-chartjs-2';
 import {COLOR_SEC, GRADES_KEYS, MBA_TYPES} from "../../../util/constants";
 import {CompGrade} from "../../../comps/comp_grade";
 import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_gpa";
+import {useObservations} from "../../../business/prediction/observations";
+import {handleFloatGrades} from "../../../business/prediction/obs_constants";
 
 ChartJS.register(ArcElement, Tooltip, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-export const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [
-        {
-            label: '# of Votes',
-            data: [50, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-            ],
-            borderWidth: 1,
-        },
-    ],
-};
 export const optionsLine = {
     responsive: true,
     plugins: {
@@ -52,16 +28,17 @@ export const optionsLine = {
         },
         title: {
             display: true,
-            text: 'Puntajes obtenidos',
+            text: 'PUNTAJES POSIBLES  OBTENIDOS',
         },
     },
 };
 
 export const ViewStadistics = props => {
 
+    const obsHook = useObservations()
     const [averages, setAverages] = useState({});
     const [helper, setHelper] = useState([]);
-    const labels = helper.map(r => r.id.toString())
+    const labels = helper.map(r => r.studentId)
     const dataLine = {
         labels,
         datasets: [
@@ -69,8 +46,8 @@ export const ViewStadistics = props => {
                 fill: true,
                 label: '',
                 data: helper.map(r => parseFloat(r.gradGpaScore).toFixed(2)),
-                borderColor: 'rgb(0,149,255)',
-                backgroundColor: 'rgba(0,149,255,0.5)',
+                borderColor: COLOR_SEC,
+                backgroundColor: COLOR_SEC,
             }
         ],
     };
@@ -90,7 +67,7 @@ export const ViewStadistics = props => {
             sum_gmat += r.gmatScore;
             sum_gpa += parseFloat(r.gpaScore + '');
             sum_wk_xp += r.workExp;
-            sum_app_tp += r.appType;
+            sum_app_tp += r.appTypeId;
         }
         let avg_gmat = sum_gmat / tmp.length;
         let avg_gpa = sum_gpa / tmp.length;
@@ -124,12 +101,12 @@ export const ViewStadistics = props => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "100vh",
+            height: "90vh",
             flexGrow: 1,
         }}>
             <Grid container spacing={1} align="center" sx={{height: "100%", marginBottom: 3}}>
                 <Grid item xs={12}>
-                    <Button variant="contained" size="large" sx={{backgroundColor:COLOR_SEC}}
+                    <Button variant="contained" size="large" sx={{backgroundColor:COLOR_SEC,mt:5}}
                             onClick={props.back}>Volver a resultados</Button>
                 </Grid>
                 <Grid item xs={6}>
@@ -141,7 +118,7 @@ export const ViewStadistics = props => {
                             width: '100%'
                         }}>
                             <Grid container justifyContent="center">
-                                <h3><strong>Alumnos ingresados: {props.predictions.length}</strong></h3>
+                                <h3 style={{color:COLOR_SEC}}><strong>Alumnos ingresados:</strong></h3><>&nbsp;</><h3><strong>{props.predictions.length}</strong></h3>
                             </Grid>
                         </Paper>
                     </Grid>
@@ -153,19 +130,24 @@ export const ViewStadistics = props => {
                             width: '100%'
                         }}>
                             <Grid container justifyContent="center">
-                                <h3><strong>Puntajes promedio</strong></h3>
+                                <h3 style={{color:COLOR_SEC}}><strong>Puntajes promedio</strong></h3>
                             </Grid>
-                            <Grid container>
-                                <CompGrade grade={parseInt(averages.avg_gmat)} obs={'obs'} type={'GMAT'} size={6} showObs={false}
-                                           tooltip={<CompTooltipGrade type={GRADES_KEYS.GMAT}/>} />
-                                <CompGrade grade={parseFloat(averages.avg_gpa).toFixed(2)} obs={'obs'} type={'GPA'}
-                                           size={6}  showObs={false} tooltip={<CompTooltipGrade type={GRADES_KEYS.GPA}/>}/>
-                                <CompGrade grade={parseFloat(averages.avg_wk_xp).toFixed(2)} obs={'obs'}
-                                           type={'Años de Experiencia'} size={6}  showObs={false}
-                                           tooltip={<CompTooltipGrade type={GRADES_KEYS.WORk_EXP}/>}/>
-                                <CompGrade grade={loadMBAType()} obs={'obs'} type={'Tipo de MBA'} size={6}  showObs={false}
-                                           tooltip={<CompTooltipGrade type={GRADES_KEYS.APP_TYPE}/>}/>
-                            </Grid>
+                            {
+                                obsHook.loading ?
+                                    <></>:
+                                    <Grid container>
+                                        <CompGrade grade={<>{handleFloatGrades(parseInt(averages.avg_gmat), obsHook.avgs.gmatAvg, false)}</>}
+                                                   obs={'obs'} type={'GMAT'} size={6} showObs={false}
+                                                   tooltip={<CompTooltipGrade type={GRADES_KEYS.GMAT}/>} />
+                                        <CompGrade grade={<>{handleFloatGrades(parseFloat(averages.avg_gpa).toFixed(2), obsHook.avgs.gpaAvg, false)}</>}
+                                                   obs={'obs'} type={'GPA'} size={6}  showObs={false} tooltip={<CompTooltipGrade type={GRADES_KEYS.GPA}/>}/>
+                                        <CompGrade grade={<>{handleFloatGrades(parseInt(averages.avg_wk_xp), obsHook.avgs.workExpAvg, true)}</>}
+                                                   type={'Años de Experiencia'} size={6}  showObs={false} obs={'obs'}
+                                                   tooltip={<CompTooltipGrade type={GRADES_KEYS.WORk_EXP}/>}/>
+                                        <CompGrade grade={loadMBAType()} obs={'obs'} type={'Tipo de MBA'} size={6}  showObs={false}
+                                                   tooltip={<CompTooltipGrade type={GRADES_KEYS.APP_TYPE}/>}/>
+                                    </Grid>
+                            }
                         </Paper>
                     </Grid>
                 </Grid>

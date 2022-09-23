@@ -63,7 +63,7 @@ export const ViewOptions = props => {
                             <h2 style={{color: "#3966ff"}}><strong>Opciones</strong></h2>
                         </Grid>
                         <Grid item xs={12}>
-                            <ViewOption title={'Eliminar todas las predicciones'} desc={'asdasd'} labelExec={'Eliminar'}
+                            <ViewOption title={'Eliminar todas las predicciones'} desc={'Elimina todas las predicciones realizadas en la aplicación.'} labelExec={'Eliminar'}
                                         icon={<DeleteForever/>} colorButton={COLOR_DANG}
                                         execFunc={(e) => {
                                             hook.setOption(1);
@@ -71,15 +71,15 @@ export const ViewOptions = props => {
                                         }}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <ViewOption title={'Desactivar cuenta'} desc={'asdasd'} labelExec={'Desactivar'}
-                                        icon={<PersonOffIcon/>} colorButton={COLOR_SEC}
+                            <ViewOption title={'Eliminar cuenta'} labelExec={'Eliminar'}
+                                        icon={<PersonOffIcon/>} colorButton={COLOR_DANG}
                                         execFunc={(e) => {
                                             hook.setOption(2);
                                             hook.setShowDialog(true)
                                         }}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <ViewOption title={'Cambiar contraseña'} desc={'asdasd'} labelExec={'Enviar correo'}
+                            <ViewOption title={'Cambiar contraseña'} desc={''} labelExec={'Enviar correo'}
                                         icon={<Send/>} colorButton={COLOR_SEC}
                                         execFunc={(e) => {
                                             hook.setOption(3);

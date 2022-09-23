@@ -5,13 +5,18 @@ import {Paper} from "@mui/material";
 import {CompGrade} from "comps/comp_grade";
 import Box from "@mui/material/Box";
 import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_gpa";
+import {loadMBAType} from "../../../util/util";
+import React, {useEffect} from "react";
+import {useObservations} from "../../../business/prediction/observations";
+import {handleFloatGrades} from "../../../business/prediction/obs_constants";
 
 export const ViewGrades = props => {
 
-    const loadMBAType = () => {
-        let type = MBA_TYPES.filter(t => t.id === props.grades.app_type)
-        return type[0].name
-    }
+    const hook = useObservations()
+    const obsHook = useObservations()
+    useEffect(() => {
+        hook.getObservations(props.grades.gmat,props.grades.gpa,props.grades.wk_xp,props.grades.app_type,props.result)
+    }, []);
 
     return (
         <>
@@ -20,17 +25,18 @@ export const ViewGrades = props => {
                     <Grid container justifyContent="center">
                         <h3 style={{color: COLOR_SEC}}><strong>Resultados</strong></h3>
                     </Grid>
-                    <Grid container justifyContent="center" sx={{mt: 2}}>
-                        <h4><strong>Posible puntaje:{parseFloat(props.result).toFixed(2)}</strong></h4>
+                    <Grid container display={'flex'} justifyContent="center" sx={{mt: 2,textAlign:"center"}}>
+                        <h4><strong>Posible puntaje a obtener en el GPA:{handleFloatGrades(parseFloat(props.result).toFixed(2), obsHook.avgs.gradGpaAvg, false)}</strong></h4>
                     </Grid>
                     <Grid container>
-                        <CompGrade grade={props.grades.gmat} obs={'obs'} type={'GMAT'} size={12}
+                        <CompGrade grade={<>{handleFloatGrades(parseInt(props.grades.gmat), obsHook.avgs.gmatAvg, false)}</>} showObs={false} type={'GMAT'} size={12}
                                    tooltip={<CompTooltipGrade type={GRADES_KEYS.GMAT}/>}/>
-                        <CompGrade grade={props.grades.gpa} obs={'obs'} type={'GPA'} size={12}
-                                   tooltip={<CompTooltipGrade type={GRADES_KEYS.GPA}/>}/>
-                        <CompGrade grade={props.grades.wk_xp} obs={'obs'} type={'Experiencia Laboral'} size={12}
+                        <CompGrade grade={<>{handleFloatGrades(parseFloat(props.grades.gpa).toFixed(2), obsHook.avgs.gpaAvg, false)}</>}
+                                   showObs={false} type={'GPA'} size={12} tooltip={<CompTooltipGrade type={GRADES_KEYS.GPA}/>}/>
+                        <CompGrade grade={<>{handleFloatGrades(parseInt(props.grades.wk_xp), obsHook.avgs.workExpAvg, true)}</>} size={12}
+                                   type={'Exp. Laboral'} showObs={false}
                                    tooltip={<CompTooltipGrade type={GRADES_KEYS.WORk_EXP}/>}/>
-                        <CompGrade grade={loadMBAType()} obs={'obs'} type={'Tipo de MBA'} size={12}
+                        <CompGrade grade={loadMBAType(props.grades.app_type)} showObs={false} type={'Tipo de MBA'} size={12}
                                    tooltip={<CompTooltipGrade type={GRADES_KEYS.APP_TYPE}/>}/>
                     </Grid>
                     <Grid container xs="12" justifyContent="center" sx={{mt: 2}}>

@@ -1,6 +1,7 @@
 import * as conn from './connection';
 import {HD_AUTHORIZATION, OWL_MBA_TS, URL_TRUE_SIGHT_BACKEND} from "util/constants";
 import axios from "axios";
+import {getUserId} from "../util/util";
 
 const headers = {
     [HD_AUTHORIZATION]: localStorage.getItem(OWL_MBA_TS),
@@ -20,6 +21,18 @@ export const getUserInfo = (email) => {
 export const getUsers = async () => {
     let config = {
         url: URL_TRUE_SIGHT_BACKEND + 'users/',
+        method: 'get',
+        headers
+    }
+    let result = await axios(config).then();
+    console.log(result)
+    return result;
+}
+
+
+export const getUserStatistics = async () => {
+    let config = {
+        url: URL_TRUE_SIGHT_BACKEND + 'getstatisticsbyuserid/' + getUserId(),
         method: 'get',
         headers
     }

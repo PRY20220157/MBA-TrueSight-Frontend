@@ -4,16 +4,26 @@ import {deleteMassivePrediction, deletePrediction, getPredictionsByUser} from "a
 import {getUserId, isRecruiter, isStudent, loadMBAType} from "util/util";
 import "core-js/actual/array/group-by";
 import {getDateTime} from "util/date";
-import {COLOR_SEC} from "../../../util/constants";
+import {COLOR_ALERT, COLOR_DANG, COLOR_SEC, COLOR_SUCCESS} from "../../../util/constants";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PersonIcon from '@mui/icons-material/Person';
 import {toast} from "react-toastify";
+import {useObservations} from "../observations";
+import {
+    ArrowDropDown,
+    ArrowDropUp,
+    HorizontalRule,
+    KeyboardDoubleArrowDown,
+    KeyboardDoubleArrowUp
+} from "@mui/icons-material";
+import {handleFloatGrades} from "../obs_constants";
 
 export function useHistoryPrediction() {
 
     const [predictions, setPredictions] = useState([]);
+    const obsHook = useObservations()
     const [startDate, setStartDate] = useState(new Date('2022-08-15').toLocaleDateString("en-US"));
     const [endDate, setEndDate] = useState(getDefaultDate());
     const userId = getUserId()
@@ -70,14 +80,32 @@ export function useHistoryPrediction() {
             }
         },
     ]
+
+
     const columns_massive_tbl = [
-        {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center',hide:true},
+        {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center', hide: true},
         {field: 'studentId', headerName: 'ESTUDIANTE', flex: 2, align: 'center', headerAlign: 'center',},
         {field: 'appType', headerName: 'Tipo de MBA', flex: 2, align: 'center', headerAlign: 'center',},
-        {field: 'gpaScore', headerName: 'GPA', flex: 1, align: 'center', headerAlign: 'center',},
-        {field: 'gmatScore', headerName: 'GMAT', flex: 1, align: 'center', headerAlign: 'center',},
-        {field: 'workExp', headerName: 'Experiencia Laboral', flex: 1, align: 'center', headerAlign: 'center',},
-        {field: 'gradGpaScore', headerName: 'RESULT', flex: 1, align: 'center', headerAlign: 'center',}]
+        {
+            field: 'gpaScore', headerName: 'GPA', flex: 1, align: 'center', headerAlign: 'center',
+            renderCell: (cellValues) => {
+                return (<>{handleFloatGrades(cellValues.row.gpaScore,obsHook.avgs.gpaAvg,false)}</>)
+            }
+        },
+        {field: 'gmatScore', headerName: 'GMAT', flex: 1, align: 'center', headerAlign: 'center',
+            renderCell: (cellValues) => {
+                return (<>{handleFloatGrades(cellValues.row.gmatScore,obsHook.avgs.gmatAvg,false)}</>)
+
+            }},
+        {field: 'workExp', headerName: 'EXP. LABORAL', flex: 1, align: 'center', headerAlign: 'center',
+            renderCell: (cellValues) => {
+                return (<>{handleFloatGrades(cellValues.row.workExp,obsHook.avgs.workExpAvg,true)}</>)
+
+            }},
+        {field: 'gradGpaScore', headerName: 'RESULTADO', flex: 1, align: 'center', headerAlign: 'center',
+            renderCell: (cellValues) => {
+                return (<>{handleFloatGrades(cellValues.row.gradGpaScore,obsHook.avgs.gradGpaAvg,false)}</>)
+            }}]
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogMassive, setShowDialogMassive] = useState(false);
     const [idToDelete, setIdToDelete] = useState();
@@ -91,6 +119,7 @@ export function useHistoryPrediction() {
             let preds = massPredBck[cellValues.row.id]
             preds.forEach((t, index) => {
                 t.id = t.predictionId;
+                t.appTypeId =  t.appType
                 t.appType = loadMBAType(t.appType)
 
             })
@@ -183,7 +212,7 @@ export function useHistoryPrediction() {
                     }
                 })
                 setPredBck(bckp)
-                tmp.sort(function(a,b){
+                tmp.sort(function (a, b) {
                     return new Date(b.creationDate) - new Date(a.creationDate);
                 });
                 setPredictions(tmp)
@@ -228,7 +257,7 @@ export function useHistoryPrediction() {
                     }
                 }
             }
-            tmp.sort(function(a,b){
+            tmp.sort(function (a, b) {
                 return new Date(b.creationDate) - new Date(a.creationDate);
             });
             setPredictions(tmp)
@@ -261,6 +290,6 @@ export function useHistoryPrediction() {
         predictions, columns, showPrediction, setShowPrediction, grades, result, handleBack, handleFilter,
         columns_massive_tbl, rows, showingMassivePred, loading, setEndDate, setStartDate, startDate, endDate,
         showDialog, deletePred, deleteMassPred, handleCloseDialog, handleCloseDialogMassive, showDialogMassive,
-        showAlertSuccess, alertMessage, setShowAlertSuccess, setReload,getDefaultDate
+        showAlertSuccess, alertMessage, setShowAlertSuccess, setReload, getDefaultDate
     }
 }

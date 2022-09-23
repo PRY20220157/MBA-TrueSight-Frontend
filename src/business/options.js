@@ -3,6 +3,10 @@ import {deleteAllPredictions, deleteUser} from "../api/api_prediction";
 import {sendResetPasswordEmail} from "../api/api_auth";
 import routes from "../router/routes";
 import {useNavigate} from "react-router";
+import {Grid} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {COLOR_SEC} from "../util/constants";
+import {DeleteForever, ForwardToInbox, PersonOff} from "@mui/icons-material";
 
 export const useOptions = () => {
 
@@ -12,7 +16,7 @@ export const useOptions = () => {
     const [option, setOption] = useState(0);
     const [showDialog, setShowDialog] = useState(false);
     const [labelAcceptDialog, setLabelAcceptDialog] = useState('');
-    const [contentDialog, setContentDialog] = useState();
+    const [contentDialog, setContentDialog] = useState(<></>);
     const navigate = useNavigate();
 
     const closeDialog = () => {
@@ -62,15 +66,51 @@ export const useOptions = () => {
         switch (option) {
             case 1:
                 setLabelAcceptDialog('Eliminar')
-                setContentDialog(<>¿Seguro que desea eliminar todas las predicciones?</>);
+                setContentDialog(<>
+                    <Grid container display='flex' justifyContent='center'>
+                        <Grid item xs={12} display='flex' justifyContent='center'>
+                            <DeleteForever sx={{color:"#C32826", fontSize:"10rem"}}/>
+                        </Grid>
+                        <Grid item xs={12} display='flex' justifyContent='center'>
+                            <h4><strong>Eliminar Predicciones</strong></h4>
+                        </Grid>
+                        <Grid item xs={12} display='flex' justifyContent='center'>
+                            ¿Seguro que desea eliminar todas las predicciones?
+                        </Grid>
+                    </Grid>
+                </>);
                 break;
             case 2:
-                setLabelAcceptDialog('Desactivar')
-                setContentDialog(<>¿Seguro que desea desactivar su cuenta?</>);
+                setLabelAcceptDialog('Eliminar')
+                setContentDialog(
+                    <Grid container display='flex' justifyContent='center'>
+                        <Grid item xs={12} display='flex' justifyContent='center'>
+                            <PersonOff sx={{color:"#C32826", fontSize:"10rem"}}/>
+                        </Grid>
+                        <Grid item xs={12} display='flex' justifyContent='center'>
+                            <h4><strong>Eliminar Cuenta</strong></h4>
+                        </Grid>
+                        <Grid item xs={12} display='flex' justifyContent='center'>
+                            ¿Seguro que desea desactivar su cuenta?
+                        </Grid>
+                    </Grid>
+                );
                 break;
             case 3:
                 setLabelAcceptDialog('Enviar')
-                setContentDialog(<>¿Enviar correo para restaurar contraseña?</>);
+                setContentDialog(<>
+                    <Grid container display='flex' justifyContent='center'>
+                        <Grid item xs={12} display='flex' justifyContent='center'>
+                            < ForwardToInbox sx={{color:COLOR_SEC, fontSize:"10rem"}}/>
+                        </Grid>
+                        <Grid item xs={12} display='flex' justifyContent='center'>
+                            <h4><strong>Restablecer Contraseña</strong></h4>
+                        </Grid>
+                        <Grid item xs={12} display='flex' justifyContent='center'>
+                            ¿Enviar correo para restaurar contraseña?
+                        </Grid>
+                    </Grid>
+                </>);
                 break;
             default:
                 break;

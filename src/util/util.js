@@ -39,6 +39,9 @@ export const isStudent = () => {
 export const isRecruiter = () => {
     return checkProfile(USER_TYPES.RECRUITER)
 }
+export const isAdmin = () => {
+    return checkProfile(USER_TYPES.ADMIN)
+}
 
 export const loadMBAType = (id) => {
     let type = MBA_TYPES.filter(t => t.id === id)

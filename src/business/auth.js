@@ -11,6 +11,7 @@ import {
 import {LS_USER_EMAIL, LS_USER_ID, LS_USER_TP, OWL_MBA_TS, SECRET_KEY} from "../util/constants";
 import {getUserInfo} from "../api/api_user";
 import {decryptWithAES, encryptWithAES} from "../util/AES";
+import * as api_pred from "../api/api_prediction";
 
 function useAuth(init = {activate: false}) {
 
@@ -19,6 +20,7 @@ function useAuth(init = {activate: false}) {
     const [showAlert, setShowAlert] = useState(false);
     const [open, setOpen] = useState(false);
     let {uid, token} = useParams();
+
     useEffect(() => {
         if (init.activate) {
             console.log(uid, token)
@@ -52,6 +54,7 @@ function useAuth(init = {activate: false}) {
                 localStorage.setItem(LS_USER_EMAIL, encryptWithAES(event.Email));
                 navigate(routes.HISTORY);
             })
+            api_pred.calculateAverage().then(r => console.log(r))
         }).catch(res => {
             if (res.response.status === 401) {
                 setAlertContent("Usuario o contraseña incorrectos.")
