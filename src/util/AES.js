@@ -7,7 +7,8 @@ export const encryptWithAES = (text) => {
 };
 
 export const decryptWithAES = (ciphertext) => {
-    const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
+    let newExactString = ciphertext.replaceAll('"', '');
+    const bytes = CryptoJS.AES.decrypt(newExactString, SECRET_KEY);
     const originalText = bytes.toString(CryptoJS.enc.Utf8);
     return originalText;
 };

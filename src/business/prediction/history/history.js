@@ -207,7 +207,7 @@ export function useHistoryPrediction() {
             if (isStudent()) {//singular
                 res.forEach(p => {
                     if (p.predictionTypeId === 1) {
-                        tmp.push({id: p.predictionId, creationDate: p.creationDate})
+                        tmp.push({id: p.predictionId, creationDate: getDateTime(p.creationDate)})
                         bckp.push(p)
                     }
                 })

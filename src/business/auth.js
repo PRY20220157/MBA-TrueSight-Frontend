@@ -42,7 +42,7 @@ function useAuth(init = {activate: false}) {
     }
 
     async function handleLogin(event) {
-
+        localStorage.clear();
         await authenticate({
             email: event.Email,
             password: event.Password,

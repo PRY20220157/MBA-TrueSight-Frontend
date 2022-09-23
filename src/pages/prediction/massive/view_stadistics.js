@@ -13,7 +13,7 @@ import {Pie} from 'react-chartjs-2';
 import {Box, Grid, Paper} from "@mui/material";
 import Button from "@mui/material/Button";
 import {Line} from 'react-chartjs-2';
-import {COLOR_SEC, GRADES_KEYS, MBA_TYPES} from "../../../util/constants";
+import {COLOR_LAIT_BLU, COLOR_SEC, GRADES_KEYS, MBA_TYPES} from "../../../util/constants";
 import {CompGrade} from "../../../comps/comp_grade";
 import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_gpa";
 import {useObservations} from "../../../business/prediction/observations";
@@ -103,13 +103,14 @@ export const ViewStadistics = props => {
             alignItems: "center",
             height: "90vh",
             flexGrow: 1,
+
         }}>
             <Grid container spacing={1} align="center" sx={{height: "100%", marginBottom: 3}}>
                 <Grid item xs={12}>
                     <Button variant="contained" size="large" sx={{backgroundColor:COLOR_SEC,mt:5}}
                             onClick={props.back}>Volver a resultados</Button>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={3}>
                     <Grid item xs={12} sx={{marginBottom: "3%"}}>
                         <Paper elevation={10} sx={{
                             padding: 2,
@@ -151,7 +152,7 @@ export const ViewStadistics = props => {
                         </Paper>
                     </Grid>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={9}>
                     <Grid item xs={12} sx={{marginBottom: "3%"}}>
                         <Paper elevation={10} sx={{
                             paddingBottom: 2,

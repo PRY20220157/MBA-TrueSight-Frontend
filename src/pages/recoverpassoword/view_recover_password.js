@@ -28,7 +28,7 @@ function RecoverPassword(props) {
         console.log(data)
     }
     const onclear = () => {
-        reset();
+
     }
     useEffect(() => {
         if (hook.showAlert) {
@@ -80,11 +80,11 @@ function RecoverPassword(props) {
                         alignItems="center"
                     height={"100%"}>
                         <Paper elevation={10}
-                               sx={{width: "40%", borderRadius: 8, background: 'rgba(250, 250, 250, 0.9)',p:3}}>
+                               sx={{width: "35%", borderRadius: 8, background: 'rgba(250, 250, 250, 0.9)',p:3}}>
                             <form onSubmit={handleSubmit(hook.resetPassword)}>
-                                <Stack spacing={5}>
+                                <Stack spacing={3}>
                                     <Grid container justifyContent="center">
-                                        <Typography variant="h5" sx={{color:COLOR_SEC}}>Restablecer Contraseña</Typography>
+                                        <h2 style={{color:COLOR_SEC}}>Restablecer Contraseña</h2>
                                     </Grid>
                                     <TextField label="Nueva Contraseña" variant="outlined" fullWidth type="password"
                                                {...register('NewPassword', {
@@ -109,7 +109,7 @@ function RecoverPassword(props) {
                                     {errors.RepeatPassword?.type === 'validate' &&
                                         <Alert severity="error">Los campos deben ser iguales</Alert>}
                                     <Grid container justifyContent="space-between">
-                                        <Button variant="contained" sx={{width: 180, borderRadius: 3}}
+                                        <Button variant="outlined" sx={{width: 180, borderRadius: 3}}
                                                 onClick={onclear}>
                                             Cancelar
                                         </Button>

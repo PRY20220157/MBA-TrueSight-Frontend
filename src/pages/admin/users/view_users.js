@@ -69,9 +69,9 @@ export const ViewUsers = () => {
                     draggable
                     pauseOnHover
                 />
-                <CompDialogDelete labelAccept={'Eliminar'} message={'¿Seguro que desea eliminar la predicción?'}
+                <CompDialogDelete labelAccept={'Eliminar'} message={'¿Seguro que desea eliminar el usuario seleccionado?'}
                                   handleClose={hook.handleCloseDialog} execFunc={hook.deleteUsr} open={hook.showDialog}
-                                  title='Eliminar Predicción'/>
+                                  title='Eliminar Usuario'/>
                 <Grid container>
                     <Grid item xs={12}>
                         <Paper sx={{width: "100%", borderRadius: 3, background: 'rgba(250, 250, 250, 0.95)'}}

@@ -46,6 +46,7 @@ export const useOptions = () => {
                     setContentAlert('Cuenta eliminada')
                     setShowDialog(false)
                     setShowAlert(true)
+                    localStorage.clear()
                     navigate(routes.EMPTY)
                 })
                 break;
