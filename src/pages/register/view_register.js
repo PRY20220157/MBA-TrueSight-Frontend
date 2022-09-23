@@ -5,20 +5,21 @@ import Estudianteelegido from './images/Estudianteelegido.png';
 import Reclutador from './images/Reclutador.png';
 import Reclutadorelegido from './images/Reclutadorelegido.png';
 import {useState} from "react";
-import {USER_TYPES} from "../../util/constants";
+import {COLOR_SEC, USER_TYPES} from "../../util/constants";
 import {useNavigate} from "react-router";
 import routes from "../../router/routes";
+import * as React from "react";
 
 export const ViewRegister = props => {
     const hook = useAuth();
     const navigate = useNavigate();
 
     return (<>
-        <Paper elevation={10} sx={{minWidth: 600, borderRadius: 3, background: 'rgba(250, 250, 250, 0.9)'}}>
-            <Stack spacing={6}>
+        <Paper elevation={10} sx={{minWidth: 600, borderRadius: 3, background: 'rgba(250, 250, 250, 0.9)',pt:2}}>
+            <Stack spacing={4}>
                 <div>
                     <Grid container justifyContent="center">
-                        <Typography variant="h2"> Registro</Typography>
+                        <h1 style={{color:COLOR_SEC}} ><strong>Registro</strong></h1>
                     </Grid>
                     <Grid container justifyContent="center">
                         <Typography variant="h6"> Seleccione un rol para continuar</Typography>
@@ -54,13 +55,13 @@ export const ViewRegister = props => {
                     <Stack direction={"row"} spacing={18}>
                         <div>
                             <Grid container justifyContent="center">
-                                <Button variant="contained" onClick={hook.goToLogin}>Cancelar</Button>
+                                <Button variant="outlined" onClick={hook.goToLogin} sx={{color:COLOR_SEC}}>Cancelar</Button>
                             </Grid>
                         </div>
                         <div>
                             <Grid container justifyContent="center">
                                 <Button variant="contained" onClick={(e) => props.nextStep(true)}
-                                        disabled={props.userType === undefined}>Siguiente</Button>
+                                        disabled={props.userType === undefined} sx={{backgroundColor:COLOR_SEC}}>Siguiente</Button>
                             </Grid>
                         </div>
                     </Stack>

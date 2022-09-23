@@ -17,6 +17,7 @@ import useAuth from "../../business/auth";
 import {toast, ToastContainer} from "react-toastify";
 import * as React from "react";
 import {useEffect} from "react";
+import {COLOR_SEC} from "../../util/constants";
 
 function RecoverPassword(props) {
 
@@ -83,9 +84,9 @@ function RecoverPassword(props) {
                             <form onSubmit={handleSubmit(hook.resetPassword)}>
                                 <Stack spacing={5}>
                                     <Grid container justifyContent="center">
-                                        <Typography variant="h5" color="black">Restablecer Contraseña</Typography>
+                                        <Typography variant="h5" sx={{color:COLOR_SEC}}>Restablecer Contraseña</Typography>
                                     </Grid>
-                                    <TextField label="Nueva Contraseña" variant="filled" fullWidth type="password"
+                                    <TextField label="Nueva Contraseña" variant="outlined" fullWidth type="password"
                                                {...register('NewPassword', {
                                                    required: true,
 
@@ -95,7 +96,7 @@ function RecoverPassword(props) {
                                     {errors.NewPassword?.type === 'required' &&
                                         <Alert severity="error">Es requerido</Alert>}
                                     <Grid container justifyContent="center">
-                                        <TextField label="Repetir Contraseña" variant="filled" fullWidth type="password"
+                                        <TextField label="Repetir Contraseña" variant="outlined" fullWidth type="password"
                                                    {...register('RepeatPassword', {
                                                        required: true,
                                                        validate: value => value === watchShowAge
@@ -112,7 +113,7 @@ function RecoverPassword(props) {
                                                 onClick={onclear}>
                                             Cancelar
                                         </Button>
-                                        <Button variant="contained" sx={{width: 180, borderRadius: 3}}  type={'submit'}>
+                                        <Button variant="contained" sx={{width: 180, borderRadius: 3, backgroundColor:COLOR_SEC}}  type={'submit'} >
                                             Restablecer
                                         </Button>
                                     </Grid>

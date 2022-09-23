@@ -17,6 +17,7 @@ import useAuth from "../../business/auth";
 import routes from "../../router/routes";
 import {useNavigate} from "react-router";
 import {decryptWithAES} from "../../util/AES";
+import {COLOR_SEC} from "../../util/constants";
 
 export const ViewRegisterForm = props => {
 
@@ -45,14 +46,14 @@ export const ViewRegisterForm = props => {
     }
     return (<>
 
-        <Paper elevation={10} sx={{minWidth: 600, borderRadius: 3, background: 'rgba(250, 250, 250, 0.9)'}}>
+        <Paper elevation={10} sx={{minWidth: 600, borderRadius: 3, background: 'rgba(250, 250, 250, 0.9)',pt:2,pb:1}}>
             <Stack spacing={5}>
                 <Grid container justifyContent="center">
-                    <Typography variant="h2"> Registro</Typography>
+                    <h2 style={{color:COLOR_SEC}} ><strong>Registro</strong></h2>
                 </Grid>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Grid container justifyContent="center">
-                        <TextField variant="filled" label="Nombre" margin="normal"
+                        <TextField variant="outlined" label="Nombre" margin="normal"
                                    {...register('Nombre', {
                                        required: true,
                                    })}
@@ -60,7 +61,7 @@ export const ViewRegisterForm = props => {
                                    helperText={errors.Nombre?.type === 'required' && "Nombre requerido"}
                         ></TextField>
                         &nbsp;&nbsp;
-                        <TextField variant="filled" label="Apellidos" margin="normal"
+                        <TextField variant="outlined" label="Apellidos" margin="normal"
                                    {...register('Apellidos', {
                                        required: true,
                                    })}
@@ -70,7 +71,7 @@ export const ViewRegisterForm = props => {
 
                     </Grid>
                     <Grid container justifyContent="center">
-                        <TextField variant="filled" label="Correo" margin="normal" type={"email"} sx={{minWidth: 450}}
+                        <TextField variant="outlined" label="Correo" margin="normal" type={"email"} sx={{minWidth: 450}}
                                    {...register('Email', {
                                        required: true,
                                        pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
@@ -80,7 +81,7 @@ export const ViewRegisterForm = props => {
                         ></TextField>
                     </Grid>
                     <Grid container justifyContent="center">
-                        <TextField variant="filled" label="Contraseña" margin="normal" type={"password"}
+                        <TextField variant="outlined" label="Contraseña" margin="normal" type={"password"}
                                    sx={{minWidth: 450}}
                                    {...register('Password', {
                                        required: true,
@@ -91,7 +92,7 @@ export const ViewRegisterForm = props => {
                         ></TextField>
                     </Grid>
                     <Grid container justifyContent="center">
-                        <TextField variant="filled" label="Repetir Contraseña" margin="normal" type={"password"}
+                        <TextField variant="outlined" label="Repetir Contraseña" margin="normal" type={"password"}
                                    sx={{minWidth: 450}}
                                    {...register('RepeatPassword', {
                                        required: true,
@@ -104,9 +105,9 @@ export const ViewRegisterForm = props => {
                     </Grid>
                     &nbsp;&nbsp;
                     <Grid container justifyContent={"space-around"}>
-                        <Button variant="contained" size="large"
-                                onClick={(e) => navigate(routes.SIGN_IN)}>Cancelar</Button>
-                        <Button variant="contained" size="large" type="submit">Registrarme</Button>
+                        <Button variant="outlined" size="large"
+                                onClick={(e) => navigate(routes.SIGN_IN)} sx={{color:COLOR_SEC}}>Cancelar</Button>
+                        <Button variant="contained" size="large" type="submit" sx={{backgroundColor:COLOR_SEC}}>Registrarme</Button>
                     </Grid>
                     &nbsp;&nbsp;
                 </form>
@@ -114,7 +115,7 @@ export const ViewRegisterForm = props => {
                     open={hook.open}
                 >
                     <Grid container justifyContent="center">
-                        <Typography variant="h3"> Registro</Typography>
+                        <Typography variant="h3" sx={{color:COLOR_SEC}}> Registro</Typography>
                     </Grid>
                     <DialogContent>
                         <DialogContentText>
@@ -123,7 +124,7 @@ export const ViewRegisterForm = props => {
                     </DialogContent>
                     <DialogActions>
                         <Grid container justifyContent="center">
-                            <Button variant="contained" onClick={hook.goToLogin}>Ir a LogIn</Button>
+                            <Button variant="contained" onClick={hook.goToLogin} sx={{backgroundColor:COLOR_SEC}}>Ir a LogIn</Button>
                         </Grid>
                     </DialogActions>
                 </Dialog>
