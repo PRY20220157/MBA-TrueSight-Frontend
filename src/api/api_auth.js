@@ -62,7 +62,8 @@ export const register = async (data) => {
     }
     let result = await axios(config).then();
     console.log(result)
-    return result;}
+    return result;
+}
 export const registerUserInfo = async (data) => {
     let config = {
         url: URL_TRUE_SIGHT_BACKEND + 'userinfo/',

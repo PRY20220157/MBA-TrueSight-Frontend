@@ -71,3 +71,39 @@ export const deleteAllPredictions = async () => {
     console.log(result)
     return result;
 }
+export const deleteUser = async (userId) => {
+    let config = {
+        url: URL_TRUE_SIGHT_BACKEND + 'deleteuserabyuserid/' + (userId ?? getUserId()),
+        method: 'delete',
+        headers,
+    }
+    let result = await axios(config).then();
+    console.log(result)
+    return result;
+}
+
+export const calculateAverage = () => {
+    let config = {
+        url: URL_TRUE_SIGHT_BACKEND + 'calculateaverage/',
+        method: 'get',
+        headers,
+    }
+    return conn.send(config);
+}
+
+export const getAverageBase = () => {
+    let config = {
+        url: URL_TRUE_SIGHT_BACKEND + 'getaveragebase/',
+        method: 'get',
+        headers,
+    }
+    return conn.send(config);
+}
+export const getAverage = () => {
+    let config = {
+        url: URL_TRUE_SIGHT_BACKEND + 'getaverage/',
+        method: 'get',
+        headers
+    }
+    return conn.send(config);
+}

@@ -14,7 +14,8 @@ const routes = Object.freeze({
     HistoryDate: "/history/:date",
     TUTORIAL: "/tutorial",
     OPTIONS: "/options",
-    PROFILE:"/profile"
+    PROFILE:"/profile",
+    USERS:"/users"
 });
 
 export default routes;

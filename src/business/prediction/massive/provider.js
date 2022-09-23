@@ -8,12 +8,13 @@ function PredictionMassiveProvider({children}) {
     const [showStatistics, setShowStatistics] = useState(false);
     const [rows, setRows] = useState([]);
     const columns = [
+        {field: 'student_id', headerName: 'Estudiante', flex: 2, align: 'center', headerAlign: 'center',},
         {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center', hide:true},
-        {field: 'gpaScore', headerName: 'GPA', flex: 1, align: 'center', headerAlign: 'center',},
-        {field: 'gmatScore', headerName: 'GMAT', flex: 1, align: 'center', headerAlign: 'center',},
-        {field: 'workExp', headerName: 'Experiencia Laboral', flex: 1, align: 'center', headerAlign: 'center',},
-        {field: 'appType', headerName: 'Tipo de MBA', flex: 1, align: 'center', headerAlign: 'center',},
-        {field: 'gradGpaScore', headerName: 'Resultado', flex: 1, align: 'center', headerAlign: 'center',},
+        {field: 'gpa', headerName: 'GPA', flex: 1, align: 'center', headerAlign: 'center',},
+        {field: 'gmat', headerName: 'GMAT', flex: 1, align: 'center', headerAlign: 'center',},
+        {field: 'wk_xp', headerName: 'Experiencia Laboral', flex: 1, align: 'center', headerAlign: 'center',},
+        {field: 'app_type', headerName: 'Tipo de MBA', flex: 2, align: 'center', headerAlign: 'center',},
+        {field: 'grad_gpa', headerName: 'Resultado', flex: 1, align: 'center', headerAlign: 'center',},
     ]
     return(
         <PredictionMassiveContext.Provider value={{showResult, setShowResult,result, setResult,

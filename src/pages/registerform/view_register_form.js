@@ -34,7 +34,7 @@ export const ViewRegisterForm = props => {
             re_password: data.RepeatPassword
         }
         let info = {
-            countryId: 2,
+            countryId: 1,
             universityId: 1,
             firstName: data.Nombre,
             lastName: data.Apellidos

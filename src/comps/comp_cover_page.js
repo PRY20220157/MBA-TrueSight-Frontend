@@ -13,7 +13,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import {AccountCircle, HomeRounded, Logout,} from "@mui/icons-material";
+import {AccountCircle, HomeRounded, Logout, People,} from "@mui/icons-material";
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import UpdateIcon from '@mui/icons-material/Update';
@@ -95,6 +95,17 @@ export const CompCoverPage = (props) => {
                 </Box>
                 <Box sx={{overflow: 'auto'}}>
                     <List>
+                        <ListItem key={'users'} disablePadding onClick={(e) => navigate(routes.USERS)}
+                                  sx={{
+                                      color: handleSelectedColor(routes.USERS),
+                                      backgroundColor: handleSelected(routes.USERS)
+                                  }}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    < People sx={{color: handleSelectedColor(routes.USERS)}}/></ListItemIcon>
+                                <ListItemText primary='Usuarios'/>
+                            </ListItemButton>
+                        </ListItem>
                         <ListItem key={'history'} disablePadding onClick={(e) => navigate(routes.HISTORY)}
                                   sx={{
                                       color: handleSelectedColor(routes.HISTORY),

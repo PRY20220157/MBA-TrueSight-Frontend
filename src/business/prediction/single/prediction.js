@@ -2,7 +2,7 @@ import * as apiPrediction from "../../../api/api_prediction";
 import {useState} from "react";
 import {GRADES_KEYS} from "../../../util/constants";
 import {usePredictionContext} from "./context";
-import {getUserId} from "../../../util/util";
+import {getUserId} from "util/util";
 
 
 export const usePrediction = () => {

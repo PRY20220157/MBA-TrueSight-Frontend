@@ -1,7 +1,7 @@
 import {getUserEmail, getUserId} from "../util/util";
 import {useEffect, useState} from "react";
 import {getUserInfo} from "../api/api_user";
-import {COUNTRIES, USER_TYPES_NAMES} from "../util/constants";
+import {COUNTRIES, UNIVERSITIES, USER_TYPES_NAMES} from "../util/constants";
 import {getDateTime} from "../util/date";
 
 export default function useUser() {
@@ -25,7 +25,7 @@ export default function useUser() {
                 email: res[0].user[0].email,
                 userType: USER_TYPES_NAMES[res[0].user[0].userTypeId],
                 country: COUNTRIES[res[1].userInfo[0].countryId],
-                university: COUNTRIES[res[1].userInfo[0].universityId],
+                university: UNIVERSITIES[res[1].userInfo[0].universityId],
                 creationDate: getDateTime(res[1].userInfo[0].creationDate),
                 lastUpdateDate: getDateTime(res[1].userInfo[0].updatedDate),
             }

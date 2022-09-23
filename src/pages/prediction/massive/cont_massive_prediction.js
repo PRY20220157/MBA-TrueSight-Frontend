@@ -14,7 +14,6 @@ export const ContMassivePrediction = props => {
     const hook = usePredictionMassive();
     const {showResult, showStatistics, setShowStatistics, result} = usePredictionMassiveContext()
     const [className, setClassName] = useState("massiveprediction-container");
-    const [style, setStyle] = useState({});
 
     useEffect(() => {
         props.setReload(true)

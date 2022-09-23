@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
-import {deleteAllPredictions} from "../api/api_prediction";
+import {deleteAllPredictions, deleteUser} from "../api/api_prediction";
 import {sendResetPasswordEmail} from "../api/api_auth";
+import routes from "../router/routes";
+import {useNavigate} from "react-router";
 
 export const useOptions = () => {
 
@@ -11,6 +13,7 @@ export const useOptions = () => {
     const [showDialog, setShowDialog] = useState(false);
     const [labelAcceptDialog, setLabelAcceptDialog] = useState('');
     const [contentDialog, setContentDialog] = useState();
+    const navigate = useNavigate();
 
     const closeDialog = () => {
         setShowDialog(false)
@@ -35,6 +38,12 @@ export const useOptions = () => {
                 })
                 break;
             case 2:
+                await deleteUser().then(res => {
+                    setContentAlert('Cuenta eliminada')
+                    setShowDialog(false)
+                    setShowAlert(true)
+                    navigate(routes.EMPTY)
+                })
                 break;
             case 3:
                 await sendResetPasswordEmail().then(res => {

@@ -2,8 +2,8 @@ import {useState} from "react";
 import {massivePrediction} from "api/api_prediction";
 import {useForm} from 'react-hook-form';
 import {usePredictionMassiveContext} from "./context";
-import {getUserId} from "../../../util/util";
-import {URL_FRONTAL} from "../../../util/constants";
+import {getUserId, loadMBAType} from "../../../util/util";
+import {MBA_TYPES, URL_FRONTAL} from "../../../util/constants";
 
 export function  usePredictionMassive() {
     const {setResult,showResult, setShowResult,rows, setRows, columns} = usePredictionMassiveContext()
@@ -20,7 +20,6 @@ export function  usePredictionMassive() {
     const handleChangeerror = (error) => {
         setError(error);
     };
-
     async function uploadFile(file) {
         setLoading(true)
         if (file === null) {
@@ -32,7 +31,8 @@ export function  usePredictionMassive() {
             let tmp = [...res]
             tmp.forEach((t, index) => {
                 t.id = index + 1;
-                t.gradGpaScore = parseFloat(t.gradGpaScore).toFixed(2)
+                t.grad_gpa = parseFloat(t.grad_gpa).toFixed(2)
+                t.app_type = loadMBAType(t.app_type)
             })
             setResult(tmp)
             setRows(tmp)

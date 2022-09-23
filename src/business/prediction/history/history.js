@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Button, Tooltip} from "@mui/material";
 import {deleteMassivePrediction, deletePrediction, getPredictionsByUser} from "api/api_prediction";
-import {getUserId, isRecruiter, isStudent} from "util/util";
+import {getUserId, isRecruiter, isStudent, loadMBAType} from "util/util";
 import "core-js/actual/array/group-by";
 import {getDateTime} from "util/date";
 import {COLOR_SEC} from "../../../util/constants";
@@ -71,11 +71,12 @@ export function useHistoryPrediction() {
         },
     ]
     const columns_massive_tbl = [
-        {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center',},
+        {field: 'id', headerName: 'ID', flex: 1, align: 'center', headerAlign: 'center',hide:true},
+        {field: 'studentId', headerName: 'ESTUDIANTE', flex: 2, align: 'center', headerAlign: 'center',},
+        {field: 'appType', headerName: 'Tipo de MBA', flex: 2, align: 'center', headerAlign: 'center',},
         {field: 'gpaScore', headerName: 'GPA', flex: 1, align: 'center', headerAlign: 'center',},
         {field: 'gmatScore', headerName: 'GMAT', flex: 1, align: 'center', headerAlign: 'center',},
         {field: 'workExp', headerName: 'Experiencia Laboral', flex: 1, align: 'center', headerAlign: 'center',},
-        {field: 'appType', headerName: 'Tipo de MBA', flex: 1, align: 'center', headerAlign: 'center',},
         {field: 'gradGpaScore', headerName: 'RESULT', flex: 1, align: 'center', headerAlign: 'center',}]
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogMassive, setShowDialogMassive] = useState(false);
@@ -89,7 +90,9 @@ export function useHistoryPrediction() {
         if (cellValues.row.type === 'Masiva') {
             let preds = massPredBck[cellValues.row.id]
             preds.forEach((t, index) => {
-                t.id = index + 1;
+                t.id = t.predictionId;
+                t.appType = loadMBAType(t.appType)
+
             })
             setShowingMassivePred(true)
             setRows(preds)
@@ -119,7 +122,6 @@ export function useHistoryPrediction() {
         else
             setShowDialog(true)
     }
-
 
     const handleCloseDialog = () => {
         setShowDialog(false)
@@ -245,13 +247,13 @@ export function useHistoryPrediction() {
 
     function handleEndDate() {
         let date = new Date(endDate)
-        date.setDate(date.getDate() + 1);
+        date.setDate(date.getDate() + 2);
         return date.toLocaleDateString('en-US')
     }
 
     function getDefaultDate() {
         let date = new Date()
-        date.setDate(date.getDate() + 1);
+        date.setDate(date.getDate() + 2);
         return date.toLocaleDateString('en-US')
     }
 

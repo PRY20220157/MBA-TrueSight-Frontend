@@ -56,13 +56,13 @@ export const ViewOptions = props => {
                 display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", flexGrow: 1,
                 ml: 1, mr: 1
             }}>
-                <Paper sx={{width: "100%", borderRadius: 3, background: 'rgba(250, 250, 250, 0.95)'}}
+                <Paper sx={{width: "50%", borderRadius: 3, background: 'rgba(250, 250, 250, 0.95)'}}
                        elevation={24}>
                     <Grid container sx={{p: 2}} spacing={1}>
                         <Grid item xs={12}>
                             <h2 style={{color: "#3966ff"}}><strong>Opciones</strong></h2>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12}>
                             <ViewOption title={'Eliminar todas las predicciones'} desc={'asdasd'} labelExec={'Eliminar'}
                                         icon={<DeleteForever/>} colorButton={COLOR_DANG}
                                         execFunc={(e) => {
@@ -70,7 +70,7 @@ export const ViewOptions = props => {
                                             hook.setShowDialog(true)
                                         }}/>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12}>
                             <ViewOption title={'Desactivar cuenta'} desc={'asdasd'} labelExec={'Desactivar'}
                                         icon={<PersonOffIcon/>} colorButton={COLOR_SEC}
                                         execFunc={(e) => {
@@ -78,7 +78,7 @@ export const ViewOptions = props => {
                                             hook.setShowDialog(true)
                                         }}/>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12}>
                             <ViewOption title={'Cambiar contraseña'} desc={'asdasd'} labelExec={'Enviar correo'}
                                         icon={<Send/>} colorButton={COLOR_SEC}
                                         execFunc={(e) => {

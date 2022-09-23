@@ -1,5 +1,5 @@
 import {decryptWithAES} from "./AES";
-import {LS_USER_EMAIL, LS_USER_ID, LS_USER_TP, OWL_MBA_TS, USER_TYPES} from "./constants";
+import {LS_USER_EMAIL, LS_USER_ID, LS_USER_TP, MBA_TYPES, OWL_MBA_TS, USER_TYPES} from "./constants";
 
 const checkProfile = (profile) => {
     let keys = Object.keys(localStorage),
@@ -40,3 +40,7 @@ export const isRecruiter = () => {
     return checkProfile(USER_TYPES.RECRUITER)
 }
 
+export const loadMBAType = (id) => {
+    let type = MBA_TYPES.filter(t => t.id === id)
+    return type[0].name
+}
