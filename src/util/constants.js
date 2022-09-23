@@ -29,8 +29,15 @@ export const GRADES_KEYS = {
     WORk_EXP: 'WORK_EXPERIENCE',
     APP_TYPE: 'APP_TYPE'
 }
+export const GRADES_KEYS_EXCEL = {
+    GMAT: 'gmat',
+    GPA: 'gpa',
+    WORk_EXP: 'wk_xp',
+    APP_TYPE: 'app_type',
+    STUDENT_ID: 'student_id'
+}
 
-export const ALL_GRADES = [GRADES_KEYS.GMAT,GRADES_KEYS.GPA,GRADES_KEYS.WORk_EXP,GRADES_KEYS.APP_TYPE]
+export const ALL_GRADES = [GRADES_KEYS_EXCEL.GMAT,GRADES_KEYS_EXCEL.GPA,GRADES_KEYS_EXCEL.WORk_EXP,GRADES_KEYS_EXCEL.APP_TYPE,GRADES_KEYS_EXCEL.STUDENT_ID]
 
 export const USER_TYPES = {
     ADMIN: encryptWithAES('1'),

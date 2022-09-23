@@ -11,7 +11,7 @@ import {CompCoverPage} from "comps/comp_cover_page";
 import {useEffect, useState} from "react";
 import {CircleLoader, ClipLoader, GridLoader} from "react-spinners";
 import {COLOR_SEC, GRADES_KEYS, MBA_TYPES} from "util/constants";
-import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_gpa";
+import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_grade";
 
 export const ViewSingleForm = () => {
 

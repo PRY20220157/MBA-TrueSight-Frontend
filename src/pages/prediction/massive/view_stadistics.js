@@ -15,7 +15,7 @@ import Button from "@mui/material/Button";
 import {Line} from 'react-chartjs-2';
 import {COLOR_LAIT_BLU, COLOR_SEC, GRADES_KEYS, MBA_TYPES} from "../../../util/constants";
 import {CompGrade} from "../../../comps/comp_grade";
-import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_gpa";
+import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_grade";
 import {useObservations} from "../../../business/prediction/observations";
 import {handleFloatGrades} from "../../../business/prediction/obs_constants";
 

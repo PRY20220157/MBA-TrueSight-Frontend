@@ -4,7 +4,7 @@ import {COLOR_SEC, GRADES_KEYS, MBA_TYPES} from "util/constants";
 import {Paper} from "@mui/material";
 import {CompGrade} from "comps/comp_grade";
 import Box from "@mui/material/Box";
-import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_gpa";
+import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_grade";
 import {loadMBAType} from "../../../util/util";
 import React, {useEffect} from "react";
 import {useObservations} from "../../../business/prediction/observations";

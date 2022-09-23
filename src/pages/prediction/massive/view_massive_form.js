@@ -8,7 +8,7 @@ import {usePredictionMassive} from "business/prediction/massive/prediction_massi
 import {CircleLoader} from "react-spinners";
 import {ALL_GRADES, COLOR_SEC, GRADES_KEYS} from "../../../util/constants";
 import {CompTooltip} from "../../../comps/tooltips/comp_tooltip";
-import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_gpa";
+import {CompTooltipGrade} from "../../../comps/tooltips/comp_tooltip_grade";
 import Divider from "@mui/material/Divider";
 
 export const ViewMassiveForm = props => {
@@ -30,10 +30,11 @@ export const ViewMassiveForm = props => {
                                 Para realizar una predicción masiva primero debe descargar la plantilla,
                                 en la cual encontrará los siguientes campos:
                             </Grid>
+                            <Divider sx={{mt:2,mb:2}}/>
                             <Grid container>
                                 {
                                     ALL_GRADES.map(g=>{
-                                        return(<Grid item xs={6} display={'flex'} justifyContent={'center'} alignContent={'center'}>
+                                        return(<Grid item xs={6} display={'flex'} justifyContent={'center'} alignItems={'center'}>
                                             {g}<>&nbsp;</>
                                             <CompTooltipGrade type={g}/>
                                         </Grid>)
@@ -41,15 +42,17 @@ export const ViewMassiveForm = props => {
                                 }
 
                             </Grid>
-                            <Divider sx={{mt:1,mb:1}}/>
-
+                            <Divider sx={{mt:2,mb:2}}/>
                             <Grid container justifyContent={"center"}>
                                 <Stack direction="Grid" spacing={1}
-                                       onClick={hook.downloadTemplate} sx={{cursor: "pointer"}}>
-                                    <FileDownloadIcon fontSize="large" sx={{color: COLOR_SEC}}></FileDownloadIcon>
-                                    <Typography variant="h5" fontFamily={"sans-serif"} fontStyle={"normal"}
-                                                color={COLOR_SEC}>Descargar
-                                        Plantilla</Typography>
+                                       onClick={hook.downloadXLSXTemplate} sx={{cursor: "pointer",mr:2}}>
+                                    <FileDownloadIcon fontSize="medium" sx={{color: COLOR_SEC}}></FileDownloadIcon>
+                                    <a style={{color:COLOR_SEC}}>Descargar Plantilla XLSX</a>
+                                </Stack>
+                                <Stack direction="Grid" spacing={1}
+                                       onClick={hook.downloadCSVTemplate} sx={{cursor: "pointer"}}>
+                                    <FileDownloadIcon fontSize="medium" sx={{color: COLOR_SEC}}></FileDownloadIcon>
+                                    <a style={{color:COLOR_SEC}}>Descargar Plantilla CSV</a>
                                 </Stack>
                             </Grid>
                             &nbsp;&nbsp;

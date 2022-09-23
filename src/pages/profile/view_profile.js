@@ -9,7 +9,7 @@ import {COLOR_LAIT_BLU, COLOR_SEC, GRADES_KEYS} from "../../util/constants";
 import React from "react";
 import {CompGrade} from "../../comps/comp_grade";
 import {handleFloatGrades} from "../../business/prediction/obs_constants";
-import {CompTooltipGrade} from "../../comps/tooltips/comp_tooltip_gpa";
+import {CompTooltipGrade} from "../../comps/tooltips/comp_tooltip_grade";
 import {useObservations} from "../../business/prediction/observations";
 import {getDateTime} from "../../util/date";
 
