@@ -54,7 +54,7 @@ function useAuth(init = {activate: false}) {
                 localStorage.setItem(LS_USER_EMAIL, encryptWithAES(event.Email));
                 navigate(routes.HISTORY);
             })
-            api_pred.calculateAverage().then(r => console.log(r))
+            api_pred.calculateAverage().then(r => api_pred.getAverage())
         }).catch(res => {
             if (res.response.status === 401) {
                 setAlertContent("Usuario o contraseña incorrectos.")
