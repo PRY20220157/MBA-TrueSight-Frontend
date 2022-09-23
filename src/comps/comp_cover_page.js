@@ -71,7 +71,6 @@ export const CompCoverPage = (props) => {
 
     return (
         <Box sx={{display: 'flex', height: "100vh"}}>
-            {checkAccess()}
             <Drawer
                 variant="permanent"
                 sx={{
