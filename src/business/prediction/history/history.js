@@ -89,23 +89,29 @@ export function useHistoryPrediction() {
         {
             field: 'gpaScore', headerName: 'GPA', flex: 1, align: 'center', headerAlign: 'center',
             renderCell: (cellValues) => {
-                return (<>{handleFloatGrades(cellValues.row.gpaScore,obsHook.avgs.gpaAvg,false)}</>)
+                return (<>{handleFloatGrades(cellValues.row.gpaScore, obsHook.avgs.gpaAvg, false)}</>)
             }
         },
-        {field: 'gmatScore', headerName: 'GMAT', flex: 1, align: 'center', headerAlign: 'center',
+        {
+            field: 'gmatScore', headerName: 'GMAT', flex: 1, align: 'center', headerAlign: 'center',
             renderCell: (cellValues) => {
-                return (<>{handleFloatGrades(cellValues.row.gmatScore,obsHook.avgs.gmatAvg,false)}</>)
+                return (<>{handleFloatGrades(cellValues.row.gmatScore, obsHook.avgs.gmatAvg, false)}</>)
 
-            }},
-        {field: 'workExp', headerName: 'EXP. LABORAL', flex: 1, align: 'center', headerAlign: 'center',
+            }
+        },
+        {
+            field: 'workExp', headerName: 'EXP. LABORAL', flex: 1, align: 'center', headerAlign: 'center',
             renderCell: (cellValues) => {
-                return (<>{handleFloatGrades(cellValues.row.workExp,obsHook.avgs.workExpAvg,true)}</>)
+                return (<>{handleFloatGrades(cellValues.row.workExp, obsHook.avgs.workExpAvg, true)}</>)
 
-            }},
-        {field: 'gradGpaScore', headerName: 'RESULTADO', flex: 1, align: 'center', headerAlign: 'center',
+            }
+        },
+        {
+            field: 'gradGpaScore', headerName: 'RESULTADO', flex: 1, align: 'center', headerAlign: 'center',
             renderCell: (cellValues) => {
-                return (<>{handleFloatGrades(cellValues.row.gradGpaScore,obsHook.avgs.gradGpaAvg,false)}</>)
-            }}]
+                return (<>{handleFloatGrades(cellValues.row.gradGpaScore, obsHook.avgs.gradGpaAvg, false)}</>)
+            }
+        }]
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogMassive, setShowDialogMassive] = useState(false);
     const [idToDelete, setIdToDelete] = useState();
@@ -118,9 +124,12 @@ export function useHistoryPrediction() {
         if (cellValues.row.type === 'Masiva') {
             let preds = massPredBck[cellValues.row.id]
             preds.forEach((t, index) => {
+                console.log(t)
                 t.id = t.predictionId;
-                t.appTypeId =  t.appType
-                t.appType = loadMBAType(t.appType)
+                if (typeof t.appType === 'number') {
+                    t.appTypeId = t.appType
+                    t.appType = loadMBAType(t.appType)
+                }
 
             })
             setShowingMassivePred(true)

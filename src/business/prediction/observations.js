@@ -4,14 +4,14 @@ import {getAverage} from "api/api_prediction";
 export const useObservations = () => {
 
     const [avgs, setAvgs] = useState({
-        "predictionAverageValuesId": 0,
-        "gmatAvg": "000.00",
-        "gpaAvg": "0.00",
-        "gradGpaAvg": "0.00",
-        "workExpAvg": "0.00",
-        "appTypeAvg": 0,
-        "averageType": 0,
-        "creationDate": ""
+        predictionAverageValuesId: 0,
+        gmatAvg: "000.00",
+        gpaAvg: "0.00",
+        gradGpaAvg: "0.00",
+        workExpAvg: "0.00",
+        appTypeAvg: 0,
+        averageType: 0,
+        creationDate: ""
     });
     const [obsGmatAvg, setObsGmatAvg] = useState('');
     const [obsGpaAvg, setObsGpaAvg] = useState('');

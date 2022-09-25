@@ -20,6 +20,7 @@ function useAuth(init = {activate: false}) {
     const [showAlert, setShowAlert] = useState(false);
     const [open, setOpen] = useState(false);
     let {uid, token} = useParams();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (init.activate) {
@@ -42,6 +43,7 @@ function useAuth(init = {activate: false}) {
     }
 
     async function handleLogin(event) {
+        setLoading(true)
         localStorage.clear();
         await authenticate({
             email: event.Email,
@@ -54,7 +56,8 @@ function useAuth(init = {activate: false}) {
                 localStorage.setItem(LS_USER_EMAIL, encryptWithAES(event.Email));
                 navigate(routes.HISTORY);
             })
-            api_pred.calculateAverage().then(r => console.log(r))
+            api_pred.calculateAverage().then(r => api_pred.getAverage())
+            setLoading(false)
         }).catch(res => {
             if (res.response.status === 401) {
                 setAlertContent("Usuario o contraseña incorrectos.")
@@ -64,6 +67,7 @@ function useAuth(init = {activate: false}) {
                 setAlertContent("Error en el servidos")
                 setShowAlert(true)
             }
+        setLoading(false)
         })
     }
 
@@ -141,7 +145,7 @@ function useAuth(init = {activate: false}) {
         handleLogout,
         goToForgotPasswordPage,
         goToRecoverPasswordPage, goToRegisterPage, goToLogin, goToRegisterFormPage, resetPassword, sendEmailResetPasswd,
-        showAlert, setShowAlert, alertContent, activateAcc, open, registerUser
+        showAlert, setShowAlert, alertContent, activateAcc, open, registerUser,loading
     }
 }
 

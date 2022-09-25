@@ -22,10 +22,9 @@ export const ViewProfile = () => {
     const styleFields = {width: "100%"}
     return (
         <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", flexGrow: 1,}}>
-            <Paper elevation={10} sx={{
-                padding: 4, width: "100%", borderRadius: 8, height: "95%",
-                background: 'rgba(250, 250, 250, 0.9)', ml: 2, mr: 2, mt: 2, mb: 2
-            }}>
+            <Box elevation={10} sx={{
+                padding: 4, width: "100%", borderRadius: 8, height: "95%", ml: 2, mr: 2, pt: 2, pb: 2
+            }} className>
                 {
                     hook.loading ?
                         <Grid container justifyContent={"center"}>
@@ -242,7 +241,7 @@ export const ViewProfile = () => {
                             </Grid>
                         </>
                 }
-            </Paper>
+            </Box>
         </Box>
     )
 }

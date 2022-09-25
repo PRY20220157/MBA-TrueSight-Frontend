@@ -5,10 +5,8 @@ import "./assets.css"
 
 export const ContProfile = () => {
     return (
-        <Box className={'profile-container'}>
             <CompCoverPage>
                 <ViewProfile/>
             </CompCoverPage>
-        </Box>
     )
 }

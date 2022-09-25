@@ -52,7 +52,7 @@ export const ContMassivePrediction = props => {
                                 alignItems: "center",
                                 flexGrow: 1,
                                 ml: 1,
-                                mr: 1
+                                mr: 1,height:"70vh"
                             }}>
                                 <ViewStadistics predictions={result} back={showResults}/>
                             </Box>
