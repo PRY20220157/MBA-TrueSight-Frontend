@@ -60,7 +60,9 @@ export const register = async (data) => {
         headers,
         data
     }
-    let result = await axios(config).then();
+    let result = await axios(config).then().catch(async e => {
+            alert(e.response.data.password.join("\n"))
+    });
     console.log(result)
     return result;
 }
